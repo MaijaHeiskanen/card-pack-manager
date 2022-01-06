@@ -4,6 +4,8 @@ require('dotenv').config();
 
 interface ENV {
     // NODE_ENV: string | undefined;
+    HOST: string | undefined;
+    PORT: number | undefined;
     DB_PORT: number | undefined;
     DB_HOST: string | undefined;
     DB_USER: string | undefined;
@@ -12,6 +14,8 @@ interface ENV {
 
 interface Config {
     // NODE_ENV: string;
+    HOST: string;
+    PORT: number;
     DB_PORT: number;
     DB_HOST: string;
     DB_USER: string;
@@ -23,6 +27,8 @@ interface Config {
 const getConfig = (): ENV => {
     return {
         //   NODE_ENV: process.env.NODE_ENV,
+        HOST: process.env.HOST,
+        PORT: process.env.PORT ? Number(process.env.PORT) : undefined,
         DB_PORT: process.env.DB_PORT ? Number(process.env.DB_PORT) : undefined,
         DB_HOST: process.env.DB_HOST,
         DB_USER: process.env.DB_USER,
@@ -39,7 +45,7 @@ const getConfig = (): ENV => {
 const getSanitzedConfig = (config: ENV): Config => {
     for (const [key, value] of Object.entries(config)) {
         if (value === undefined) {
-            throw new Error(`Missing key ${key} in config.env`);
+            throw new Error(`Missing key ${key} in .env`);
         }
     }
     return config as Config;
