@@ -8,6 +8,10 @@ export interface ICardPayload {
     deckId: string;
 }
 
+export interface IUpdateCardPayload extends ICardPayload {
+    id: string;
+}
+
 export const createCard = async (payload: ICardPayload): Promise<Card> => {
     const cardRepository = getRepository(Card);
     const card = new Card();
@@ -27,4 +31,34 @@ export const getCard = async (id: string): Promise<Card | null> => {
     }
 
     return card;
+};
+
+export const getCardsByDeckId = async (id: string): Promise<Card[]> => {
+    const cardRepository = getRepository(Card);
+    const cards = await cardRepository.find({ deckId: id });
+
+    return cards;
+};
+
+export const updateCard = async (payload: IUpdateCardPayload): Promise<Card | null> => {
+    const id = payload.id;
+
+    if (!id) {
+        return null;
+    }
+
+    const cardRepository = getRepository(Card);
+
+    const cardExists = await !!cardRepository.findOne({ id });
+
+    if (!cardExists) {
+        return null;
+    }
+
+    const card = new Card();
+
+    return cardRepository.save({
+        ...card,
+        ...payload,
+    });
 };

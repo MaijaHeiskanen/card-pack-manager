@@ -21,4 +21,11 @@ router.get('/:id', async (req, res) => {
     return res.send(response);
 });
 
+router.get('/deck/:id', async (req, res) => {
+    const controller = new CardController();
+    const response = await controller.getCardsByDeckId(req.params.id);
+
+    return res.send(response);
+});
+
 export default router;
