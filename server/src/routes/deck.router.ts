@@ -17,6 +17,17 @@ router.post('/', async (req, res) => {
     return res.send(response);
 });
 
+router.post('/:id', async (req, res) => {
+    const controller = new DeckController();
+    const response = await controller.updateDeck(req.body);
+
+    if (!response) {
+        res.status(404).send({ message: 'Could not update deck' });
+    }
+
+    return res.send(response);
+});
+
 router.get('/:id', async (req, res) => {
     const controller = new DeckController();
     const response = await controller.getDeck(req.params.id);

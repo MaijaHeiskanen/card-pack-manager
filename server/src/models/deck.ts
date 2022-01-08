@@ -1,11 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
-import { Card } from './card';
+import { Entity, Column } from 'typeorm';
+import { BaseModel } from './base.model';
 
 @Entity()
-export class Deck {
-    @PrimaryGeneratedColumn()
-    id!: number;
-
+export class Deck extends BaseModel {
     @Column()
     name!: string;
 
@@ -14,13 +11,4 @@ export class Deck {
 
     @Column()
     nsfw!: boolean;
-
-    @OneToMany((_type) => Card, (card: Card) => card.deck)
-    cards!: Array<Card>;
-
-    @CreateDateColumn()
-    createdAt!: Date;
-
-    @UpdateDateColumn()
-    updatedAt!: Date;
 }

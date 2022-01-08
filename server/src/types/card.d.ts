@@ -1,1 +1,3 @@
-export type CardType = 'white' | 'black';
+import { CARDTYPES } from './enums/card';
+
+export type CardType = CARDTYPES.WHITE | CARDTYPES.BLACK;

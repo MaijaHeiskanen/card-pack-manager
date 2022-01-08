@@ -7,6 +7,10 @@ export interface IDeckPayload {
     ownerId: string;
 }
 
+export interface IUpdateDeckPayload extends IDeckPayload {
+    id: string;
+}
+
 export const getDecks = async (): Promise<Array<Deck>> => {
     const deckRepository = getRepository(Deck);
 
@@ -23,7 +27,7 @@ export const createDeck = async (payload: IDeckPayload): Promise<Deck> => {
     });
 };
 
-export const getDeck = async (id: number): Promise<Deck | null> => {
+export const getDeck = async (id: string): Promise<Deck | null> => {
     const deckRepository = getRepository(Deck);
     const deck = await deckRepository.findOne({ id });
 
@@ -32,4 +36,27 @@ export const getDeck = async (id: number): Promise<Deck | null> => {
     }
 
     return deck;
+};
+
+export const updateDeck = async (payload: IUpdateDeckPayload): Promise<Deck | null> => {
+    const id = payload.id;
+
+    if (!id) {
+        return null;
+    }
+
+    const deckRepository = getRepository(Deck);
+
+    const deckExists = await !!deckRepository.findOne({ id });
+
+    if (!deckExists) {
+        return null;
+    }
+
+    const deck = new Deck();
+
+    return deckRepository.save({
+        ...deck,
+        ...payload,
+    });
 };

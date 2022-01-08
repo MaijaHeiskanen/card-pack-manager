@@ -1,6 +1,13 @@
 import { Get, Route, Tags, Post, Body, Path } from 'tsoa';
 import { Deck } from '../models';
-import { getDecks, createDeck, IDeckPayload, getDeck } from '../repositories/deck.repository';
+import {
+    getDecks,
+    createDeck,
+    updateDeck,
+    IDeckPayload,
+    IUpdateDeckPayload,
+    getDeck,
+} from '../repositories/deck.repository';
 
 @Route('decks')
 @Tags('Deck')
@@ -15,8 +22,13 @@ export default class DeckController {
         return createDeck(body);
     }
 
+    @Post('/id')
+    public async updateDeck(@Body() body: IUpdateDeckPayload): Promise<Deck | null> {
+        return updateDeck(body);
+    }
+
     @Get('/:id')
     public async getDeck(@Path() id: string): Promise<Deck | null> {
-        return getDeck(Number(id));
+        return getDeck(id);
     }
 }
