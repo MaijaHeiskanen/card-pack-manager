@@ -7,6 +7,7 @@ import {
     ManyToOne,
     JoinColumn,
 } from 'typeorm';
+import { CardType } from '../types/card';
 import { Deck } from './deck';
 
 @Entity()
@@ -15,7 +16,7 @@ export class Card {
     id!: number;
 
     @Column()
-    type!: 'white' | 'black';
+    type!: CardType;
 
     @Column()
     text!: string;

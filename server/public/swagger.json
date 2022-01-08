@@ -18,6 +18,13 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"CardType": {
+				"type": "string",
+				"enum": [
+					"white",
+					"black"
+				]
+			},
 			"Deck": {
 				"properties": {
 					"id": {
@@ -67,11 +74,7 @@
 						"format": "double"
 					},
 					"type": {
-						"type": "string",
-						"enum": [
-							"white",
-							"black"
-						]
+						"$ref": "#/components/schemas/CardType"
 					},
 					"text": {
 						"type": "string"
@@ -120,6 +123,27 @@
 					"name",
 					"nsfw",
 					"ownerId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ICardPayload": {
+				"properties": {
+					"type": {
+						"$ref": "#/components/schemas/CardType"
+					},
+					"text": {
+						"type": "string"
+					},
+					"deckId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"type",
+					"text",
+					"deckId"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -238,6 +262,74 @@
 				},
 				"tags": [
 					"Deck"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/cards": {
+			"post": {
+				"operationId": "CreateCard",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Card"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Card"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ICardPayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/cards/{id}": {
+			"get": {
+				"operationId": "GetCard",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Card"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Card"
 				],
 				"security": [],
 				"parameters": [

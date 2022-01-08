@@ -1,6 +1,6 @@
 import { Get, Route, Tags, Post, Body, Path } from 'tsoa';
 import { Deck } from '../models';
-import { getDecks, createDeck, IDeckPayload, getDeck } from '../repositories/deck';
+import { getDecks, createDeck, IDeckPayload, getDeck } from '../repositories/deck.repository';
 
 @Route('decks')
 @Tags('Deck')
