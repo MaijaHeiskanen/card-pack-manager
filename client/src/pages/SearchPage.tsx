@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Deck } from '../types/generated-types-d';
 
 export const SearchPage = (props: object) => {
     const [decks, setDecks] = useState([]);
@@ -12,21 +14,21 @@ export const SearchPage = (props: object) => {
         });
     }, []);
 
-    const renderDecks = (
-        decks: { name: string; id: string; nsfw: boolean; createdAt: Date; updatedAt: Date; ownerId: string }[]
-    ) => {
+    const renderDecks = (decks: Deck[]) => {
         let i = 1;
         const renderedDecks = decks.map((deck) => {
             const { name, id, nsfw, createdAt, updatedAt, ownerId } = deck;
 
             return (
                 <div key={i++}>
-                    <div>{deck.name}</div>
-                    <div>{deck.id}</div>
-                    <div>{deck.nsfw}</div>
-                    <div>{deck.createdAt}</div>
-                    <div>{deck.updatedAt}</div>
-                    <div>{deck.ownerId}</div>
+                    <div>{name}</div>
+                    <div className="bg-primary">
+                        <Link to={`/cardpack/${id}`}>{id}</Link>
+                    </div>
+                    <div>{nsfw}</div>
+                    <div>{createdAt}</div>
+                    <div>{updatedAt}</div>
+                    <div>{ownerId}</div>
                     <br />
                 </div>
             );
@@ -38,5 +40,4 @@ export const SearchPage = (props: object) => {
     };
 
     return <div>{renderDecks(decks)}</div>;
-    // return <div>Search page</div>;
 };

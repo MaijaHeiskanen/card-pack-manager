@@ -13,6 +13,7 @@ import { CardPackPage } from './pages/CardPackPage';
 import { LoginPage } from './pages/LoginPage';
 import { useTranslation } from 'react-i18next';
 import { Header } from './components/Header';
+import { NavigationTree } from './components/NavigationTree';
 
 function App() {
     const { t } = useTranslation();
@@ -21,6 +22,7 @@ function App() {
         <div className="App">
             <Router>
                 <Header />
+                <NavigationTree />
                 <Routes>
                     <Route path="/cardpack/:cardpackID" element={<CardPackPage />} />
                     <Route path="/login" element={<LoginPage />} />
