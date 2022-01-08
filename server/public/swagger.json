@@ -17,6 +17,112 @@
 				],
 				"type": "object",
 				"additionalProperties": false
+			},
+			"Deck": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
+					},
+					"ownerId": {
+						"type": "string"
+					},
+					"nsfw": {
+						"type": "boolean"
+					},
+					"cards": {
+						"items": {
+							"$ref": "#/components/schemas/Card"
+						},
+						"type": "array"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"ownerId",
+					"nsfw",
+					"cards",
+					"createdAt",
+					"updatedAt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Card": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"white",
+							"black"
+						]
+					},
+					"text": {
+						"type": "string"
+					},
+					"deckId": {
+						"type": "number",
+						"format": "double"
+					},
+					"deck": {
+						"$ref": "#/components/schemas/Deck"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"type",
+					"text",
+					"deckId",
+					"deck",
+					"createdAt",
+					"updatedAt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IDeckPayload": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"nsfw": {
+						"type": "boolean"
+					},
+					"ownerId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"nsfw",
+					"ownerId"
+				],
+				"type": "object",
+				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {}
@@ -48,8 +154,102 @@
 						}
 					}
 				},
+				"tags": [
+					"Ping"
+				],
 				"security": [],
 				"parameters": []
+			}
+		},
+		"/decks": {
+			"get": {
+				"operationId": "GetDecks",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Deck"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Deck"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateDeck",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Deck"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Deck"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IDeckPayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/decks/{id}": {
+			"get": {
+				"operationId": "GetDeck",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Deck"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Deck"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		}
 	},
