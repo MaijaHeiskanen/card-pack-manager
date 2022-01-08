@@ -7,6 +7,7 @@ import logger from './utils/logger';
 import dbConfig from './config/database';
 import Router from './routes';
 import { createConnection } from 'typeorm';
+import { setMockData } from './config/setMockData';
 
 const PORT = envConfig.PORT;
 const HOST = envConfig.HOST;
@@ -35,6 +36,8 @@ createConnection(dbConfig)
         app.listen(PORT, () => {
             logger.info(`Server listening at http://${HOST}:${PORT}`);
         });
+
+        setMockData();
     })
     .catch((err) => {
         console.log('Unable to connect to db', err);
