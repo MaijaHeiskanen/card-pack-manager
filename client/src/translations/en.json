@@ -1,5 +1,6 @@
 {
     "common": {
+        "browse": "Browse",
         "close": "Close",
         "login": "Login",
         "search": "Search"

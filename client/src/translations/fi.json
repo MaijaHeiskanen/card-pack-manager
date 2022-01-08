@@ -1,5 +1,6 @@
 {
     "common": {
+        "browse": "Selaa",
         "close": "Sulje",
         "login": "Kirjaudu",
         "search": "Etsi"
