@@ -8,7 +8,7 @@ const config: ConnectionOptions = {
     port: envConfig.DB_PORT,
     username: envConfig.DB_USER,
     password: envConfig.DB_PASS,
-    database: 'postgres',
+    database: envConfig.DB_NAME,
     entities: [Deck, Card],
     synchronize: true,
 };

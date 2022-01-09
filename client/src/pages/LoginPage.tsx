@@ -1,5 +1,6 @@
 import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { useTranslation } from 'react-i18next';
+import { GoogleLoginContainer } from '../containers/GoogleLoginContainer';
 
 export const LoginPage = (props: object) => {
     const { t } = useTranslation();
@@ -22,13 +23,7 @@ export const LoginPage = (props: object) => {
     return (
         <div>
             <div>{t('loginInfo')}</div>
-            <GoogleLogin
-                clientId={clientId}
-                buttonText={'Login with Google'}
-                onSuccess={handleLogin}
-                onFailure={handleLogin}
-                cookiePolicy={'single_host_origin'}
-            />
+            <GoogleLoginContainer />
         </div>
     );
     return <div>Login page</div>;
