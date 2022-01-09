@@ -3,6 +3,7 @@
         "browse": "Browse",
         "close": "Close",
         "login": "Login",
+        "loginInfo": "To ensure your data security, we have not made our own user system! So please use your google account.",
         "search": "Search"
     }
 }

@@ -3,6 +3,7 @@
         "browse": "Selaa",
         "close": "Sulje",
         "login": "Kirjaudu",
+        "loginInfo": "Varmistaaksemme sinun datasi tietoturvan, emme ole tehneet omaa käyttäjäjärjestelmää! Joten, pyydämme sinua käyttämään Google-tiliäsi.",
         "search": "Etsi"
     }
 }
