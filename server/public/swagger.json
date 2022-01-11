@@ -192,7 +192,7 @@
 					"email": {
 						"type": "string"
 					},
-					"tokenId": {
+					"username": {
 						"type": "string"
 					}
 				},
@@ -201,12 +201,34 @@
 					"createdAt",
 					"updatedAt",
 					"email",
-					"tokenId"
+					"username"
 				],
 				"type": "object",
 				"additionalProperties": false
 			},
-			"IVerifyUserPayload": {
+			"IUserResponse": {
+				"properties": {
+					"user": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/User"
+							}
+						],
+						"nullable": true
+					},
+					"accessToken": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": [
+					"user",
+					"accessToken"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ILoginPayload": {
 				"properties": {
 					"tokenId": {
 						"type": "string"
@@ -214,6 +236,22 @@
 				},
 				"required": [
 					"tokenId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IRegisterPayload": {
+				"properties": {
+					"tokenId": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"tokenId",
+					"username"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -485,21 +523,16 @@
 				]
 			}
 		},
-		"/users/verify": {
+		"/users/login": {
 			"post": {
-				"operationId": "VerifyUser",
+				"operationId": "LoginUser",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/User"
-										}
-									],
-									"nullable": true
+									"$ref": "#/components/schemas/IUserResponse"
 								}
 							}
 						}
@@ -515,7 +548,39 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/IVerifyUserPayload"
+								"$ref": "#/components/schemas/ILoginPayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/users/register": {
+			"post": {
+				"operationId": "RegisterUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUserResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IRegisterPayload"
 							}
 						}
 					}

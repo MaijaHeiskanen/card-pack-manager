@@ -3,9 +3,9 @@ import UserController from '../controllers/user.controller';
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('/login', async (req, res) => {
     const controller = new UserController();
-    const response = await controller.verifyUser(req.body);
+    const response = await controller.loginUser(req.body);
 
     return res.send(response);
 });

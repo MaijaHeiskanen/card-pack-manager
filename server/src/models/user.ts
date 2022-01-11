@@ -3,9 +3,9 @@ import { BaseModel } from './base.model';
 
 @Entity()
 export class User extends BaseModel {
-    @Column()
+    @Column({ unique: true })
     email!: string;
 
-    @Column()
-    tokenId!: string;
+    @Column({ unique: true })
+    username!: string;
 }

@@ -12,6 +12,7 @@ interface ENV {
     DB_PASS: string | undefined;
     DB_NAME: string | undefined;
     GOOGLE_CLIENT_ID: string | undefined;
+    ACCESS_TOKEN_SECRET: string | undefined;
 }
 
 interface Config {
@@ -24,6 +25,7 @@ interface Config {
     DB_PASS: string;
     DB_NAME: string;
     GOOGLE_CLIENT_ID: string;
+    ACCESS_TOKEN_SECRET: string;
 }
 
 // Loading process.env as ENV interface
@@ -39,6 +41,7 @@ const getConfig = (): ENV => {
         DB_PASS: process.env.DB_PASS,
         DB_NAME: process.env.DB_NAME,
         GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+        ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
     };
 };
 

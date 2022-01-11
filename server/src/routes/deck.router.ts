@@ -1,9 +1,11 @@
 import express from 'express';
 import DeckController from '../controllers/deck.controller.';
+import { authenticateToken } from '../middleware/authenticate';
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
+    authenticateToken(req);
     const controller = new DeckController();
     const response = await controller.getDecks();
 
