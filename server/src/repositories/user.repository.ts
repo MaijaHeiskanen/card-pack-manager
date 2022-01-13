@@ -3,66 +3,27 @@ import { User } from '../models';
 import { OAuth2Client } from 'google-auth-library';
 import jwt from 'jsonwebtoken';
 import envConfig from '../config/config';
-
-export interface IVerifyUserPayload {
-    tokenId: string;
-}
-
-export enum LOGIN_STATUS {
-    VALID_AND_REGISTERED = 'validAndRegistered',
-    VALID_AND_NOT_REGISTERED = 'validAndNotRegistered',
-    INVALID = 'invalid',
-}
+import { LOGIN_STATUS, REGISTER_STATUS, UserError } from '../errors/userErrors';
 
 export interface ILoginPayload {
     tokenId: string;
-}
-
-export interface ILoginSuccess {
-    status: LOGIN_STATUS.VALID_AND_REGISTERED;
-    user: User;
-    accessToken: string;
-}
-
-export interface ILoginNotRegistered {
-    status: LOGIN_STATUS.VALID_AND_NOT_REGISTERED;
-    user: null;
-    accessToken: null;
-}
-
-export interface ILoginError {
-    status: LOGIN_STATUS.INVALID;
-    user: null;
-    accessToken: null;
-}
-
-export enum REGISTER_STATUS {
-    SUCCESS = 'success',
-    EMAIL_ALREADY_TAKEN = 'emailAlreadyTaken',
-    USERNAME_ALREADY_TAKEN = 'usernameAlreadyTaken',
-    INVALID = 'invalid',
 }
 
 export interface IRegisterPayload extends ILoginPayload {
     username: string;
 }
 
-export interface IRegisterSuccess {
-    status: REGISTER_STATUS.SUCCESS;
+export interface Registered {
     user: User;
     accessToken: string;
 }
 
-export interface IRegisterError {
-    status: REGISTER_STATUS.EMAIL_ALREADY_TAKEN | REGISTER_STATUS.USERNAME_ALREADY_TAKEN | REGISTER_STATUS.INVALID;
-    user: null;
-    accessToken: null;
+export interface LoggedIn {
+    user: User;
+    accessToken: string;
 }
 
-type LoginResult = ILoginSuccess | ILoginNotRegistered | ILoginError;
-type RegisterResult = IRegisterSuccess | IRegisterError;
-
-export const loginUser = async (payload: ILoginPayload): Promise<LoginResult> => {
+export const loginUser = async (payload: ILoginPayload): Promise<LoggedIn> => {
     const { tokenId } = payload;
     const client = new OAuth2Client(envConfig.GOOGLE_CLIENT_ID);
 
@@ -74,34 +35,25 @@ export const loginUser = async (payload: ILoginPayload): Promise<LoginResult> =>
     const googleUser = ticket.getPayload();
 
     if (!googleUser) {
-        return {
-            status: LOGIN_STATUS.INVALID,
-            user: null,
-            accessToken: null,
-        } as ILoginError;
+        throw new UserError('Google login was invalid.', LOGIN_STATUS.GOOGLE_TOKEN_ID_WAS_INVALID);
     }
 
     const repository = getRepository(User);
     const user = await repository.findOne({ email: googleUser.email });
 
     if (!user) {
-        return {
-            status: LOGIN_STATUS.VALID_AND_NOT_REGISTERED,
-            user: null,
-            accessToken: null,
-        } as ILoginNotRegistered;
+        throw new UserError('Google account is not registered yet.', LOGIN_STATUS.TOKEN_ID_VALID_BUT_NOT_REGISTERED);
     }
 
     const accessToken = jwt.sign({ user }, envConfig.ACCESS_TOKEN_SECRET, { expiresIn: '30d' });
 
     return {
-        status: LOGIN_STATUS.VALID_AND_REGISTERED,
         user: user,
         accessToken,
-    } as ILoginSuccess;
+    };
 };
 
-export const registerUser = async (payload: IRegisterPayload): Promise<RegisterResult> => {
+export const registerUser = async (payload: IRegisterPayload): Promise<Registered> => {
     const { tokenId, username } = payload;
     const client = new OAuth2Client(envConfig.GOOGLE_CLIENT_ID);
 
@@ -113,43 +65,31 @@ export const registerUser = async (payload: IRegisterPayload): Promise<RegisterR
     const googleUser = ticket.getPayload();
 
     if (!googleUser) {
-        return {
-            status: REGISTER_STATUS.INVALID,
-            user: null,
-            accessToken: null,
-        } as IRegisterError;
+        throw new UserError('Google login was invalid.', REGISTER_STATUS.GOOGLE_TOKEN_ID_WAS_INVALID);
     }
 
     const repository = getRepository(User);
     const existingUserWithSameEmail = await repository.findOne({ email: googleUser.email });
 
     if (existingUserWithSameEmail) {
-        return {
-            status: REGISTER_STATUS.EMAIL_ALREADY_TAKEN,
-            user: null,
-            accessToken: null,
-        } as IRegisterError;
+        throw new UserError('Email has already been registered.', REGISTER_STATUS.EMAIL_ALREADY_TAKEN);
     }
 
     const existingUserWithSameUsername = await repository.findOne({ username: username });
 
     if (existingUserWithSameUsername) {
-        return {
-            status: REGISTER_STATUS.USERNAME_ALREADY_TAKEN,
-            user: null,
-            accessToken: null,
-        } as IRegisterError;
+        throw new UserError('Username has already been taken..', REGISTER_STATUS.USERNAME_ALREADY_TAKEN);
     }
 
     const user = await repository.save({
         email: googleUser.email,
         username,
     });
+
     const accessToken = jwt.sign({ user }, envConfig.ACCESS_TOKEN_SECRET, { expiresIn: '30d' });
 
     return {
-        status: REGISTER_STATUS.SUCCESS,
         user,
         accessToken,
-    } as RegisterResult;
+    };
 };

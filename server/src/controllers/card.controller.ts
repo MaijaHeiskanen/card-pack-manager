@@ -1,4 +1,5 @@
 import { Get, Route, Tags, Post, Body, Path } from 'tsoa';
+import { CannotAttachTreeChildrenEntityError } from 'typeorm';
 import { Card } from '../models';
 import { getCard, createCard, ICardPayload, getCardsByDeckId } from '../repositories/card.repository';
 
