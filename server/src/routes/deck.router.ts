@@ -1,6 +1,5 @@
 import express from 'express';
 import DeckController from '../controllers/deck.controller.';
-import { UserError } from '../errors/userErrors';
 import { authenticateToken } from '../middleware/authenticate';
 
 const router = express.Router();
@@ -12,7 +11,7 @@ router.get('/', async (req, res) => {
     try {
         const response = await controller.getDecks();
 
-        return res.send(response);
+        return res.status(200).send(response);
     } catch (err) {
         // if (err instanceof UserError) {
         //     return res.status(401).send({ message: err.message, type: err.type });
