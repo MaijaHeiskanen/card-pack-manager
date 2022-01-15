@@ -6,6 +6,8 @@ import { UserError } from '../errors/userErrors';
 const router = express.Router();
 
 router.post('/login', async (req, res) => {
+    console.log('login message thing');
+
     const controller = new UserController();
 
     try {

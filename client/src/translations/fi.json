@@ -2,8 +2,15 @@
     "common": {
         "browse": "Selaa",
         "close": "Sulje",
+        "createAccount": "Luo käyttäjätili",
+        "googleLoginInfo": "Kirjaudu Google-tilille, jonka haluat linkittää käyttäjätiliisi.",
         "login": "Kirjaudu",
-        "loginInfo": "Varmistaaksemme sinun datasi tietoturvan, emme ole tehneet omaa käyttäjäjärjestelmää! Joten, pyydämme sinua käyttämään Google-tiliäsi.",
-        "search": "Etsi"
+        "loginInfo": "Kirjaudu Google-tililläsi.",
+        "loginWithGoogle": "Kirjaudu Google-tililläsi",
+        "register": "Rekisteröidy",
+        "registerInfo": "Kirjaudu Google-tililläsi ja valitse käyttäjänimi, joka näytetään pakkojesi yhteydessä.",
+        "search": "Etsi",
+        "username": "Käyttäjänimi",
+        "usernameInfo": "Valitse käyttäjänimi, joka näytetään pakkojesi yhteydessä."
     }
 }

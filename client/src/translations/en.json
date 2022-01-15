@@ -2,8 +2,15 @@
     "common": {
         "browse": "Browse",
         "close": "Close",
+        "createAccount": "Create account",
+        "googleLoginInfo": "Log in with the Google account you want to link with your account.",
         "login": "Login",
-        "loginInfo": "To ensure your data security, we have not made our own user system! So please use your google account.",
-        "search": "Search"
+        "loginInfo": "Login with your Google account.",
+        "loginWithGoogle": "Login with Google",
+        "register": "Register",
+        "registerInfo": "Sign in with your Google account and choose an username which will be displayed with your decks.",
+        "search": "Search",
+        "username": "Username",
+        "usernameInfo": "Choose an username which will be displayed with your decks."
     }
 }
