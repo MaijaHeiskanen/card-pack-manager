@@ -11,10 +11,10 @@ export enum LOGIN_STATUS {
     GOOGLE_TOKEN_ID_WAS_INVALID = 'googleTokenIdWasInvalid',
 }
 
-type UserErrorType = REGISTER_STATUS | LOGIN_STATUS;
+type UserErrorType = REGISTER_STATUS | LOGIN_STATUS | 'defaultError';
 
 export class UserError extends Error {
-    constructor(msg: string, type?: UserErrorType) {
+    constructor(msg: string, type: UserErrorType = 'defaultError') {
         super(msg);
 
         this.type = type;
@@ -22,5 +22,5 @@ export class UserError extends Error {
         Object.setPrototypeOf(this, UserError.prototype);
     }
 
-    type: string | undefined;
+    type: UserErrorType;
 }
