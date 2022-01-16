@@ -24,7 +24,7 @@ export const StepWrapper = (props: StepProps) => {
                 <span className="flex-grow-1"></span>
                 <StepIndicator type={props.state} className="ml-2 justify-self-end" />
             </div>
-            {props.showDivider && <Divider />}
+            {props.showDivider && <Divider type="dashed" />}
         </>
     );
 };
