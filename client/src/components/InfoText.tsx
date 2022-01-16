@@ -6,5 +6,5 @@ interface InfoTextProps {
 }
 
 export const InfoText = (props: InfoTextProps) => {
-    return <span className={classNames('text-600 font-medium line-height-3 mb-2', props.className)}>{props.text}</span>;
+    return <span className={classNames('text-600 font-medium line-height-3 mb-4', props.className)}>{props.text}</span>;
 };

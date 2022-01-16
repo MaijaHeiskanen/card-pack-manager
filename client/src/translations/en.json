@@ -3,14 +3,19 @@
         "browse": "Browse",
         "close": "Close",
         "createAccount": "Create account",
+        "createAccountInfo": "Create account with the given username and Google account.",
+        "googleLoginFailed": "Google login failed. Try again.",
         "googleLoginInfo": "Log in with the Google account you want to link with your account.",
         "login": "Login",
         "loginInfo": "Login with your Google account.",
         "loginWithGoogle": "Login with Google",
+        "or": "Or",
         "register": "Register",
         "registerInfo": "Sign in with your Google account and choose an username which will be displayed with your decks.",
         "search": "Search",
+        "step_number": "Step {{number}}",
         "username": "Username",
-        "usernameInfo": "Choose an username which will be displayed with your decks."
+        "usernameInfo": "Choose an username which will be displayed with your decks.",
+        "youHaveToSetUsernameAndGoogleAccountBeforeYouCanContinue": "You have to set username and Google account before you can continue"
     }
 }

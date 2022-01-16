@@ -31,7 +31,7 @@ export const LoginContainer = () => {
                 successCallback={handleLogin}
                 errorCallback={handleLogin}
                 text={t('loginWithGoogle')}
-                className="block mt-2"
+                className="block mt-4"
             />
         </div>
     );

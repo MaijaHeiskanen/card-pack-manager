@@ -9,11 +9,15 @@ export enum StepIndicatorTypes {
 
 interface StepIndicatorProps {
     type: StepIndicatorTypes;
+    className?: string;
 }
 
 export const StepIndicator = (props: StepIndicatorProps) => {
     const type = props.type;
-    const baseStyles = 'flex align-items-center justify-content-center p-1 mr-3 border-round';
+    const baseStyles = classNames(
+        'flex align-items-center justify-content-center p-1 mr-3 border-round',
+        props.className
+    );
 
     switch (type) {
         case StepIndicatorTypes.SUCCESS:
@@ -24,7 +28,7 @@ export const StepIndicator = (props: StepIndicatorProps) => {
             );
         case StepIndicatorTypes.NEUTRAL:
             return (
-                <div className={classNames(baseStyles, 'surface-300 text-500')}>
+                <div className={classNames(baseStyles, 'surface-100 text-300')}>
                     <i className="pi pi-circle" style={{ fontSize: '2em' }}></i>
                 </div>
             );
@@ -42,7 +46,7 @@ export const StepIndicator = (props: StepIndicatorProps) => {
             );
         default:
             return (
-                <div className="flex align-items-center justify-content-center p-1 mr-3 bg-green-200 text-green-600 border-round">
+                <div className={classNames(baseStyles, 'surface-300 text-500')}>
                     <i className="pi pi-circle" style={{ fontSize: '2em' }}></i>
                 </div>
             );

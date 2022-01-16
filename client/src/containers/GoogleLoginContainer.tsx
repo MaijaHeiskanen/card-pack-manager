@@ -8,6 +8,7 @@ interface GoogleLoginContainerProps {
     text: string;
     disable?: boolean;
     className?: string;
+    errorMessage?: string;
 }
 
 export const GoogleLoginContainer = (props: GoogleLoginContainerProps) => {
@@ -18,23 +19,30 @@ export const GoogleLoginContainer = (props: GoogleLoginContainerProps) => {
     }
 
     return (
-        <GoogleLogin
-            clientId={clientId}
-            render={(renderProps) => {
-                return (
-                    <Button
-                        onClick={renderProps.onClick}
-                        disabled={renderProps.disabled || props.disable}
-                        label={props.text}
-                        icon="pi pi-google"
-                        className={classNames(props.className)}
-                    />
-                );
-            }}
-            buttonText={props.text}
-            onSuccess={props.successCallback}
-            onFailure={props.errorCallback}
-            cookiePolicy={'single_host_origin'}
-        />
+        <>
+            <GoogleLogin
+                clientId={clientId}
+                render={(renderProps) => {
+                    return (
+                        <Button
+                            onClick={renderProps.onClick}
+                            disabled={renderProps.disabled || props.disable}
+                            label={props.text}
+                            icon="pi pi-google"
+                            className={classNames(props.className)}
+                        />
+                    );
+                }}
+                buttonText={props.text}
+                onSuccess={props.successCallback}
+                onFailure={props.errorCallback}
+                cookiePolicy={'single_host_origin'}
+            />
+            {props.errorMessage && (
+                <small id="username-error" className="p-error p-d-block">
+                    {props.errorMessage}
+                </small>
+            )}
+        </>
     );
 };

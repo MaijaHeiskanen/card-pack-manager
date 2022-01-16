@@ -3,14 +3,19 @@
         "browse": "Selaa",
         "close": "Sulje",
         "createAccount": "Luo käyttäjätili",
+        "createAccountInfo": "Luo käyttäjätili antamallasi käyttäjänimellä ja Google-tilillä.",
+        "googleLoginFailed": "Google-kirjautuminen epäonnistui. Yritä uudelleen.",
         "googleLoginInfo": "Kirjaudu Google-tilille, jonka haluat linkittää käyttäjätiliisi.",
         "login": "Kirjaudu",
         "loginInfo": "Kirjaudu Google-tililläsi.",
         "loginWithGoogle": "Kirjaudu Google-tililläsi",
+        "or": "Tai",
         "register": "Rekisteröidy",
         "registerInfo": "Kirjaudu Google-tililläsi ja valitse käyttäjänimi, joka näytetään pakkojesi yhteydessä.",
         "search": "Etsi",
+        "step_number": "Vaihe {{number}}",
         "username": "Käyttäjänimi",
-        "usernameInfo": "Valitse käyttäjänimi, joka näytetään pakkojesi yhteydessä."
+        "usernameInfo": "Valitse käyttäjänimi, joka näytetään pakkojesi yhteydessä.",
+        "youHaveToSetUsernameAndGoogleAccountBeforeYouCanContinue": "Sinun täytyy antaa käyttäjänimi ja Google-tili ennen kuin voit jatkaa."
     }
 }
