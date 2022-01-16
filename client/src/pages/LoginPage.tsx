@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next';
 
 import { LoginContainer } from '../containers/LoginContainer';
 import { RegisterContainer } from '../containers/RegisterContainer';
+import { User } from '../types/generated-types-d';
 
-export const LoginPage = () => {
+export const LoginPage = (props: { showAccountCreatedToast: (user: User) => void }) => {
     const { t } = useTranslation();
     const widthStyles = 'w-full sm:w-7 md:w-6 lg:w-4';
 
@@ -25,7 +26,7 @@ export const LoginPage = () => {
 
             <div className="py-8 flex flex-nowrap justify-content-center">
                 <div className={widthStyles}>
-                    <RegisterContainer />
+                    <RegisterContainer showAccountCreatedToast={props.showAccountCreatedToast} />
                 </div>
             </div>
         </div>

@@ -1,0 +1,1 @@
+dtsgen --out ./client/src/types/generated-types-d.ts ./server/public/swagger.json

@@ -2,16 +2,20 @@ import axios, { AxiosResponse } from 'axios';
 import { Button } from 'primereact/button';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { InfoText } from '../components/InfoText';
 import { StepIndicatorTypes } from '../components/StepIndicator';
 import { StepWrapper } from '../components/StepWrapper';
 import { Title } from '../components/Title';
 import mapErrorStatusToText from '../statusHelpers/mapErrorStatusToText';
+import { User } from '../types/generated-types-d';
 import { GoogleLoginContainer } from './GoogleLoginContainer';
 import { UsernameInputContainer } from './UsernameInputContainer';
 
-export const RegisterContainer = () => {
+export const RegisterContainer = (props: { showAccountCreatedToast: (user: User) => void }) => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
+
     const [username, setUsername] = useState<string>('');
     const [googleData, setGoogleData] = useState<any>();
     const [usernameState, setUsernameState] = useState<StepIndicatorTypes>(StepIndicatorTypes.NEUTRAL);
@@ -63,13 +67,13 @@ export const RegisterContainer = () => {
             .then(
                 (
                     response: AxiosResponse<{
-                        user: object | null;
-                        accessToken: string | null;
+                        user: User;
+                        accessToken: string;
                     }>
                 ) => {
                     setCreateAccountState(StepIndicatorTypes.SUCCESS);
-
-                    console.log({ response });
+                    props.showAccountCreatedToast(response.data.user);
+                    navigate(`/decks/user/${response.data.user.id}`);
                 }
             )
             .catch((error) => {
