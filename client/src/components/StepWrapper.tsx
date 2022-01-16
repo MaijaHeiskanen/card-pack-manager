@@ -4,7 +4,7 @@ import { Divider } from 'primereact/divider';
 import { StepIndicator, StepIndicatorTypes } from './StepIndicator';
 
 interface StepProps {
-    children: React.ReactChild | React.ReactChild;
+    children: React.ReactChild | React.ReactChild[];
     className?: string;
     state: StepIndicatorTypes;
     showDivider?: boolean;

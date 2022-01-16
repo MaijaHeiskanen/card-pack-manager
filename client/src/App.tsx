@@ -17,6 +17,7 @@ import { NavigationTree } from './components/NavigationTree';
 import { Toast } from 'primereact/toast';
 import { User } from './types/generated-types-d';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { AppWrapper } from './wrappers/AppWrapper';
 
 function App() {
     const { t } = useTranslation();
@@ -38,12 +39,17 @@ function App() {
             <Router>
                 <Header />
                 <NavigationTree />
-                <Routes>
-                    <Route path="/cardpack/:cardpackID" element={<CardPackPage />} />
-                    <Route path="/login" element={<LoginPage showAccountCreatedToast={showAccountCreatedToast} />} />
-                    <Route path="/" element={<SearchPage />} />
-                    <Route path="*" element={<NotFoundPage />} />
-                </Routes>
+                <AppWrapper>
+                    <Routes>
+                        <Route path="/cardpack/:cardpackID" element={<CardPackPage />} />
+                        <Route
+                            path="/login"
+                            element={<LoginPage showAccountCreatedToast={showAccountCreatedToast} />}
+                        />
+                        <Route path="/" element={<SearchPage />} />
+                        <Route path="*" element={<NotFoundPage />} />
+                    </Routes>
+                </AppWrapper>
             </Router>
         </div>
     );
