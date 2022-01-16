@@ -1,6 +1,7 @@
 import GoogleLogin from 'react-google-login';
 import { Button } from 'primereact/button';
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 interface GoogleLoginContainerProps {
     successCallback: (googleData: any) => void;
@@ -9,9 +10,12 @@ interface GoogleLoginContainerProps {
     disable?: boolean;
     className?: string;
     errorMessage?: string;
+    email?: string;
+    showEmail?: boolean;
 }
 
 export const GoogleLoginContainer = (props: GoogleLoginContainerProps) => {
+    const { t } = useTranslation();
     const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
     if (!clientId) {
@@ -20,6 +24,16 @@ export const GoogleLoginContainer = (props: GoogleLoginContainerProps) => {
 
     return (
         <>
+            {props.showEmail && (
+                <div className="mt-4 text-800">
+                    <span>{`${t('email')}: `}</span>
+                    {props.email ? (
+                        <span>{props.email}</span>
+                    ) : (
+                        <span className="font-italic text-500">{t('emailNotChosen')}</span>
+                    )}
+                </div>
+            )}
             <GoogleLogin
                 clientId={clientId}
                 render={(renderProps) => {

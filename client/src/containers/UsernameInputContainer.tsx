@@ -1,16 +1,19 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { ChangeEvent, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { UsernameInput } from '../components/UsernameInput';
 import useDebounce from '../hooks/useDebounce';
+import mapErrorStatusToText from '../statusHelpers/mapErrorStatusToText';
 
 interface UsernameInputContainerProps {
     onValidValue: (validValue: string) => void;
     onLoading?: () => void;
-    onError?: (error: { message: string; type: string }) => void;
+    onError?: (error: { status: string; valid: boolean }) => void;
     onEmpty?: () => void;
 }
 
 export const UsernameInputContainer = (props: UsernameInputContainerProps) => {
+    const { t } = useTranslation();
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [username, setUsername] = useState<string>('');
     const debouncedUsername = useDebounce<string>(username, 1000);
@@ -25,17 +28,25 @@ export const UsernameInputContainer = (props: UsernameInputContainerProps) => {
         }
 
         axios
-            .post('/users/validate/username', {
-                debouncedUsername,
+            .post('/users/register/validate/username', {
+                username: debouncedUsername,
             })
-            .then((response) => {
-                props.onValidValue(debouncedUsername);
-                setErrorMessage('');
+            .then((response: AxiosResponse<{ valid: boolean; status: string }>) => {
                 console.log({ response });
+
+                if (response.data.valid) {
+                    props.onValidValue(debouncedUsername);
+                    setErrorMessage('');
+
+                    return;
+                }
+
+                setErrorMessage(mapErrorStatusToText(response.data.status));
+                if (props.onError) props.onError(response.data);
             })
             .catch((error) => {
                 if (props.onError) props.onError(error);
-                setErrorMessage(error.message);
+                setErrorMessage(t('somethingWentWrongTryAgain'));
                 console.log({ error });
             });
         // eslint-disable-next-line react-hooks/exhaustive-deps

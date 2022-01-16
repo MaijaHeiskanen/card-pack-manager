@@ -39,4 +39,28 @@ router.post('/register', async (req, res) => {
     }
 });
 
+router.post('/register/validate/username', async (req, res) => {
+    const controller = new UserController();
+
+    try {
+        const response = await controller.validateUsername(req.body);
+
+        return res.status(200).send(response);
+    } catch (err: any) {
+        return res.status(200).send({ valid: false, status: err.type });
+    }
+});
+
+router.post('/register/validate/tokenId', async (req, res) => {
+    const controller = new UserController();
+
+    try {
+        const response = await controller.validateTokenId(req.body);
+
+        return res.status(200).send(response);
+    } catch (err: any) {
+        return res.status(200).send({ valid: false, status: err.type });
+    }
+});
+
 export default router;

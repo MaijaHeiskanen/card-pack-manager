@@ -255,6 +255,46 @@
 				],
 				"type": "object",
 				"additionalProperties": false
+			},
+			"IValidateResponse": {
+				"properties": {
+					"valid": {
+						"type": "boolean"
+					},
+					"status": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"valid",
+					"status"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IValidateUsernamePayload": {
+				"properties": {
+					"username": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"username"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IValidateTokenIdPayload": {
+				"properties": {
+					"tokenId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"tokenId"
+				],
+				"type": "object",
+				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {}
@@ -581,6 +621,70 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/IRegisterPayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/users/register/validate/username": {
+			"post": {
+				"operationId": "ValidateUsername",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IValidateResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IValidateUsernamePayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/users/register/validate/tokenId": {
+			"post": {
+				"operationId": "ValidateTokenId",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IValidateResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IValidateTokenIdPayload"
 							}
 						}
 					}

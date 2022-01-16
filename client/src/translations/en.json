@@ -4,8 +4,11 @@
         "close": "Close",
         "createAccount": "Create account",
         "createAccountInfo": "Create account with the given username and Google account.",
+        "email": "Email",
+        "emailNotChosen": "Email not chosen",
         "googleLoginFailed": "Google login failed. Try again.",
-        "googleLoginInfo": "Log in with the Google account you want to link with your account.",
+        "googleLoginInfo": "Log in with the Google account whose email you want to link with your account.",
+        "loggedInAs_email": "Logged in as {{email}}",
         "login": "Login",
         "loginInfo": "Login with your Google account.",
         "loginWithGoogle": "Login with Google",
@@ -13,9 +16,14 @@
         "register": "Register",
         "registerInfo": "Sign in with your Google account and choose an username which will be displayed with your decks.",
         "search": "Search",
+        "somethingWentWrongTryAgain": "Something went wrong. Try again.",
         "step_number": "Step {{number}}",
         "username": "Username",
         "usernameInfo": "Choose an username which will be displayed with your decks.",
-        "youHaveToSetUsernameAndGoogleAccountBeforeYouCanContinue": "You have to set username and Google account before you can continue"
+        "youHaveToSetUsernameAndGoogleAccountBeforeYouCanContinue": "You have to set username and Google account before you can continue",
+        "error": {
+            "emailAlreadyTaken": "Email already registered",
+            "usernameAlreadyTaken": "Username already taken"
+        }
     }
 }

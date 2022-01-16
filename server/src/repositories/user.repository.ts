@@ -13,6 +13,14 @@ export interface IRegisterPayload extends ILoginPayload {
     username: string;
 }
 
+export interface IValidateUsernamePayload {
+    username: string;
+}
+
+export interface IValidateTokenIdPayload {
+    tokenId: string;
+}
+
 export interface Registered {
     user: User;
     accessToken: string;
@@ -21,6 +29,11 @@ export interface Registered {
 export interface LoggedIn {
     user: User;
     accessToken: string;
+}
+
+export interface ValidateResult {
+    valid: boolean;
+    status: string;
 }
 
 export const loginUser = async (payload: ILoginPayload): Promise<LoggedIn> => {
@@ -78,7 +91,7 @@ export const registerUser = async (payload: IRegisterPayload): Promise<Registere
     const existingUserWithSameUsername = await repository.findOne({ username: username });
 
     if (existingUserWithSameUsername) {
-        throw new UserError('Username has already been taken..', REGISTER_STATUS.USERNAME_ALREADY_TAKEN);
+        throw new UserError('Username has already been taken.', REGISTER_STATUS.USERNAME_ALREADY_TAKEN);
     }
 
     const user = await repository.save({
@@ -91,5 +104,46 @@ export const registerUser = async (payload: IRegisterPayload): Promise<Registere
     return {
         user,
         accessToken,
+    };
+};
+
+export const validateUsername = async (payload: IValidateUsernamePayload): Promise<ValidateResult> => {
+    const repository = getRepository(User);
+    const existingUserWithSameUsername = await repository.findOne({ username: payload.username });
+
+    if (existingUserWithSameUsername) {
+        throw new UserError('Username has already been taken.', REGISTER_STATUS.USERNAME_ALREADY_TAKEN);
+    }
+
+    return {
+        valid: true,
+        status: '',
+    };
+};
+
+export const validateTokenId = async (payload: IValidateTokenIdPayload): Promise<ValidateResult> => {
+    const client = new OAuth2Client(envConfig.GOOGLE_CLIENT_ID);
+
+    const ticket = await client.verifyIdToken({
+        idToken: payload.tokenId,
+        audience: envConfig.GOOGLE_CLIENT_ID,
+    });
+
+    const googleUser = ticket.getPayload();
+
+    if (!googleUser) {
+        throw new UserError('Google login was invalid.', REGISTER_STATUS.GOOGLE_TOKEN_ID_WAS_INVALID);
+    }
+
+    const repository = getRepository(User);
+    const existingUserWithSameEmail = await repository.findOne({ email: googleUser.email });
+
+    if (existingUserWithSameEmail) {
+        throw new UserError('Email has already been registered.', REGISTER_STATUS.EMAIL_ALREADY_TAKEN);
+    }
+
+    return {
+        valid: true,
+        status: '',
     };
 };

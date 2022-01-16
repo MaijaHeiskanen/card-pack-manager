@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { Button } from 'primereact/button';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -6,6 +6,7 @@ import { InfoText } from '../components/InfoText';
 import { StepIndicatorTypes } from '../components/StepIndicator';
 import { StepWrapper } from '../components/StepWrapper';
 import { Title } from '../components/Title';
+import mapErrorStatusToText from '../statusHelpers/mapErrorStatusToText';
 import { GoogleLoginContainer } from './GoogleLoginContainer';
 import { UsernameInputContainer } from './UsernameInputContainer';
 
@@ -15,18 +16,40 @@ export const RegisterContainer = () => {
     const [googleData, setGoogleData] = useState<any>();
     const [usernameState, setUsernameState] = useState<StepIndicatorTypes>(StepIndicatorTypes.NEUTRAL);
     const [googleLoginState, setGoogleLoginState] = useState<StepIndicatorTypes>(StepIndicatorTypes.NEUTRAL);
+    const [googleLoginError, setGoogleLoginError] = useState<string>('');
     const [createAccountState, setCreateAccountState] = useState<StepIndicatorTypes>(StepIndicatorTypes.NEUTRAL);
 
-    const handleRegister = (data: any) => {
+    const handleGoogleLogin = (data: any) => {
         console.log({ googleData: data });
 
+        setGoogleData(data);
+
         if (data.tokenId) {
-            setGoogleLoginState(StepIndicatorTypes.SUCCESS);
+            setGoogleLoginState(StepIndicatorTypes.LOADING);
+
+            axios
+                .post('/users/register/validate/tokenId', {
+                    tokenId: data.tokenId,
+                })
+                .then((response: AxiosResponse<{ valid: boolean; status: string }>) => {
+                    if (response.data.valid) {
+                        setGoogleLoginError('');
+                        setGoogleLoginState(StepIndicatorTypes.SUCCESS);
+
+                        return;
+                    }
+
+                    setGoogleLoginError(mapErrorStatusToText(response.data.status));
+                    setGoogleLoginState(StepIndicatorTypes.ERROR);
+                })
+                .catch((error) => {
+                    setGoogleLoginError(t('somethingWentWrongTryAgain'));
+                    setGoogleLoginState(StepIndicatorTypes.ERROR);
+                });
         } else {
+            setGoogleLoginError(t('googleLoginFailed'));
             setGoogleLoginState(StepIndicatorTypes.ERROR);
         }
-
-        setGoogleData(data);
     };
 
     const createAccount = () => {
@@ -37,10 +60,18 @@ export const RegisterContainer = () => {
                 tokenId: googleData.tokenId,
                 username,
             })
-            .then((response) => {
-                setCreateAccountState(StepIndicatorTypes.SUCCESS);
-                console.log({ response });
-            })
+            .then(
+                (
+                    response: AxiosResponse<{
+                        user: object | null;
+                        accessToken: string | null;
+                    }>
+                ) => {
+                    setCreateAccountState(StepIndicatorTypes.SUCCESS);
+
+                    console.log({ response });
+                }
+            )
             .catch((error) => {
                 setCreateAccountState(StepIndicatorTypes.ERROR);
                 console.log({ error });
@@ -57,7 +88,7 @@ export const RegisterContainer = () => {
         setUsernameState(StepIndicatorTypes.NEUTRAL);
     }, []);
 
-    const usernameError = useCallback((error: { message: string; type: string }) => {
+    const usernameError = useCallback((error: { valid: boolean; status: string }) => {
         setUsername('');
         setUsernameState(StepIndicatorTypes.ERROR);
     }, []);
@@ -87,13 +118,13 @@ export const RegisterContainer = () => {
                 <div>
                     <InfoText text={t('googleLoginInfo')} />
                     <GoogleLoginContainer
-                        successCallback={handleRegister}
-                        errorCallback={handleRegister}
+                        successCallback={handleGoogleLogin}
+                        errorCallback={handleGoogleLogin}
                         text={t('loginWithGoogle')}
                         className="block mb-2 mt-4"
-                        errorMessage={
-                            googleLoginState === StepIndicatorTypes.ERROR ? t('googleLoginFailed') : undefined
-                        }
+                        errorMessage={googleLoginError}
+                        showEmail
+                        email={googleData?.profileObj?.email}
                     />
                 </div>
             </StepWrapper>

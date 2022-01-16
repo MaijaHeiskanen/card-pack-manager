@@ -4,8 +4,11 @@
         "close": "Sulje",
         "createAccount": "Luo käyttäjätili",
         "createAccountInfo": "Luo käyttäjätili antamallasi käyttäjänimellä ja Google-tilillä.",
+        "email": "Sähköposti",
+        "emailNotChosen": "Sähköpostia ei ole valittu",
         "googleLoginFailed": "Google-kirjautuminen epäonnistui. Yritä uudelleen.",
-        "googleLoginInfo": "Kirjaudu Google-tilille, jonka haluat linkittää käyttäjätiliisi.",
+        "googleLoginInfo": "Kirjaudu Google-tilille, jonka sähköpostin haluat linkittää käyttäjätiliisi.",
+        "loggedInAs_email": "Olet kirjautunut sisään tilillä {{email}}",
         "login": "Kirjaudu",
         "loginInfo": "Kirjaudu Google-tililläsi.",
         "loginWithGoogle": "Kirjaudu Google-tililläsi",
@@ -13,9 +16,14 @@
         "register": "Rekisteröidy",
         "registerInfo": "Kirjaudu Google-tililläsi ja valitse käyttäjänimi, joka näytetään pakkojesi yhteydessä.",
         "search": "Etsi",
+        "somethingWentWrongTryAgain": "Jotain meni pieleen. Yritä uudestaan.",
         "step_number": "Vaihe {{number}}",
         "username": "Käyttäjänimi",
         "usernameInfo": "Valitse käyttäjänimi, joka näytetään pakkojesi yhteydessä.",
-        "youHaveToSetUsernameAndGoogleAccountBeforeYouCanContinue": "Sinun täytyy antaa käyttäjänimi ja Google-tili ennen kuin voit jatkaa."
+        "youHaveToSetUsernameAndGoogleAccountBeforeYouCanContinue": "Sinun täytyy antaa käyttäjänimi ja Google-tili ennen kuin voit jatkaa.",
+        "error": {
+            "emailAlreadyTaken": "Sähköposti on jo rekisteröity",
+            "usernameAlreadyTaken": "Käyttäjänimi on jo käytössä"
+        }
     }
 }
