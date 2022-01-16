@@ -9,6 +9,7 @@
         "emailNotChosen": "Email not chosen",
         "googleLoginFailed": "Google login failed. Try again.",
         "googleLoginInfo": "Log in with the Google account whose email you want to link with your account. Google account information is not shown to other users.",
+        "language": "Language",
         "loggedInAs_email": "Logged in as {{email}}",
         "login": "Login",
         "loginInfo": "Login with your Google account.",

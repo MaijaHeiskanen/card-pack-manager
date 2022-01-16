@@ -8,6 +8,7 @@
         "emailNotChosen": "Sähköpostia ei ole valittu",
         "googleLoginFailed": "Google-kirjautuminen epäonnistui. Yritä uudelleen.",
         "googleLoginInfo": "Kirjaudu Google-tilille, jonka sähköpostin haluat linkittää käyttäjätiliisi. Google-tilin tietoja ei näytetä muille käyttäjille.",
+        "language": "Kieli",
         "loggedInAs_email": "Olet kirjautunut sisään tilillä {{email}}",
         "login": "Kirjaudu",
         "loginInfo": "Kirjaudu Google-tililläsi.",

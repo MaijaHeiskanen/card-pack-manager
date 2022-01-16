@@ -1,17 +1,31 @@
 import { useTranslation } from 'react-i18next';
 import { availableLanguages } from './../i18n';
+import { Dropdown, DropdownChangeParams } from 'primereact/dropdown';
 
 export const LanguageSelector = () => {
     const { t, i18n } = useTranslation();
 
+    const onLanguageChange = (data: DropdownChangeParams) => {
+        console.log({ data });
+
+        i18n.changeLanguage(data.value.name);
+    };
+
     return (
-        <select
-            defaultValue={i18n.language}
-            onChange={(e) => i18n.changeLanguage(e.target.value)}
-        >
-            {availableLanguages.map((language) => (
-                <option key={language}>{language}</option>
-            ))}
-        </select>
+        <div className="p-inputtext-sm">
+            <Dropdown
+                value={{
+                    name: i18n.language,
+                    code: i18n.language,
+                }}
+                options={availableLanguages.map((language) => ({
+                    name: language,
+                    code: language,
+                }))}
+                onChange={onLanguageChange}
+                optionLabel="name"
+                placeholder="Select a City"
+            />
+        </div>
     );
 };

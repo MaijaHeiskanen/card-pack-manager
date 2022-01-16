@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
-import './App.sass';
 import './i18n';
 
 import '/node_modules/primeflex/primeflex.css'; //primeflex
 import 'primereact/resources/themes/lara-light-blue/theme.css'; //theme
 import 'primereact/resources/primereact.min.css'; //core css
 import 'primeicons/primeicons.css'; //icons
+import './App.sass';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { SearchPage } from './pages/SearchPage';
