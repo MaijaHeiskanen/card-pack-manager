@@ -28,8 +28,10 @@ a
     color: var(--primary-color-text)
     border: none
 
-    .p-menubar-root-list
+    .p-menubar-start
         flex-grow: 1
+
+    .p-menubar-root-list
         justify-content: flex-end
 
         >.p-menuitem, >.p-menuitem-active
@@ -52,3 +54,6 @@ a
 
                 >.p-menuitem-icon, >.p-menuitem-text, >.p-submenu-icon
                     color: var(--primary-color-text) !important
+
+    .p-menubar-button
+        color: var(--primary-color-text) !important
