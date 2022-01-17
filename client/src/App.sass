@@ -20,5 +20,31 @@ a
     &:active
         text-decoration: none
 
-.p-menubar
-    // background-color: var(--primary-color)
+.p-menubar.header
+    background-color: var(--primary-color)
+    border-radius: 0
+    margin: 0
+    padding: 0.2rem 1rem
+    color: var(--primary-color-text)
+    border: none
+
+    .p-menubar-root-list
+        flex-grow: 1
+        justify-content: flex-end
+
+        >.p-menuitem, >.p-menuitem-active
+            color: var(--primary-color-text) !important
+            background-color: var(--primary-color) !important
+
+            &a
+                background-color: var(--primary-color) !important
+
+            >.p-menuitem-link
+                color: var(--primary-color-text) !important
+                background-color: var(--primary-color) !important
+
+                &:hover, &:focus, &:active
+                    background-color: var(--primary-color) !important
+
+                >.p-menuitem-icon, >.p-menuitem-text, >.p-submenu-icon
+                    color: var(--primary-color-text) !important
