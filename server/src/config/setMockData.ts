@@ -9,22 +9,27 @@ import getMockDecks from './mockData/getMockDecks';
 import { getMockLanguages } from './mockData/getMockLanguages';
 import getMockUsers from './mockData/getMockUsers';
 
+// Maybe should use bulk insert instead of this, but on the other hand,
+// this is mock data and does not cause issues at the moment, so...
+
 const setLanguageData = async () => {
     const languageMockData = getMockLanguages();
 
-    languageMockData.forEach((language) => {
-        console.log('add language');
-        createLanguage(language);
+    const promises = languageMockData.map((language) => {
+        return createLanguage(language);
     });
+
+    return await Promise.all(promises);
 };
 
 const setUserData = async () => {
     const mockUserData = getMockUsers();
 
-    mockUserData.forEach((user) => {
-        console.log('add user');
-        addMockDataUser(user);
+    const promises = mockUserData.map((user) => {
+        return addMockDataUser(user);
     });
+
+    return await Promise.all(promises);
 };
 
 const setDeckData = async () => {
@@ -33,43 +38,29 @@ const setDeckData = async () => {
     const user = await userRepository.find();
     const mockDeckData = getMockDecks();
 
-    mockDeckData.forEach((deck) => {
+    const promises = mockDeckData.map((deck) => {
         if (user[0]) {
             deck.userId = user[0].id;
         }
-        console.log('add deck');
-        createDeck(deck);
+        return createDeck(deck);
     });
+
+    return await Promise.all(promises);
 };
 
 const setCardData = async () => {
     const mockCardData = getMockCards();
 
-    mockCardData.forEach((card) => {
-        console.log('add card');
-        createCard(card);
+    const promises = mockCardData.map((card) => {
+        return createCard(card);
     });
+
+    return await Promise.all(promises);
 };
 
 export const setMockData = async () => {
     await setLanguageData();
-
-    setTimeout(async () => {
-        console.log('languages done');
-
-        await setUserData();
-        setTimeout(async () => {
-            console.log('users done');
-
-            await setDeckData();
-            setTimeout(async () => {
-                console.log('decks done');
-
-                await setCardData();
-                setTimeout(() => {
-                    console.log('cards done');
-                }, 500);
-            }, 500);
-        }, 500);
-    }, 500);
+    await setUserData();
+    await setDeckData();
+    await setCardData();
 };
