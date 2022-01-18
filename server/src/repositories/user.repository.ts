@@ -4,6 +4,7 @@ import { OAuth2Client } from 'google-auth-library';
 import jwt from 'jsonwebtoken';
 import envConfig from '../config/config';
 import { LOGIN_STATUS, REGISTER_STATUS, UserError } from '../errors/userErrors';
+import { IUserMockData } from '../config/mockData/getMockUsers';
 
 export interface ILoginPayload {
     tokenId: string;
@@ -34,6 +35,10 @@ export interface LoggedIn {
 export interface ValidateResult {
     valid: boolean;
     status: string;
+}
+
+export interface IUpdateUserPayload {
+    username: string;
 }
 
 export const loginUser = async (payload: ILoginPayload): Promise<LoggedIn> => {
@@ -146,4 +151,14 @@ export const validateTokenId = async (payload: IValidateTokenIdPayload): Promise
         valid: true,
         status: '',
     };
+};
+
+export const addMockDataUser = async (payload: IUserMockData): Promise<User> => {
+    const repository = getRepository(User);
+    const user = new User();
+
+    return await repository.save({
+        ...user,
+        ...payload,
+    });
 };

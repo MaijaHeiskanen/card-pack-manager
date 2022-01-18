@@ -5,7 +5,7 @@ import { authenticateToken } from '../middleware/authenticate';
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-    authenticateToken(req);
+    // authenticateToken(req);
     const controller = new DeckController();
 
     try {

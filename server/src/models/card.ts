@@ -19,6 +19,6 @@ export class Card extends BaseModel {
     deckId!: string;
 
     @ManyToOne(() => Deck)
-    @JoinColumn()
+    // @JoinColumn()
     deck!: Deck;
 }

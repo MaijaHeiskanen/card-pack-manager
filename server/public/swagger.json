@@ -18,6 +18,56 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"User": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"email": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"createdAt",
+					"updatedAt",
+					"email",
+					"username"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Language": {
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"native": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"code",
+					"name",
+					"native"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"Deck": {
 				"properties": {
 					"id": {
@@ -34,11 +84,20 @@
 					"name": {
 						"type": "string"
 					},
-					"ownerId": {
-						"type": "string"
-					},
 					"nsfw": {
 						"type": "boolean"
+					},
+					"userId": {
+						"type": "string"
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					},
+					"languageCode": {
+						"type": "string"
+					},
+					"language": {
+						"$ref": "#/components/schemas/Language"
 					}
 				},
 				"required": [
@@ -46,8 +105,11 @@
 					"createdAt",
 					"updatedAt",
 					"name",
-					"ownerId",
-					"nsfw"
+					"nsfw",
+					"userId",
+					"user",
+					"languageCode",
+					"language"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -60,14 +122,18 @@
 					"nsfw": {
 						"type": "boolean"
 					},
-					"ownerId": {
+					"userId": {
+						"type": "string"
+					},
+					"languageCode": {
 						"type": "string"
 					}
 				},
 				"required": [
 					"name",
 					"nsfw",
-					"ownerId"
+					"userId",
+					"languageCode"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -80,7 +146,10 @@
 					"nsfw": {
 						"type": "boolean"
 					},
-					"ownerId": {
+					"userId": {
+						"type": "string"
+					},
+					"languageCode": {
 						"type": "string"
 					},
 					"id": {
@@ -90,7 +159,8 @@
 				"required": [
 					"name",
 					"nsfw",
-					"ownerId",
+					"userId",
+					"languageCode",
 					"id"
 				],
 				"type": "object",
@@ -172,36 +242,6 @@
 					"type",
 					"text",
 					"deckId"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"User": {
-				"properties": {
-					"id": {
-						"type": "string"
-					},
-					"createdAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"updatedAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"email": {
-						"type": "string"
-					},
-					"username": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"id",
-					"createdAt",
-					"updatedAt",
-					"email",
-					"username"
 				],
 				"type": "object",
 				"additionalProperties": false

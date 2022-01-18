@@ -1,4 +1,5 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Language, User } from '.';
 import { BaseModel } from './base.model';
 
 @Entity()
@@ -7,8 +8,19 @@ export class Deck extends BaseModel {
     name!: string;
 
     @Column()
-    ownerId!: string;
+    nsfw!: boolean;
 
     @Column()
-    nsfw!: boolean;
+    userId!: string;
+
+    @ManyToOne(() => User)
+    @JoinColumn()
+    user!: User;
+
+    @Column()
+    languageCode!: string;
+
+    @ManyToOne(() => Language)
+    @JoinColumn()
+    language!: Language;
 }

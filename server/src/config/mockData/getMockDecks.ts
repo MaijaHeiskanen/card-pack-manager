@@ -5,26 +5,30 @@ export default function getMockDecks() {
         {
             id: '619d8fb9-e580-45f8-ae7b-c2ae07000001',
             name: 'Testipakka 1',
-            ownerId: 'owner-id-1',
+            userId: '29c01432-65fb-4eb9-95e0-150a331efe5c',
             nsfw: true,
+            languageCode: 'fi',
         },
         {
             id: '619d8fb9-e580-45f8-ae7b-c2ae07000002',
             name: 'Testipakka 2',
-            ownerId: 'owner-id-2',
+            userId: '29c01432-65fb-4eb9-95e0-150a331efe5c',
             nsfw: true,
+            languageCode: 'fi',
         },
         {
             id: '619d8fb9-e580-45f8-ae7b-c2ae07000003',
             name: 'Testipakka 3',
-            ownerId: 'owner-id-3',
+            userId: '29c01432-65fb-4eb9-95e0-150a331efe5c',
             nsfw: false,
+            languageCode: 'fi',
         },
         {
             id: '619d8fb9-e580-45f8-ae7b-c2ae07000004',
             name: 'Testipakka 4',
-            ownerId: 'owner-id-4',
+            userId: '29c01432-65fb-4eb9-95e0-150a331efe5c',
             nsfw: true,
+            languageCode: 'fi',
         },
     ];
 

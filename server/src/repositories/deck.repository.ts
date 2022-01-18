@@ -4,7 +4,8 @@ import { Deck } from '../models';
 export interface IDeckPayload {
     name: string;
     nsfw: boolean;
-    ownerId: string;
+    userId: string;
+    languageCode: string;
 }
 
 export interface IUpdateDeckPayload extends IDeckPayload {

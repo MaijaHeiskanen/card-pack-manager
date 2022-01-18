@@ -6,8 +6,9 @@ import swaggerUi from 'swagger-ui-express';
 import logger from './utils/logger';
 import dbConfig from './config/database';
 import Router from './routes';
-import { createConnection } from 'typeorm';
+import { createConnection, getRepository } from 'typeorm';
 import { setMockData } from './config/setMockData';
+import { Deck, User } from './models';
 
 const PORT = envConfig.PORT;
 const HOST = envConfig.HOST;
@@ -32,12 +33,20 @@ app.use(
 app.use(Router);
 
 createConnection(dbConfig)
-    .then((_connection) => {
+    .then(async (_connection) => {
         app.listen(PORT, () => {
             logger.info(`Server listening at http://${HOST}:${PORT}`);
         });
 
-        setMockData();
+        // Check if data already exists; If not, then create mock data.
+        const user = await getRepository(User).findOne();
+        console.log({ user });
+
+        if (!user) {
+            console.log('Setting mock data');
+
+            setMockData();
+        }
     })
     .catch((err) => {
         console.log('Unable to connect to db', err);
