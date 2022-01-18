@@ -1,5 +1,10 @@
 import { CardPackViewContainer } from '../containers/CardPackViewController';
+import { Deck } from '../types/generated-types-d';
 
-export const SearchPage = (props: object) => {
-    return <CardPackViewContainer />;
+interface SearchPageProps {
+    cardPacks: Deck[] | undefined;
+}
+
+export const SearchPage = (props: SearchPageProps) => {
+    return <CardPackViewContainer cardPacks={props.cardPacks} />;
 };

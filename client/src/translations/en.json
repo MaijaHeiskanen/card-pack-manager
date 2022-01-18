@@ -2,6 +2,7 @@
     "common": {
         "accountCreated": "Account created",
         "browse": "Browse",
+        "cardpack": "Cardpack",
         "close": "Close",
         "createAccount": "Create account",
         "createAccountInfo": "Create account with the given username and Google account.",

@@ -1,6 +1,8 @@
 {
     "common": {
+        "accountCreated": "Käyttäjätili luotu",
         "browse": "Selaa",
+        "cardpack": "Korttipakka",
         "close": "Sulje",
         "createAccount": "Luo käyttäjätili",
         "createAccountInfo": "Luo käyttäjätili antamallasi käyttäjänimellä ja Google-tilillä.",
