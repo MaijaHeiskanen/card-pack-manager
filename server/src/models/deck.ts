@@ -8,6 +8,9 @@ export class Deck extends BaseModel {
     name!: string;
 
     @Column()
+    description!: string;
+
+    @Column()
     nsfw!: boolean;
 
     @Column()

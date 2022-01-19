@@ -3,6 +3,7 @@ import { Deck } from '../models';
 
 export interface IDeckPayload {
     name: string;
+    description: string;
     nsfw: boolean;
     userId: string;
     languageCode: string;

@@ -40,10 +40,9 @@ createConnection(dbConfig)
 
         // Check if data already exists; If not, then create mock data.
         const user = await getRepository(User).findOne();
-        console.log({ user });
 
         if (!user) {
-            console.log('Setting mock data');
+            console.info('Setting mock data');
 
             setMockData();
         }

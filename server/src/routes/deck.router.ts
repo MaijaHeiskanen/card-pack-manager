@@ -5,7 +5,6 @@ import { authenticateToken } from '../middleware/authenticate';
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-    // authenticateToken(req);
     const controller = new DeckController();
 
     try {
@@ -20,13 +19,14 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+    authenticateToken(req);
     const controller = new DeckController();
     const response = await controller.createDeck(req.body);
 
     return res.send(response);
 });
 
-router.post('/:id', async (req, res) => {
+router.patch('/:id', async (req, res) => {
     const controller = new DeckController();
     const response = await controller.updateDeck(req.body);
 

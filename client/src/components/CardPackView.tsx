@@ -26,7 +26,9 @@ export const CardPackViewTable = (props: CardPackViewTableProps) => {
         return (
             <div className="p-col-12 p-md-4">
                 {data.name}
-                <Link to={`/cardpack/${data.id}`}>{data.id}</Link>
+                <Link className="text-primary" to={`/cardpack/${data.id}`}>
+                    {data.id}
+                </Link>
             </div>
         );
     };

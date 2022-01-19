@@ -84,6 +84,9 @@
 					"name": {
 						"type": "string"
 					},
+					"description": {
+						"type": "string"
+					},
 					"nsfw": {
 						"type": "boolean"
 					},
@@ -105,6 +108,7 @@
 					"createdAt",
 					"updatedAt",
 					"name",
+					"description",
 					"nsfw",
 					"userId",
 					"user",
@@ -119,6 +123,9 @@
 					"name": {
 						"type": "string"
 					},
+					"description": {
+						"type": "string"
+					},
 					"nsfw": {
 						"type": "boolean"
 					},
@@ -131,6 +138,7 @@
 				},
 				"required": [
 					"name",
+					"description",
 					"nsfw",
 					"userId",
 					"languageCode"
@@ -141,6 +149,9 @@
 			"IUpdateDeckPayload": {
 				"properties": {
 					"name": {
+						"type": "string"
+					},
+					"description": {
 						"type": "string"
 					},
 					"nsfw": {
@@ -158,6 +169,7 @@
 				},
 				"required": [
 					"name",
+					"description",
 					"nsfw",
 					"userId",
 					"languageCode",
