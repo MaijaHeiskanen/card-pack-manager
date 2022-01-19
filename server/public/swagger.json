@@ -68,7 +68,7 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"Deck": {
+			"Cardpack": {
 				"properties": {
 					"id": {
 						"type": "string"
@@ -118,7 +118,7 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"IDeckPayload": {
+			"ICardpackPayload": {
 				"properties": {
 					"name": {
 						"type": "string"
@@ -146,7 +146,7 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"IUpdateDeckPayload": {
+			"IUpdateCardpackPayload": {
 				"properties": {
 					"name": {
 						"type": "string"
@@ -223,7 +223,7 @@
 						"type": "string"
 					},
 					"deck": {
-						"$ref": "#/components/schemas/Deck"
+						"$ref": "#/components/schemas/Cardpack"
 					}
 				},
 				"required": [
@@ -387,7 +387,7 @@
 		},
 		"/decks": {
 			"get": {
-				"operationId": "GetDecks",
+				"operationId": "GetCardpacks",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -395,7 +395,7 @@
 							"application/json": {
 								"schema": {
 									"items": {
-										"$ref": "#/components/schemas/Deck"
+										"$ref": "#/components/schemas/Cardpack"
 									},
 									"type": "array"
 								}
@@ -404,27 +404,27 @@
 					}
 				},
 				"tags": [
-					"Deck"
+					"Cardpack"
 				],
 				"security": [],
 				"parameters": []
 			},
 			"post": {
-				"operationId": "CreateDeck",
+				"operationId": "CreateCardpack",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Deck"
+									"$ref": "#/components/schemas/Cardpack"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"Deck"
+					"Cardpack"
 				],
 				"security": [],
 				"parameters": [],
@@ -433,7 +433,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/IDeckPayload"
+								"$ref": "#/components/schemas/ICardpackPayload"
 							}
 						}
 					}
@@ -442,7 +442,7 @@
 		},
 		"/decks/id": {
 			"post": {
-				"operationId": "UpdateDeck",
+				"operationId": "UpdateCardpack",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -451,7 +451,7 @@
 								"schema": {
 									"allOf": [
 										{
-											"$ref": "#/components/schemas/Deck"
+											"$ref": "#/components/schemas/Cardpack"
 										}
 									],
 									"nullable": true
@@ -461,7 +461,7 @@
 					}
 				},
 				"tags": [
-					"Deck"
+					"Cardpack"
 				],
 				"security": [],
 				"parameters": [],
@@ -470,7 +470,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/IUpdateDeckPayload"
+								"$ref": "#/components/schemas/IUpdateCardpackPayload"
 							}
 						}
 					}
@@ -479,7 +479,7 @@
 		},
 		"/decks/{id}": {
 			"get": {
-				"operationId": "GetDeck",
+				"operationId": "GetCardpack",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -488,7 +488,7 @@
 								"schema": {
 									"allOf": [
 										{
-											"$ref": "#/components/schemas/Deck"
+											"$ref": "#/components/schemas/Cardpack"
 										}
 									],
 									"nullable": true
@@ -498,7 +498,7 @@
 					}
 				},
 				"tags": [
-					"Deck"
+					"Cardpack"
 				],
 				"security": [],
 				"parameters": [
@@ -583,7 +583,7 @@
 		},
 		"/cards/deck/{id}": {
 			"get": {
-				"operationId": "GetCardsByDeckId",
+				"operationId": "GetCardsByCardpackId",
 				"responses": {
 					"200": {
 						"description": "Ok",

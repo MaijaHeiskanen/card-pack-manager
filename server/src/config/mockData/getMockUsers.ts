@@ -6,7 +6,7 @@ export interface IUserMockData extends IUpdateUserPayload {
 }
 
 export default function getMockUsers() {
-    const decks: IUserMockData[] = [
+    const cardpacks: IUserMockData[] = [
         {
             id: '29c01432-65fb-4eb9-95e0-150a331efe5c',
             email: 'tester.1@email.com',
@@ -14,5 +14,5 @@ export default function getMockUsers() {
         },
     ];
 
-    return decks;
+    return cardpacks;
 }

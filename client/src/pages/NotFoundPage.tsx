@@ -6,15 +6,15 @@ export const NotFoundPage = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
 
-    const navigateToDeckSearch = () => {
-        navigate('/decks');
+    const navigateToCardpackSearch = () => {
+        navigate('/cardpacks');
     };
 
     return (
         <div className="flex flex-column">
             <div className="flex w-full justify-content-center p-8 text-4xl">{t('pageNotFound')} :(</div>
             <div className="flex w-4 justify-content-center p-8 align-self-center">
-                <Button label={t('returnToSearchDecks')} onClick={navigateToDeckSearch} />
+                <Button label={t('returnToSearchCardpacks')} onClick={navigateToCardpackSearch} />
             </div>
         </div>
     );

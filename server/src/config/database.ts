@@ -1,6 +1,6 @@
 import { ConnectionOptions } from 'typeorm';
 import envConfig from './config';
-import { Card, Deck, Language, User } from '../models';
+import { Card, Cardpack, Language, User } from '../models';
 
 const config: ConnectionOptions = {
     type: 'postgres',
@@ -9,7 +9,7 @@ const config: ConnectionOptions = {
     username: envConfig.DB_USER,
     password: envConfig.DB_PASS,
     database: envConfig.DB_NAME,
-    entities: [Deck, Card, User, Language],
+    entities: [Cardpack, Card, User, Language],
     synchronize: true,
 };
 

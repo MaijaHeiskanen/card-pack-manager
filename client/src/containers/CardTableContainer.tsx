@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { CardTable } from '../components/CardTable';
-import { Card, Deck } from '../types/generated-types-d';
+import { Card, Cardpack } from '../types/generated-types-d';
 
 type CardTableContainerProps = {
     cardpackID?: string;
@@ -9,26 +9,26 @@ type CardTableContainerProps = {
 
 export const CardTableContainer = (props: CardTableContainerProps) => {
     const { cardpackID } = props;
-    const [deck, setDeck] = useState<Deck>();
+    const [cardpack, setCardpack] = useState<Cardpack>();
     const [cards, setCards] = useState<Card[]>();
 
     useEffect(() => {
-        axios.get(`/decks/${cardpackID}`).then((response) => {
-            console.log('/decks/', response.data);
+        axios.get(`/cardpacks/${cardpackID}`).then((response) => {
+            console.log('/cardpacks/', response.data);
 
-            setDeck(response.data);
+            setCardpack(response.data);
         });
     }, []);
 
     useEffect(() => {
-        axios.get(`/cards/deck/${cardpackID}`).then((response) => {
-            console.log('/cards/deck/', response.data);
+        axios.get(`/cards/cardpack/${cardpackID}`).then((response) => {
+            console.log('/cards/cardpack/', response.data);
 
             setCards(response.data);
         });
     }, []);
 
-    if (!cardpackID || !cards || !deck) {
+    if (!cardpackID || !cards || !cardpack) {
         return <span>loading...</span>;
     }
 
@@ -36,5 +36,5 @@ export const CardTableContainer = (props: CardTableContainerProps) => {
         return <span>This cardpack does not have any cards yet</span>;
     }
 
-    return <CardTable cards={cards} cardpackName={deck.name} loading={false} />;
+    return <CardTable cards={cards} cardpackName={cardpack.name} loading={false} />;
 };

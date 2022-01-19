@@ -18,7 +18,7 @@ export const LoginContainer = () => {
                 tokenId: googleData.tokenId,
             })
             .then((response) => {
-                navigate(`/decks/user/${response.data.user.id}`);
+                navigate(`/cardpacks/user/${response.data.user.id}`);
                 console.log({ response });
             })
             .catch((error) => {

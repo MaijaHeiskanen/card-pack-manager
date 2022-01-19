@@ -8,7 +8,7 @@ import dbConfig from './config/database';
 import Router from './routes';
 import { createConnection, getRepository } from 'typeorm';
 import { setMockData } from './config/setMockData';
-import { Deck, User } from './models';
+import { Cardpack, User } from './models';
 
 const PORT = envConfig.PORT;
 const HOST = envConfig.HOST;

@@ -1,11 +1,11 @@
 import { getRepository } from 'typeorm';
 import { User } from '../models';
 import { createCard } from '../repositories/card.repository';
-import { createDeck } from '../repositories/deck.repository';
+import { createCardpack } from '../repositories/cardpack.repository';
 import { createLanguage } from '../repositories/language.repository';
 import { addMockDataUser } from '../repositories/user.repository';
 import getMockCards from './mockData/getMockCards';
-import getMockDecks from './mockData/getMockDecks';
+import getMockCardpacks from './mockData/getMockCardpacks';
 import { getMockLanguages } from './mockData/getMockLanguages';
 import getMockUsers from './mockData/getMockUsers';
 
@@ -32,17 +32,17 @@ const setUserData = async () => {
     return await Promise.all(promises);
 };
 
-const setDeckData = async () => {
+const setCardpackData = async () => {
     const userRepository = getRepository(User);
 
     const user = await userRepository.find();
-    const mockDeckData = getMockDecks();
+    const mockCardpackData = getMockCardpacks();
 
-    const promises = mockDeckData.map((deck) => {
+    const promises = mockCardpackData.map((cardpack) => {
         if (user[0]) {
-            deck.userId = user[0].id;
+            cardpack.userId = user[0].id;
         }
-        return createDeck(deck);
+        return createCardpack(cardpack);
     });
 
     return await Promise.all(promises);
@@ -61,6 +61,6 @@ const setCardData = async () => {
 export const setMockData = async () => {
     await setLanguageData();
     await setUserData();
-    await setDeckData();
+    await setCardpackData();
     await setCardData();
 };

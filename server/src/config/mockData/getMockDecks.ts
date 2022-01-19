@@ -1,7 +1,7 @@
-import { IUpdateDeckPayload } from '../../repositories/deck.repository';
+import { IUpdateCardpackPayload } from '../../repositories/cardpack.repository';
 
-export default function getMockDecks() {
-    const decks: IUpdateDeckPayload[] = [
+export default function getMockCardpacks() {
+    const cardpacks: IUpdateCardpackPayload[] = [
         {
             id: '619d8fb9-e580-45f8-ae7b-c2ae07000001',
             name: 'Testipakka 1',
@@ -36,5 +36,5 @@ export default function getMockDecks() {
         },
     ];
 
-    return decks;
+    return cardpacks;
 }

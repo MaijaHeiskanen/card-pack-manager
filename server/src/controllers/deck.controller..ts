@@ -1,35 +1,35 @@
 import { Get, Route, Tags, Post, Body, Path } from 'tsoa';
 import { LOGIN_STATUS, UserError } from '../errors/userErrors';
-import { Deck } from '../models';
+import { Cardpack } from '../models';
 import {
-    getDecks,
-    createDeck,
-    updateDeck,
-    IDeckPayload,
-    IUpdateDeckPayload,
-    getDeck,
-} from '../repositories/deck.repository';
+    getCardpacks,
+    createCardpack,
+    updateCardpack,
+    ICardpackPayload,
+    IUpdateCardpackPayload,
+    getCardpack,
+} from '../repositories/cardpack.repository';
 
-@Route('decks')
-@Tags('Deck')
-export default class DeckController {
+@Route('cardpacks')
+@Tags('Cardpack')
+export default class CardpackController {
     @Get('/')
-    public async getDecks(): Promise<Array<Deck>> {
-        return getDecks();
+    public async getCardpacks(): Promise<Array<Cardpack>> {
+        return getCardpacks();
     }
 
     @Post('/')
-    public async createDeck(@Body() body: IDeckPayload): Promise<Deck> {
-        return createDeck(body);
+    public async createCardpack(@Body() body: ICardpackPayload): Promise<Cardpack> {
+        return createCardpack(body);
     }
 
     @Post('/id')
-    public async updateDeck(@Body() body: IUpdateDeckPayload): Promise<Deck | null> {
-        return updateDeck(body);
+    public async updateCardpack(@Body() body: IUpdateCardpackPayload): Promise<Cardpack | null> {
+        return updateCardpack(body);
     }
 
     @Get('/:id')
-    public async getDeck(@Path() id: string): Promise<Deck | null> {
-        return getDeck(id);
+    public async getCardpack(@Path() id: string): Promise<Cardpack | null> {
+        return getCardpack(id);
     }
 }

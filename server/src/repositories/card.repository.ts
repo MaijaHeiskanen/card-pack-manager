@@ -5,7 +5,7 @@ import { CardType } from '../types/card';
 export interface ICardPayload {
     type: CardType;
     text: string;
-    deckId: string;
+    cardpackId: string;
 }
 
 export interface IUpdateCardPayload extends ICardPayload {
@@ -33,9 +33,9 @@ export const getCard = async (id: string): Promise<Card | null> => {
     return card;
 };
 
-export const getCardsByDeckId = async (id: string): Promise<Card[]> => {
+export const getCardsByCardpackId = async (id: string): Promise<Card[]> => {
     const cardRepository = getRepository(Card);
-    const cards = await cardRepository.find({ deckId: id });
+    const cards = await cardRepository.find({ cardpackId: id });
 
     return cards;
 };

@@ -1,7 +1,7 @@
 import { getRepository } from 'typeorm';
-import { Deck } from '../models';
+import { Cardpack } from '../models';
 
-export interface IDeckPayload {
+export interface ICardpackPayload {
     name: string;
     description: string;
     nsfw: boolean;
@@ -9,56 +9,56 @@ export interface IDeckPayload {
     languageCode: string;
 }
 
-export interface IUpdateDeckPayload extends IDeckPayload {
+export interface IUpdateCardpackPayload extends ICardpackPayload {
     id: string;
 }
 
-export const getDecks = async (): Promise<Array<Deck>> => {
-    const deckRepository = getRepository(Deck);
+export const getCardpacks = async (): Promise<Array<Cardpack>> => {
+    const cardpackRepository = getRepository(Cardpack);
 
-    return deckRepository.find();
+    return cardpackRepository.find();
 };
 
-export const createDeck = async (payload: IDeckPayload): Promise<Deck> => {
-    const deckRepository = getRepository(Deck);
-    const deck = new Deck();
+export const createCardpack = async (payload: ICardpackPayload): Promise<Cardpack> => {
+    const cardpackRepository = getRepository(Cardpack);
+    const cardpack = new Cardpack();
 
-    return deckRepository.save({
-        ...deck,
+    return cardpackRepository.save({
+        ...cardpack,
         ...payload,
     });
 };
 
-export const getDeck = async (id: string): Promise<Deck | null> => {
-    const deckRepository = getRepository(Deck);
-    const deck = await deckRepository.findOne({ id });
+export const getCardpack = async (id: string): Promise<Cardpack | null> => {
+    const cardpackRepository = getRepository(Cardpack);
+    const cardpack = await cardpackRepository.findOne({ id });
 
-    if (!deck) {
+    if (!cardpack) {
         return null;
     }
 
-    return deck;
+    return cardpack;
 };
 
-export const updateDeck = async (payload: IUpdateDeckPayload): Promise<Deck | null> => {
+export const updateCardpack = async (payload: IUpdateCardpackPayload): Promise<Cardpack | null> => {
     const id = payload.id;
 
     if (!id) {
         return null;
     }
 
-    const deckRepository = getRepository(Deck);
+    const cardpackRepository = getRepository(Cardpack);
 
-    const deckExists = await !!deckRepository.findOne({ id });
+    const cardpackExists = await !!cardpackRepository.findOne({ id });
 
-    if (!deckExists) {
+    if (!cardpackExists) {
         return null;
     }
 
-    const deck = new Deck();
+    const cardpack = new Cardpack();
 
-    return deckRepository.save({
-        ...deck,
+    return cardpackRepository.save({
+        ...cardpack,
         ...payload,
     });
 };

@@ -1,19 +1,19 @@
 import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Deck } from '../types/generated-types-d';
+import { Cardpack } from '../types/generated-types-d';
 
-type CardPackViewTableProps = {
-    cardPacks: Deck[];
+type CardpackViewTableProps = {
+    cardpacks: Cardpack[];
     loading: boolean;
 };
 
-export const CardPackViewTable = (props: CardPackViewTableProps) => {
-    const { cardPacks, loading } = props;
+export const CardpackViewTable = (props: CardpackViewTableProps) => {
+    const { cardpacks, loading } = props;
 
     const [layout, setLayout] = useState('grid');
 
-    const itemTemplate = (cardpack: Deck, layout: string) => {
+    const itemTemplate = (cardpack: Cardpack, layout: string) => {
         if (!cardpack) {
             return;
         }
@@ -22,7 +22,7 @@ export const CardPackViewTable = (props: CardPackViewTableProps) => {
         else if (layout === 'grid') return renderGridItem(cardpack);
     };
 
-    const renderGridItem = (data: Deck) => {
+    const renderGridItem = (data: Cardpack) => {
         return (
             <div className="p-col-12 p-md-4">
                 {data.name}
@@ -33,7 +33,7 @@ export const CardPackViewTable = (props: CardPackViewTableProps) => {
         );
     };
 
-    const renderListItem = (data: Deck) => {
+    const renderListItem = (data: Cardpack) => {
         return (
             <div className="p-col-12">
                 {data.name}
@@ -60,7 +60,7 @@ export const CardPackViewTable = (props: CardPackViewTableProps) => {
     }
     return (
         <DataView
-            value={cardPacks}
+            value={cardpacks}
             layout={layout}
             header={renderHeader()}
             itemTemplate={itemTemplate}

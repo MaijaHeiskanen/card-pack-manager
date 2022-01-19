@@ -1,6 +1,6 @@
-import { Deck } from './deck';
+import { Cardpack } from './cardpack';
 import { Card } from './card';
 import { User } from './user';
 import { Language } from './language';
 
-export { Deck, Card, User, Language };
+export { Cardpack, Card, User, Language };

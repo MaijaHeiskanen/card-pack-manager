@@ -73,7 +73,7 @@ export const RegisterContainer = (props: { showAccountCreatedToast: (user: User)
                 ) => {
                     setCreateAccountState(StepIndicatorTypes.SUCCESS);
                     props.showAccountCreatedToast(response.data.user);
-                    navigate(`/decks/user/${response.data.user.id}`);
+                    navigate(`/cardpacks/user/${response.data.user.id}`);
                 }
             )
             .catch((error) => {

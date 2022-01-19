@@ -1,6 +1,6 @@
 import express from 'express';
 import PingController from '../controllers/ping';
-import DeckRouter from './deck.router';
+import CardpackRouter from './cardpack.router';
 import CardRouter from './card.router';
 import UserRouter from './user.router';
 
@@ -15,7 +15,7 @@ router.get('/ping', async (_req, res) => {
 
 router.use('/cards', CardRouter);
 
-router.use('/decks', DeckRouter);
+router.use('/cardpacks', CardpackRouter);
 
 router.use('/users', UserRouter);
 

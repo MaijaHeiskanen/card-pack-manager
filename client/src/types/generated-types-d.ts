@@ -6,11 +6,11 @@ export interface Card {
     updatedAt: string; // date-time
     type: CardType;
     text: string;
-    deckId: string;
-    deck: Deck;
+    cardpackId: string;
+    cardpack: Cardpack;
 }
 export type CardType = CARDTYPESWHITE | CARDTYPESBLACK;
-export interface Deck {
+export interface Cardpack {
     id: string;
     createdAt: string; // date-time
     updatedAt: string; // date-time
@@ -21,9 +21,9 @@ export interface Deck {
 export interface ICardPayload {
     type: CardType;
     text: string;
-    deckId: string;
+    cardpackId: string;
 }
-export interface IDeckPayload {
+export interface ICardpackPayload {
     name: string;
     nsfw: boolean;
     ownerId: string;
@@ -35,7 +35,7 @@ export interface IRegisterPayload {
     tokenId: string;
     username: string;
 }
-export interface IUpdateDeckPayload {
+export interface IUpdateCardpackPayload {
     name: string;
     nsfw: boolean;
     ownerId: string;
@@ -82,11 +82,11 @@ declare namespace Components {
             updatedAt: string; // date-time
             type: CardType;
             text: string;
-            deckId: string;
-            deck: Deck;
+            cardpackId: string;
+            cardpack: Cardpack;
         }
         export type CardType = CARDTYPESWHITE | CARDTYPESBLACK;
-        export interface Deck {
+        export interface Cardpack {
             id: string;
             createdAt: string; // date-time
             updatedAt: string; // date-time
@@ -97,9 +97,9 @@ declare namespace Components {
         export interface ICardPayload {
             type: CardType;
             text: string;
-            deckId: string;
+            cardpackId: string;
         }
-        export interface IDeckPayload {
+        export interface ICardpackPayload {
             name: string;
             nsfw: boolean;
             ownerId: string;
@@ -111,7 +111,7 @@ declare namespace Components {
             tokenId: string;
             username: string;
         }
-        export interface IUpdateDeckPayload {
+        export interface IUpdateCardpackPayload {
             name: string;
             nsfw: boolean;
             ownerId: string;
@@ -156,10 +156,10 @@ declare namespace Paths {
             export type $200 = Components.Schemas.Card;
         }
     }
-    namespace CreateDeck {
-        export type RequestBody = Components.Schemas.IDeckPayload;
+    namespace CreateCardpack {
+        export type RequestBody = Components.Schemas.ICardpackPayload;
         namespace Responses {
-            export type $200 = Components.Schemas.Deck;
+            export type $200 = Components.Schemas.Cardpack;
         }
     }
     namespace GetCard {
@@ -176,12 +176,12 @@ declare namespace Paths {
                 updatedAt: string; // date-time
                 type: Components.Schemas.CardType;
                 text: string;
-                deckId: string;
-                deck: Components.Schemas.Deck;
+                cardpackId: string;
+                cardpack: Components.Schemas.Cardpack;
             } | null;
         }
     }
-    namespace GetCardsByDeckId {
+    namespace GetCardsByCardpackId {
         namespace Parameters {
             export type Id = string;
         }
@@ -192,7 +192,7 @@ declare namespace Paths {
             export type $200 = Components.Schemas.Card[];
         }
     }
-    namespace GetDeck {
+    namespace GetCardpack {
         namespace Parameters {
             export type Id = string;
         }
@@ -210,9 +210,9 @@ declare namespace Paths {
             } | null;
         }
     }
-    namespace GetDecks {
+    namespace GetCardpacks {
         namespace Responses {
-            export type $200 = Components.Schemas.Deck[];
+            export type $200 = Components.Schemas.Cardpack[];
         }
     }
     namespace GetMessage {
@@ -232,8 +232,8 @@ declare namespace Paths {
             export type $200 = Components.Schemas.IUserResponse;
         }
     }
-    namespace UpdateDeck {
-        export type RequestBody = Components.Schemas.IUpdateDeckPayload;
+    namespace UpdateCardpack {
+        export type RequestBody = Components.Schemas.IUpdateCardpackPayload;
         namespace Responses {
             export type $200 = {
                 id: string;

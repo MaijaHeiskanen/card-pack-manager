@@ -1,14 +1,14 @@
-import { CardPackViewTable } from '../components/CardPackView';
-import { Deck } from '../types/generated-types-d';
+import { CardpackViewTable } from '../components/CardpackView';
+import { Cardpack } from '../types/generated-types-d';
 
-interface CardPackViewContainerProps {
-    cardPacks: Deck[] | undefined;
+interface CardpackViewContainerProps {
+    cardpacks: Cardpack[] | undefined;
 }
 
-export const CardPackViewContainer = (props: CardPackViewContainerProps) => {
-    if (!props.cardPacks) {
+export const CardpackViewContainer = (props: CardpackViewContainerProps) => {
+    if (!props.cardpacks) {
         return <span>loading...</span>;
     }
 
-    return <CardPackViewTable cardPacks={props.cardPacks} loading={false} />;
+    return <CardpackViewTable cardpacks={props.cardpacks} loading={false} />;
 };

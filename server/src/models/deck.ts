@@ -3,7 +3,7 @@ import { Language, User } from '.';
 import { BaseModel } from './base.model';
 
 @Entity()
-export class Deck extends BaseModel {
+export class Cardpack extends BaseModel {
     @Column()
     name!: string;
 
