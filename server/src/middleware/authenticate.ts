@@ -1,14 +1,21 @@
 import envConfig from '../config/config';
 import jwt from 'jsonwebtoken';
+import { NextFunction, Request, Response } from 'express';
 
-export const authenticateToken = (req: any) => {
+export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]; // "BEARER TOKEN"
 
-    const authInfo = parse(token || '36137613789bvshbv');
+    if (!token) {
+        return next({ status: 'vituiks män', statusCode: 403 });
+    }
+
+    const authInfo = parse(token);
 
     console.log({ authInfo });
-    return authInfo;
+    req.user = authInfo;
+
+    return next();
 };
 
 const parse = (token: string) => {

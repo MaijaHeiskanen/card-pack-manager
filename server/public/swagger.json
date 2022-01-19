@@ -219,10 +219,10 @@
 					"text": {
 						"type": "string"
 					},
-					"deckId": {
+					"cardpackId": {
 						"type": "string"
 					},
-					"deck": {
+					"cardpack": {
 						"$ref": "#/components/schemas/Cardpack"
 					}
 				},
@@ -232,8 +232,8 @@
 					"updatedAt",
 					"type",
 					"text",
-					"deckId",
-					"deck"
+					"cardpackId",
+					"cardpack"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -246,14 +246,14 @@
 					"text": {
 						"type": "string"
 					},
-					"deckId": {
+					"cardpackId": {
 						"type": "string"
 					}
 				},
 				"required": [
 					"type",
 					"text",
-					"deckId"
+					"cardpackId"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -385,7 +385,7 @@
 				"parameters": []
 			}
 		},
-		"/decks": {
+		"/cardpacks": {
 			"get": {
 				"operationId": "GetCardpacks",
 				"responses": {
@@ -440,7 +440,7 @@
 				}
 			}
 		},
-		"/decks/id": {
+		"/cardpacks/id": {
 			"post": {
 				"operationId": "UpdateCardpack",
 				"responses": {
@@ -477,7 +477,7 @@
 				}
 			}
 		},
-		"/decks/{id}": {
+		"/cardpacks/{id}": {
 			"get": {
 				"operationId": "GetCardpack",
 				"responses": {
@@ -581,7 +581,7 @@
 				]
 			}
 		},
-		"/cards/deck/{id}": {
+		"/cards/cardpack/{id}": {
 			"get": {
 				"operationId": "GetCardsByCardpackId",
 				"responses": {

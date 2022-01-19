@@ -19,7 +19,7 @@
         "pageNotFound": "Sivua ei löydy",
         "register": "Rekisteröidy",
         "registerInfo": "Kirjaudu Google-tililläsi ja valitse käyttäjänimi, joka näytetään pakkojesi yhteydessä.",
-        "returnToSearchDecks": "Palaa etsimään pakkoja",
+        "returnToSearchCardpacks": "Palaa etsimään pakkoja",
         "search": "Etsi",
         "somethingWentWrongTryAgain": "Jotain meni pieleen. Yritä uudestaan.",
         "step_number": "Vaihe {{number}}",

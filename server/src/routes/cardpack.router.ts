@@ -4,7 +4,7 @@ import { authenticateToken } from '../middleware/authenticate';
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', authenticateToken, async (req, res) => {
     const controller = new CardpackController();
 
     try {
@@ -18,8 +18,8 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.post('/', async (req, res) => {
-    authenticateToken(req);
+router.post('/', authenticateToken, async (req, res) => {
+    // authenticateToken(req);
     const controller = new CardpackController();
     const response = await controller.createCardpack(req.body);
 

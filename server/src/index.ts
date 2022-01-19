@@ -1,5 +1,5 @@
 import envConfig from './config/config';
-import express, { Application } from 'express';
+import express, { Application, ErrorRequestHandler } from 'express';
 import morgan from 'morgan';
 import swaggerUi from 'swagger-ui-express';
 
@@ -31,6 +31,14 @@ app.use(
 );
 
 app.use(Router);
+
+const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+    console.error(err);
+
+    return res.sendStatus(err.statusCode);
+};
+
+app.use(errorHandler);
 
 createConnection(dbConfig)
     .then(async (_connection) => {
