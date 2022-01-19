@@ -42,6 +42,7 @@ export interface IUpdateUserPayload {
 }
 
 export const loginUser = async (payload: ILoginPayload): Promise<LoggedIn> => {
+    console.log({ tokenId: payload.tokenId });
     const { tokenId } = payload;
     const client = new OAuth2Client(envConfig.GOOGLE_CLIENT_ID);
 

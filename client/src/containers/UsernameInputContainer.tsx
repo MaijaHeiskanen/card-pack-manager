@@ -12,15 +12,15 @@ interface UsernameInputContainerProps {
     onEmpty?: () => void;
 }
 
-export const UsernameInputContainer = (props: UsernameInputContainerProps) => {
+export const UsernameInputContainer = ({ onValidValue, onLoading, onEmpty, onError }: UsernameInputContainerProps) => {
     const { t } = useTranslation();
-    const [errorMessage, setErrorMessage] = useState<string>('');
-    const [username, setUsername] = useState<string>('');
-    const debouncedUsername = useDebounce<string>(username, 1000);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [username, setUsername] = useState('');
+    const debouncedUsername = useDebounce(username, 1000);
 
     useEffect(() => {
         if (debouncedUsername.length === 0) {
-            if (props.onEmpty) props.onEmpty();
+            if (onEmpty) onEmpty();
 
             setErrorMessage('');
 
@@ -35,29 +35,28 @@ export const UsernameInputContainer = (props: UsernameInputContainerProps) => {
                 console.log({ response });
 
                 if (response.data.valid) {
-                    props.onValidValue(debouncedUsername);
+                    onValidValue(debouncedUsername);
                     setErrorMessage('');
 
                     return;
                 }
 
                 setErrorMessage(mapErrorStatusToText(response.data.status));
-                if (props.onError) props.onError(response.data);
+                if (onError) onError(response.data);
             })
             .catch((error) => {
-                if (props.onError) props.onError(error);
+                if (onError) onError(error);
                 setErrorMessage(t('somethingWentWrongTryAgain'));
                 console.log({ error });
             });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [debouncedUsername]);
+    }, [debouncedUsername, onValidValue, onEmpty, onError, t]);
 
     const usernameChanged = (event: ChangeEvent<HTMLInputElement>) => {
         const newValue = event.target.value;
 
         setUsername(newValue);
 
-        if (props.onLoading) props.onLoading();
+        if (onLoading) onLoading();
     };
 
     return <UsernameInput value={username} onChange={usernameChanged} errorMessage={errorMessage} />;

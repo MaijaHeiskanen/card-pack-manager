@@ -15,8 +15,12 @@ export interface Cardpack {
     createdAt: string; // date-time
     updatedAt: string; // date-time
     name: string;
-    ownerId: string;
+    description: string;
     nsfw: boolean;
+    userId: string;
+    user: User;
+    languageCode: string;
+    language: Language;
 }
 export interface ICardPayload {
     type: CardType;
@@ -25,8 +29,10 @@ export interface ICardPayload {
 }
 export interface ICardpackPayload {
     name: string;
+    description: string;
     nsfw: boolean;
-    ownerId: string;
+    userId: string;
+    languageCode: string;
 }
 export interface ILoginPayload {
     tokenId: string;
@@ -37,8 +43,10 @@ export interface IRegisterPayload {
 }
 export interface IUpdateCardpackPayload {
     name: string;
+    description: string;
     nsfw: boolean;
-    ownerId: string;
+    userId: string;
+    languageCode: string;
     id: string;
 }
 export interface IUserResponse {
@@ -60,6 +68,11 @@ export interface IValidateTokenIdPayload {
 }
 export interface IValidateUsernamePayload {
     username: string;
+}
+export interface Language {
+    code: string;
+    name: string;
+    native: string;
 }
 export interface PingResponse {
     message: string;
@@ -91,8 +104,12 @@ declare namespace Components {
             createdAt: string; // date-time
             updatedAt: string; // date-time
             name: string;
-            ownerId: string;
+            description: string;
             nsfw: boolean;
+            userId: string;
+            user: User;
+            languageCode: string;
+            language: Language;
         }
         export interface ICardPayload {
             type: CardType;
@@ -101,8 +118,10 @@ declare namespace Components {
         }
         export interface ICardpackPayload {
             name: string;
+            description: string;
             nsfw: boolean;
-            ownerId: string;
+            userId: string;
+            languageCode: string;
         }
         export interface ILoginPayload {
             tokenId: string;
@@ -113,8 +132,10 @@ declare namespace Components {
         }
         export interface IUpdateCardpackPayload {
             name: string;
+            description: string;
             nsfw: boolean;
-            ownerId: string;
+            userId: string;
+            languageCode: string;
             id: string;
         }
         export interface IUserResponse {
@@ -136,6 +157,11 @@ declare namespace Components {
         }
         export interface IValidateUsernamePayload {
             username: string;
+        }
+        export interface Language {
+            code: string;
+            name: string;
+            native: string;
         }
         export interface PingResponse {
             message: string;
@@ -181,17 +207,6 @@ declare namespace Paths {
             } | null;
         }
     }
-    namespace GetCardsByCardpackId {
-        namespace Parameters {
-            export type Id = string;
-        }
-        export interface PathParameters {
-            id: Parameters.Id;
-        }
-        namespace Responses {
-            export type $200 = Components.Schemas.Card[];
-        }
-    }
     namespace GetCardpack {
         namespace Parameters {
             export type Id = string;
@@ -205,14 +220,29 @@ declare namespace Paths {
                 createdAt: string; // date-time
                 updatedAt: string; // date-time
                 name: string;
-                ownerId: string;
+                description: string;
                 nsfw: boolean;
+                userId: string;
+                user: Components.Schemas.User;
+                languageCode: string;
+                language: Components.Schemas.Language;
             } | null;
         }
     }
     namespace GetCardpacks {
         namespace Responses {
             export type $200 = Components.Schemas.Cardpack[];
+        }
+    }
+    namespace GetCardsByCardpackId {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        namespace Responses {
+            export type $200 = Components.Schemas.Card[];
         }
     }
     namespace GetMessage {
@@ -240,8 +270,12 @@ declare namespace Paths {
                 createdAt: string; // date-time
                 updatedAt: string; // date-time
                 name: string;
-                ownerId: string;
+                description: string;
                 nsfw: boolean;
+                userId: string;
+                user: Components.Schemas.User;
+                languageCode: string;
+                language: Components.Schemas.Language;
             } | null;
         }
     }
