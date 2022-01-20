@@ -1,8 +1,10 @@
-import axios, { AxiosResponse } from 'axios';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { AxiosResponse } from 'axios';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UsernameInput } from '../components/UsernameInput';
 import useDebounce from '../hooks/useDebounce';
+import useService from '../hooks/useService';
+import { UserService } from '../services/UserService';
 import mapErrorStatusToText from '../statusHelpers/mapErrorStatusToText';
 
 interface UsernameInputContainerProps {
@@ -14,9 +16,33 @@ interface UsernameInputContainerProps {
 
 export const UsernameInputContainer = ({ onValidValue, onLoading, onEmpty, onError }: UsernameInputContainerProps) => {
     const { t } = useTranslation();
+    const service = useService(new UserService());
     const [errorMessage, setErrorMessage] = useState('');
     const [username, setUsername] = useState('');
     const debouncedUsername = useDebounce(username, 1000);
+
+    const usernameValidated = useCallback(
+        (response: AxiosResponse) => {
+            if (response.data.valid) {
+                onValidValue(debouncedUsername);
+                setErrorMessage('');
+
+                return;
+            }
+
+            setErrorMessage(mapErrorStatusToText(response.data.status));
+            if (onError) onError(response.data);
+        },
+        [debouncedUsername, onValidValue, onError]
+    );
+
+    const usernameValidationError = useCallback(
+        (error: any) => {
+            if (onError) onError(error);
+            setErrorMessage(t('somethingWentWrongTryAgain'));
+        },
+        [onError, t]
+    );
 
     useEffect(() => {
         if (debouncedUsername.length === 0) {
@@ -27,29 +53,8 @@ export const UsernameInputContainer = ({ onValidValue, onLoading, onEmpty, onErr
             return;
         }
 
-        axios
-            .post('/users/register/validate/username', {
-                username: debouncedUsername,
-            })
-            .then((response: AxiosResponse<{ valid: boolean; status: string }>) => {
-                console.log({ response });
-
-                if (response.data.valid) {
-                    onValidValue(debouncedUsername);
-                    setErrorMessage('');
-
-                    return;
-                }
-
-                setErrorMessage(mapErrorStatusToText(response.data.status));
-                if (onError) onError(response.data);
-            })
-            .catch((error) => {
-                if (onError) onError(error);
-                setErrorMessage(t('somethingWentWrongTryAgain'));
-                console.log({ error });
-            });
-    }, [debouncedUsername, onValidValue, onEmpty, onError, t]);
+        service.validateUsername({ username: debouncedUsername }, usernameValidated, usernameValidationError);
+    }, [debouncedUsername, onValidValue, onEmpty, onError, t, usernameValidated, usernameValidationError, service]);
 
     const usernameChanged = (event: ChangeEvent<HTMLInputElement>) => {
         const newValue = event.target.value;

@@ -6,11 +6,12 @@ import { InfoText } from '../components/InfoText';
 import { Title } from '../components/Title';
 import { GoogleLoginContainer } from '../containers/GoogleLoginContainer';
 import { UserService } from '../services/UserService';
+import useService from '../hooks/useService';
 
 export const LoginContainer = () => {
     const { t } = useTranslation();
+    const service = useService(new UserService());
     const navigate = useNavigate();
-    const service = new UserService();
 
     const loginSuccessCallback = (response: AxiosResponse) => {
         console.log({ response });

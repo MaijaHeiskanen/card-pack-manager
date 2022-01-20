@@ -7,13 +7,16 @@ import { InfoText } from '../components/InfoText';
 import { StepIndicatorTypes } from '../components/StepIndicator';
 import { StepWrapper } from '../components/StepWrapper';
 import { Title } from '../components/Title';
+import { UserService } from '../services/UserService';
 import mapErrorStatusToText from '../statusHelpers/mapErrorStatusToText';
 import { User } from '../types/generated-types-d';
 import { GoogleLoginContainer } from './GoogleLoginContainer';
 import { UsernameInputContainer } from './UsernameInputContainer';
+import useService from '../hooks/useService';
 
 export const RegisterContainer = (props: { showAccountCreatedToast: (user: User) => void }) => {
     const { t } = useTranslation();
+    const service = useService(new UserService());
     const navigate = useNavigate();
 
     const [username, setUsername] = useState<string>('');
@@ -23,6 +26,23 @@ export const RegisterContainer = (props: { showAccountCreatedToast: (user: User)
     const [googleLoginError, setGoogleLoginError] = useState<string>('');
     const [createAccountState, setCreateAccountState] = useState<StepIndicatorTypes>(StepIndicatorTypes.NEUTRAL);
 
+    const tokenIdValidated = (response: AxiosResponse<{ valid: boolean; status: string }>) => {
+        if (response.data.valid) {
+            setGoogleLoginError('');
+            setGoogleLoginState(StepIndicatorTypes.SUCCESS);
+
+            return;
+        }
+
+        setGoogleLoginError(mapErrorStatusToText(response.data.status));
+        setGoogleLoginState(StepIndicatorTypes.ERROR);
+    };
+
+    const tokenIdValidationError = (err: any) => {
+        setGoogleLoginError(t('somethingWentWrongTryAgain'));
+        setGoogleLoginState(StepIndicatorTypes.ERROR);
+    };
+
     const handleGoogleLogin = (data: any) => {
         console.log({ googleData: data });
 
@@ -31,25 +51,7 @@ export const RegisterContainer = (props: { showAccountCreatedToast: (user: User)
         if (data.tokenId) {
             setGoogleLoginState(StepIndicatorTypes.LOADING);
 
-            axios
-                .post('/users/register/validate/tokenId', {
-                    tokenId: data.tokenId,
-                })
-                .then((response: AxiosResponse<{ valid: boolean; status: string }>) => {
-                    if (response.data.valid) {
-                        setGoogleLoginError('');
-                        setGoogleLoginState(StepIndicatorTypes.SUCCESS);
-
-                        return;
-                    }
-
-                    setGoogleLoginError(mapErrorStatusToText(response.data.status));
-                    setGoogleLoginState(StepIndicatorTypes.ERROR);
-                })
-                .catch((error) => {
-                    setGoogleLoginError(t('somethingWentWrongTryAgain'));
-                    setGoogleLoginState(StepIndicatorTypes.ERROR);
-                });
+            service.validateTokenId({ tokenId: data.tokenId }, tokenIdValidated, tokenIdValidationError);
         } else {
             setGoogleLoginError(t('googleLoginFailed'));
             setGoogleLoginState(StepIndicatorTypes.ERROR);
