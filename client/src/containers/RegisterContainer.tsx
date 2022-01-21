@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { Button } from 'primereact/button';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -13,11 +13,14 @@ import { User } from '../types/generated-types-d';
 import { GoogleLoginContainer } from './GoogleLoginContainer';
 import { UsernameInputContainer } from './UsernameInputContainer';
 import useService from '../hooks/useService';
+import { setAccessToken } from '../auth/localstoragehelpers';
+import { useUserContext } from '../contexts/userContext';
 
 export const RegisterContainer = (props: { showAccountCreatedToast: (user: User) => void }) => {
     const { t } = useTranslation();
     const service = useService(new UserService());
     const navigate = useNavigate();
+    const { setUser } = useUserContext();
 
     const [username, setUsername] = useState<string>('');
     const [googleData, setGoogleData] = useState<any>();
@@ -44,8 +47,6 @@ export const RegisterContainer = (props: { showAccountCreatedToast: (user: User)
     };
 
     const handleGoogleLogin = (data: any) => {
-        console.log({ googleData: data });
-
         setGoogleData(data);
 
         if (data.tokenId) {
@@ -58,30 +59,22 @@ export const RegisterContainer = (props: { showAccountCreatedToast: (user: User)
         }
     };
 
+    const accountCreated = (response: AxiosResponse) => {
+        setCreateAccountState(StepIndicatorTypes.SUCCESS);
+        props.showAccountCreatedToast(response.data.user);
+        navigate(`/user/${response.data.user.id}/cardpacks`);
+        setAccessToken(response.data.accessToken);
+        setUser(response.data.user);
+    };
+
+    const accountCreationError = (error: any) => {
+        setCreateAccountState(StepIndicatorTypes.ERROR);
+    };
+
     const createAccount = () => {
         setCreateAccountState(StepIndicatorTypes.LOADING);
 
-        axios
-            .post('/users/register', {
-                tokenId: googleData.tokenId,
-                username,
-            })
-            .then(
-                (
-                    response: AxiosResponse<{
-                        user: User;
-                        accessToken: string;
-                    }>
-                ) => {
-                    setCreateAccountState(StepIndicatorTypes.SUCCESS);
-                    props.showAccountCreatedToast(response.data.user);
-                    navigate(`/cardpacks/user/${response.data.user.id}`);
-                }
-            )
-            .catch((error) => {
-                setCreateAccountState(StepIndicatorTypes.ERROR);
-                console.log({ error });
-            });
+        service.register({ tokenId: googleData.tokenId, username }, accountCreated, accountCreationError);
     };
 
     const usernameChangedValid = useCallback((validUsername: string) => {

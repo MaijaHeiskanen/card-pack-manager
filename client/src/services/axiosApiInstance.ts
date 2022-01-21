@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getAccessToken } from '../auth/accessTokenHelpers';
+import { getAccessToken } from '../auth/localstoragehelpers';
 
 const axiosApiInstance = axios.create();
 

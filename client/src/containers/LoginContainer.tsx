@@ -1,23 +1,24 @@
 import { AxiosResponse } from 'axios';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { setAccessToken } from '../auth/accessTokenHelpers';
+import { setAccessToken } from '../auth/localstoragehelpers';
 import { InfoText } from '../components/InfoText';
 import { Title } from '../components/Title';
 import { GoogleLoginContainer } from '../containers/GoogleLoginContainer';
 import { UserService } from '../services/UserService';
 import useService from '../hooks/useService';
+import { useUserContext } from '../contexts/userContext';
 
 export const LoginContainer = () => {
     const { t } = useTranslation();
     const service = useService(new UserService());
     const navigate = useNavigate();
+    const { setUser } = useUserContext();
 
     const loginSuccessCallback = (response: AxiosResponse) => {
-        console.log({ response });
-
-        navigate(`/cardpacks/user/${response.data.user.id}`);
         setAccessToken(response.data.accessToken);
+        setUser(response.data.user);
+        navigate(`/user/${response.data.user.id}/cardpacks`);
     };
 
     const loginErrorCallback = (err: any) => {

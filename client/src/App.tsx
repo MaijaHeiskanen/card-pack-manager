@@ -19,13 +19,19 @@ import { Cardpack, User } from './types/generated-types-d';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { AppWrapper } from './wrappers/AppWrapper';
 import axios from 'axios';
+import { UserContextProvider } from './contexts/userContext';
+import { LOCAL_STORAGE_FIELD } from './auth/localstoragehelpers';
+import useLocalStorage from './hooks/useLocalStorage';
 
 function App() {
     const { t } = useTranslation();
 
     const accountCreatedToast = useRef<null | any>(null);
 
-    // Keep global state for cardpacks, no need to reload everytime and now they are usable in all components
+    // User that has been logged in.
+    const [user, setUser] = useLocalStorage<User | null>(LOCAL_STORAGE_FIELD.USER, null);
+
+    // Keep global state for cardpacks, no need to reload everytime and now they are usable in all components.
     const [cardpacks, setCardpacks] = useState<Cardpack[] | undefined>();
 
     useEffect(() => {
@@ -47,22 +53,24 @@ function App() {
 
     return (
         <div className="h-full w-full">
-            <Toast ref={accountCreatedToast} position="top-right" />
-            <Router>
-                <Header />
-                <NavigationTree cardpacks={cardpacks} />
-                <AppWrapper>
-                    <Routes>
-                        <Route path="/cardpack/:cardpackID" element={<CardpackPage />} />
-                        <Route
-                            path="/login"
-                            element={<LoginPage showAccountCreatedToast={showAccountCreatedToast} />}
-                        />
-                        <Route path="/" element={<SearchPage cardpacks={cardpacks} />} />
-                        <Route path="*" element={<NotFoundPage />} />
-                    </Routes>
-                </AppWrapper>
-            </Router>
+            <UserContextProvider value={{ user, setUser }}>
+                <Toast ref={accountCreatedToast} position="top-right" />
+                <Router>
+                    <Header />
+                    <NavigationTree cardpacks={cardpacks} />
+                    <AppWrapper>
+                        <Routes>
+                            <Route path="/cardpack/:cardpackID" element={<CardpackPage />} />
+                            <Route
+                                path="/login"
+                                element={<LoginPage showAccountCreatedToast={showAccountCreatedToast} />}
+                            />
+                            <Route path="/" element={<SearchPage cardpacks={cardpacks} />} />
+                            <Route path="*" element={<NotFoundPage />} />
+                        </Routes>
+                    </AppWrapper>
+                </Router>
+            </UserContextProvider>
         </div>
     );
 }
