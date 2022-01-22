@@ -1,40 +1,28 @@
 import { IUpdateCardpackPayload } from '../../repositories/cardpack.repository';
+import { addZeros4 } from './getMockCards';
 
 export default function getMockCardpacks() {
-    const cardpacks: IUpdateCardpackPayload[] = [
+    const AMOUNT_OF_CARDPACKS = 100;
+    const cardpacks = [
         {
             id: '619d8fb9-e580-45f8-ae7b-c2ae07000001',
-            name: 'Testipakka 1',
-            description: 'Testipakka ykkösen kuvaus',
-            userId: '29c01432-65fb-4eb9-95e0-150a331efe5c',
-            nsfw: true,
-            languageCode: 'fi',
-        },
-        {
-            id: '619d8fb9-e580-45f8-ae7b-c2ae07000002',
-            name: 'Testipakka 2',
-            description: '',
-            userId: '29c01432-65fb-4eb9-95e0-150a331efe5c',
-            nsfw: true,
-            languageCode: 'fi',
-        },
-        {
-            id: '619d8fb9-e580-45f8-ae7b-c2ae07000003',
-            name: 'Testipakka 3',
-            description: '',
-            userId: '29c01432-65fb-4eb9-95e0-150a331efe5c',
-            nsfw: false,
-            languageCode: 'fi',
-        },
-        {
-            id: '619d8fb9-e580-45f8-ae7b-c2ae07000004',
-            name: 'Testipakka 4',
-            description: '',
-            userId: '29c01432-65fb-4eb9-95e0-150a331efe5c',
+            name: `Testipakka 1`,
+            description: 'Ekan testipakan kuvaus. Tää on eri käyttäjän kuin muut.',
+            userId: '29c01432-65fb-4eb9-95e0-150a331efe5d',
             nsfw: true,
             languageCode: 'fi',
         },
     ];
 
+    for (let i = 2, len = AMOUNT_OF_CARDPACKS + 1; i < len; i++) {
+        cardpacks.push({
+            id: `619d8fb9-e580-45f8-ae7b-c2ae0700${addZeros4(i)}`,
+            name: `Testipakka ${i}`,
+            description: 'Testipakan kuvaus',
+            userId: '29c01432-65fb-4eb9-95e0-150a331efe5c',
+            nsfw: true,
+            languageCode: 'fi',
+        });
+    }
     return cardpacks;
 }

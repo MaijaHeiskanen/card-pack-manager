@@ -33,15 +33,15 @@ const setUserData = async () => {
 };
 
 const setCardpackData = async () => {
-    const userRepository = getRepository(User);
+    // const userRepository = getRepository(User);
 
-    const user = await userRepository.find();
+    // const user = await userRepository.find();
     const mockCardpackData = getMockCardpacks();
 
     const promises = mockCardpackData.map((cardpack) => {
-        if (user[0]) {
-            cardpack.userId = user[0].id;
-        }
+        // if (user[0]) {
+        //     cardpack.userId = user[0].id;
+        // }
         return createCardpack(cardpack);
     });
 

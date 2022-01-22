@@ -12,6 +12,11 @@ export default function getMockUsers() {
             email: 'tester.1@email.com',
             username: 'Tester1',
         },
+        {
+            id: '29c01432-65fb-4eb9-95e0-150a331efe5d',
+            email: 'tester.2@email.com',
+            username: 'ToinenTestaaja',
+        },
     ];
 
     return cardpacks;
