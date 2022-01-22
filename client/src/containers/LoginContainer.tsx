@@ -18,7 +18,7 @@ export const LoginContainer = () => {
     const loginSuccessCallback = (response: AxiosResponse) => {
         setAccessToken(response.data.accessToken);
         setUser(response.data.user);
-        navigate(`/user/${response.data.user.id}/cardpacks`);
+        navigate(`/users/${response.data.user.id}/cardpacks`);
     };
 
     const loginErrorCallback = (err: any) => {

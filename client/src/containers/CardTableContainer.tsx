@@ -10,7 +10,8 @@ type CardTableContainerProps = {
 export const CardTableContainer = (props: CardTableContainerProps) => {
     const { cardpackID } = props;
     const [cardpack, setCardpack] = useState<Cardpack>();
-    const [cards, setCards] = useState<Card[]>();
+    const [whiteCards, setWhiteCards] = useState<Card[]>([]);
+    const [blackCards, setBlackCards] = useState<Card[]>([]);
 
     useEffect(() => {
         axios.get(`/cardpacks/${cardpackID}`).then((response) => {
@@ -24,17 +25,19 @@ export const CardTableContainer = (props: CardTableContainerProps) => {
         axios.get(`/cards/cardpack/${cardpackID}`).then((response) => {
             console.log('/cards/cardpack/', response.data);
 
-            setCards(response.data);
+            setWhiteCards(response.data.whiteCards);
+            setBlackCards(response.data.blackCards);
         });
     }, []);
 
-    if (!cardpackID || !cards || !cardpack) {
+    if (!cardpackID || !cardpack) {
         return <span>loading...</span>;
     }
 
-    if (cards.length === 0) {
-        return <span>This cardpack does not have any cards yet</span>;
-    }
-
-    return <CardTable cards={cards} cardpackName={cardpack.name} loading={false} />;
+    return (
+        <div>
+            <CardTable cards={whiteCards} title={'a'} loading={false} />
+            <CardTable cards={blackCards} title={'b'} loading={false} />
+        </div>
+    );
 };

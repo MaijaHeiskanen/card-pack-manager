@@ -7,14 +7,14 @@ export const NotFoundPage = () => {
     const navigate = useNavigate();
 
     const navigateToCardpackSearch = () => {
-        navigate('/cardpacks');
+        navigate('/');
     };
 
     return (
         <div className="flex flex-column">
             <div className="flex w-full justify-content-center p-8 text-4xl">{t('pageNotFound')} :(</div>
             <div className="flex w-4 justify-content-center p-8 align-self-center">
-                <Button label={t('returnToSearchCardpacks')} onClick={navigateToCardpackSearch} />
+                <Button label={t('returnToBrowseCardpacks')} onClick={navigateToCardpackSearch} />
             </div>
         </div>
     );

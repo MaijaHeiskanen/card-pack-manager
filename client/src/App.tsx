@@ -22,6 +22,7 @@ import axios from 'axios';
 import { UserContextProvider } from './contexts/userContext';
 import { LOCAL_STORAGE_FIELD } from './auth/localstoragehelpers';
 import useLocalStorage from './hooks/useLocalStorage';
+import { UserPage } from './pages/UserPage';
 
 function App() {
     const { t } = useTranslation();
@@ -54,18 +55,19 @@ function App() {
     return (
         <div className="h-full w-full">
             <UserContextProvider value={{ user, setUser }}>
-                <Toast ref={accountCreatedToast} position="top-right" />
+                <Toast ref={accountCreatedToast} position="top-right" className="mt-6" />
                 <Router>
                     <Header />
                     <NavigationTree cardpacks={cardpacks} />
                     <AppWrapper>
                         <Routes>
-                            <Route path="/cardpack/:cardpackID" element={<CardpackPage />} />
+                            <Route path="/cardpacks/:cardpackID" element={<CardpackPage />} />
                             <Route
                                 path="/login"
                                 element={<LoginPage showAccountCreatedToast={showAccountCreatedToast} />}
                             />
                             <Route path="/" element={<SearchPage cardpacks={cardpacks} />} />
+                            <Route path="/users/:userId*" element={<UserPage />} />
                             <Route path="*" element={<NotFoundPage />} />
                         </Routes>
                     </AppWrapper>

@@ -62,7 +62,7 @@ export const RegisterContainer = (props: { showAccountCreatedToast: (user: User)
     const accountCreated = (response: AxiosResponse) => {
         setCreateAccountState(StepIndicatorTypes.SUCCESS);
         props.showAccountCreatedToast(response.data.user);
-        navigate(`/user/${response.data.user.id}/cardpacks`);
+        navigate(`/users/${response.data.user.id}/cardpacks`);
         setAccessToken(response.data.accessToken);
         setUser(response.data.user);
     };

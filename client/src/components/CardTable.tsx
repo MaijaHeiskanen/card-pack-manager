@@ -3,11 +3,13 @@ import { DataTable } from 'primereact/datatable';
 type CardTableProps = {
     cards: Card[];
     loading: boolean;
-    cardpackName: string;
+    title: string;
 };
 
 export const CardTable = (props: CardTableProps) => {
-    const { cards, loading, cardpackName } = props;
+    const { cards, loading, title } = props;
 
-    return <DataTable value={cards} paginator header={<div>{cardpackName}</div>}></DataTable>;
+    console.log({ cards });
+
+    return <DataTable value={cards} paginator header={<div>{title}</div>}></DataTable>;
 };

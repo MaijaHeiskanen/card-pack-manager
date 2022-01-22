@@ -59,7 +59,7 @@ export const NavigationTree = (props: NavigationTreeProps) => {
             ];
         }
 
-        if (parts[0] === 'cardpack') {
+        if (parts[0] === 'cardpacks') {
             const cardpackId = parts[1];
             const cardpackName = getCardpackNameById(cardpackId, cardpacks);
 
@@ -72,7 +72,7 @@ export const NavigationTree = (props: NavigationTreeProps) => {
                 {
                     label: cardpackName,
                     command: navigateTo,
-                    to: `/cardpack/${cardpackId}`,
+                    to: `/cardpacks/${cardpackId}`,
                 },
             ];
         }

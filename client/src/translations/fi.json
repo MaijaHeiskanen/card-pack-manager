@@ -1,11 +1,15 @@
 {
     "common": {
         "accountCreated": "Käyttäjätili luotu",
+        "amountOfBlackCards": "Mustien korttien määrä",
+        "amountOfWhiteCards": "Valkoisten korttien määrä",
         "browse": "Selaa",
         "cardpack": "Korttipakka",
+        "cardpacks": "Korttipakat",
         "close": "Sulje",
         "createAccount": "Luo käyttäjätili",
         "createAccountInfo": "Luo käyttäjätili antamallasi käyttäjänimellä ja Google-tilillä.",
+        "description": "Kuvaus",
         "email": "Sähköposti",
         "emailNotChosen": "Sähköpostia ei ole valittu",
         "googleLoginFailed": "Google-kirjautuminen epäonnistui. Yritä uudelleen.",
@@ -17,21 +21,26 @@
         "loginWithGoogle": "Kirjaudu Google-tililläsi",
         "logOut": "Kirjaudu ulos",
         "myCardpacks": "Minun korttipakkani",
+        "name": "Nimi",
         "or": "Tai",
         "pageNotFound": "Sivua ei löydy",
         "profile": "Profiili",
         "register": "Rekisteröidy",
         "registerInfo": "Kirjaudu Google-tililläsi ja valitse käyttäjänimi, joka näytetään pakkojesi yhteydessä.",
-        "returnToSearchCardpacks": "Palaa etsimään pakkoja",
+        "returnToBrowseCardpacks": "Palaa selaamaan korttipakkoja",
         "search": "Etsi",
         "somethingWentWrongTryAgain": "Jotain meni pieleen. Yritä uudestaan.",
         "step_number": "Vaihe {{number}}",
+        "user": "Käyttäjä",
         "username": "Käyttäjänimi",
         "usernameInfo": "Valitse käyttäjänimi, joka näytetään pakkojesi yhteydessä.",
         "youHaveToSetUsernameAndGoogleAccountBeforeYouCanContinue": "Sinun täytyy antaa käyttäjänimi ja Google-tili ennen kuin voit jatkaa.",
         "error": {
             "emailAlreadyTaken": "Sähköposti on jo rekisteröity",
             "usernameAlreadyTaken": "Käyttäjänimi on jo käytössä"
+        },
+        "stringTemplate": {
+            "pageReportTemplate": "Korttipakat {first} - {last}"
         }
     }
 }

@@ -1,4 +1,4 @@
-import { CardpackViewContainer } from '../containers/CardpackViewController';
+import { CardpackListContainer } from '../containers/CardpackListContainer';
 import { Cardpack } from '../types/generated-types-d';
 
 interface SearchPageProps {
@@ -6,5 +6,5 @@ interface SearchPageProps {
 }
 
 export const SearchPage = (props: SearchPageProps) => {
-    return <CardpackViewContainer cardpacks={props.cardpacks} />;
+    return <CardpackListContainer cardpacks={props.cardpacks} />;
 };
