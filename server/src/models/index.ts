@@ -1,6 +1,7 @@
 import { Cardpack } from './cardpack';
-import { Card } from './card';
+import { BlackCard } from './blackcard';
+import { WhiteCard } from './whitecard';
 import { User } from './user';
 import { Language } from './language';
 
-export { Cardpack, Card, User, Language };
+export { Cardpack, BlackCard, WhiteCard, User, Language };

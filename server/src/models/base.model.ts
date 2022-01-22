@@ -4,9 +4,9 @@ export abstract class BaseModel {
     @PrimaryGeneratedColumn('uuid')
     id!: string;
 
-    @CreateDateColumn()
+    @CreateDateColumn({ select: false })
     createdAt!: Date;
 
-    @UpdateDateColumn()
+    @UpdateDateColumn({ select: false })
     updatedAt!: Date;
 }

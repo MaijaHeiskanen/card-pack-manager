@@ -68,6 +68,28 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"CARDTYPES.WHITE": {
+				"enum": [
+					"white"
+				],
+				"type": "string"
+			},
+			"CARDTYPES.BLACK": {
+				"enum": [
+					"black"
+				],
+				"type": "string"
+			},
+			"CardType": {
+				"anyOf": [
+					{
+						"$ref": "#/components/schemas/CARDTYPES.WHITE"
+					},
+					{
+						"$ref": "#/components/schemas/CARDTYPES.BLACK"
+					}
+				]
+			},
 			"Cardpack": {
 				"properties": {
 					"id": {
@@ -101,6 +123,18 @@
 					},
 					"language": {
 						"$ref": "#/components/schemas/Language"
+					},
+					"blackCards": {
+						"items": {
+							"$ref": "#/components/schemas/BlackCard"
+						},
+						"type": "array"
+					},
+					"whiteCards": {
+						"items": {
+							"$ref": "#/components/schemas/WhiteCard"
+						},
+						"type": "array"
 					}
 				},
 				"required": [
@@ -113,7 +147,85 @@
 					"userId",
 					"user",
 					"languageCode",
-					"language"
+					"language",
+					"blackCards",
+					"whiteCards"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BlackCard": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"type": {
+						"$ref": "#/components/schemas/CardType"
+					},
+					"text": {
+						"type": "string"
+					},
+					"cardpackId": {
+						"type": "string"
+					},
+					"cardpack": {
+						"$ref": "#/components/schemas/Cardpack"
+					}
+				},
+				"required": [
+					"id",
+					"createdAt",
+					"updatedAt",
+					"type",
+					"text",
+					"cardpackId",
+					"cardpack"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"WhiteCard": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"type": {
+						"$ref": "#/components/schemas/CardType"
+					},
+					"text": {
+						"type": "string"
+					},
+					"cardpackId": {
+						"type": "string"
+					},
+					"cardpack": {
+						"$ref": "#/components/schemas/Cardpack"
+					}
+				},
+				"required": [
+					"id",
+					"createdAt",
+					"updatedAt",
+					"type",
+					"text",
+					"cardpackId",
+					"cardpack"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -178,28 +290,6 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"CARDTYPES.WHITE": {
-				"enum": [
-					"white"
-				],
-				"type": "string"
-			},
-			"CARDTYPES.BLACK": {
-				"enum": [
-					"black"
-				],
-				"type": "string"
-			},
-			"CardType": {
-				"anyOf": [
-					{
-						"$ref": "#/components/schemas/CARDTYPES.WHITE"
-					},
-					{
-						"$ref": "#/components/schemas/CARDTYPES.BLACK"
-					}
-				]
-			},
 			"Card": {
 				"properties": {
 					"id": {
@@ -221,9 +311,6 @@
 					},
 					"cardpackId": {
 						"type": "string"
-					},
-					"cardpack": {
-						"$ref": "#/components/schemas/Cardpack"
 					}
 				},
 				"required": [
@@ -232,8 +319,7 @@
 					"updatedAt",
 					"type",
 					"text",
-					"cardpackId",
-					"cardpack"
+					"cardpackId"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -254,6 +340,28 @@
 					"type",
 					"text",
 					"cardpackId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CardsOfCardpack": {
+				"properties": {
+					"whiteCards": {
+						"items": {
+							"$ref": "#/components/schemas/WhiteCard"
+						},
+						"type": "array"
+					},
+					"blackCards": {
+						"items": {
+							"$ref": "#/components/schemas/BlackCard"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"whiteCards",
+					"blackCards"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -590,10 +698,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/Card"
-									},
-									"type": "array"
+									"$ref": "#/components/schemas/CardsOfCardpack"
 								}
 							}
 						}

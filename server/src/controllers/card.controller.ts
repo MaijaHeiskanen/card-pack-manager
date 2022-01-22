@@ -1,7 +1,12 @@
 import { Get, Route, Tags, Post, Body, Path } from 'tsoa';
-import { CannotAttachTreeChildrenEntityError } from 'typeorm';
-import { Card } from '../models';
-import { getCard, createCard, ICardPayload, getCardsByCardpackId } from '../repositories/card.repository';
+import {
+    getCard,
+    createCard,
+    ICardPayload,
+    getCardsByCardpackId,
+    Card,
+    CardsOfCardpack,
+} from '../repositories/card.repository';
 
 @Route('cards')
 @Tags('Card')
@@ -17,7 +22,7 @@ export default class CardController {
     }
 
     @Get('/cardpack/:id')
-    public async getCardsByCardpackId(@Path() id: string): Promise<Card[]> {
+    public async getCardsByCardpackId(@Path() id: string): Promise<CardsOfCardpack> {
         return getCardsByCardpackId(id);
     }
 }

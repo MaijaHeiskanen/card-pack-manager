@@ -1,8 +1,7 @@
-import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column } from 'typeorm';
 import { CardType } from '../types/card';
 import { CARDTYPES } from '../types/enums/card';
 import { BaseModel } from './base.model';
-import { Cardpack } from './cardpack';
 
 @Entity()
 export class Card extends BaseModel {
@@ -17,8 +16,4 @@ export class Card extends BaseModel {
 
     @Column()
     cardpackId!: string;
-
-    @ManyToOne(() => Cardpack)
-    // @JoinColumn()
-    cardpack!: Cardpack;
 }

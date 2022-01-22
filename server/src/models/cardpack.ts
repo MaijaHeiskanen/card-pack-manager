@@ -1,5 +1,5 @@
-import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
-import { Language, User } from '.';
+import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
+import { BlackCard, WhiteCard, Language, User } from '.';
 import { BaseModel } from './base.model';
 
 @Entity()
@@ -26,4 +26,10 @@ export class Cardpack extends BaseModel {
     @ManyToOne(() => Language)
     @JoinColumn()
     language!: Language;
+
+    @OneToMany(() => BlackCard, (blackCard) => blackCard.cardpack)
+    blackCards!: BlackCard[];
+
+    @OneToMany(() => WhiteCard, (whiteCard) => whiteCard.cardpack)
+    whiteCards!: WhiteCard[];
 }

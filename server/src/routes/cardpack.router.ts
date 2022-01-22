@@ -12,6 +12,7 @@ router.get('/', async (req, res) => {
 
         return res.status(200).send(response);
     } catch (err) {
+        console.error(err);
         // if (err instanceof UserError) {
         //     return res.status(401).send({ message: err.message, type: err.type });
         // }
