@@ -44,6 +44,12 @@ export const Header = () => {
 
     if (user) {
         menuItems.push({
+            label: t('myCardpacks'),
+            icon: PrimeIcons.STAR,
+            command: navigateTo,
+            to: `/users/${user.id}/cardpacks`,
+        });
+        menuItems.push({
             label: user.username,
             icon: PrimeIcons.USER,
             items: [
