@@ -29,7 +29,7 @@ export default class CardpackController {
     }
 
     @Get('/:id')
-    public async getCardpack(@Path() id: string): Promise<Cardpack | null> {
+    public async getCardpack(@Path() id: string): Promise<Cardpack[] | null> {
         return getCardpack(id);
     }
 }

@@ -18,14 +18,17 @@ import { Toast } from 'primereact/toast';
 import { Cardpack, User } from './types/generated-types-d';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { AppWrapper } from './wrappers/AppWrapper';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { UserContextProvider } from './contexts/userContext';
 import { LOCAL_STORAGE_FIELD } from './auth/localstoragehelpers';
 import useLocalStorage from './hooks/useLocalStorage';
 import { UserPage } from './pages/UserPage';
+import useService from './hooks/useService';
+import { CardpackService } from './services/CardpackService';
 
 function App() {
     const { t } = useTranslation();
+    const cardpackService = useService(new CardpackService());
 
     const accountCreatedToast = useRef<null | any>(null);
 
@@ -35,13 +38,17 @@ function App() {
     // Keep global state for cardpacks, no need to reload everytime and now they are usable in all components.
     const [cardpacks, setCardpacks] = useState<Cardpack[] | undefined>();
 
-    useEffect(() => {
-        axios.get(`/cardpacks`).then((response) => {
-            console.log('/cardpacks/', response.data);
+    const setCardpacksSuccess = (response: AxiosResponse<Cardpack[]>) => {
+        setCardpacks(response.data);
+    };
 
-            setCardpacks(response.data);
-        });
-    }, []);
+    const setCardpacksError = (error: any) => {
+        console.error(error);
+    };
+
+    useEffect(() => {
+        cardpackService.get([], setCardpacksSuccess, setCardpacksError);
+    }, [cardpackService]);
 
     const showAccountCreatedToast = (user: User) => {
         accountCreatedToast.current.show({

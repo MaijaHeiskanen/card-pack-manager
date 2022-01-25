@@ -101,15 +101,15 @@ export const createCardpack = async (payload: ICardpackPayload): Promise<Cardpac
     });
 };
 
-export const getCardpack = async (id: string): Promise<Cardpack | null> => {
+export const getCardpack = async (id: string): Promise<Cardpack[] | null> => {
     const cardpackRepository = getRepository(Cardpack);
-    const cardpack = await cardpackRepository.findOne({ id });
+    const cardpack = await cardpackRepository.findOne(id, { relations: ['whiteCards', 'blackCards', 'user'] });
 
     if (!cardpack) {
         return null;
     }
 
-    return cardpack;
+    return [cardpack];
 };
 
 export const updateCardpack = async (payload: IUpdateCardpackPayload): Promise<Cardpack | null> => {

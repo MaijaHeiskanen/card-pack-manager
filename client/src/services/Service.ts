@@ -10,7 +10,7 @@ export class Service<T> {
 
     public get = (
         urlParams: string[],
-        successCallback: (response: AxiosResponse) => void,
+        successCallback: (response: AxiosResponse<T[]>) => void,
         errorCallback?: (reason: any) => void
     ) => {
         let url = this.url;
@@ -21,7 +21,7 @@ export class Service<T> {
 
         axiosApiInstance
             .get(url)
-            .then((response) => {
+            .then((response: AxiosResponse<T[]>) => {
                 successCallback(response);
             })
             .catch((reason) => {
@@ -31,7 +31,7 @@ export class Service<T> {
 
     public post = (
         data: T,
-        successCallback: (response: AxiosResponse) => void,
+        successCallback: (response: AxiosResponse<T>) => void,
         errorCallback?: (reason: any) => void
     ) => {
         axiosApiInstance
@@ -44,13 +44,13 @@ export class Service<T> {
             });
     };
 
-    public patch = (
+    public put = (
         data: T,
-        successCallback: (response: AxiosResponse) => void,
+        successCallback: (response: AxiosResponse<T>) => void,
         errorCallback?: (reason: any) => void
     ) => {
         axiosApiInstance
-            .patch(this.url, data)
+            .put(this.url, data)
             .then((response) => {
                 successCallback(response);
             })

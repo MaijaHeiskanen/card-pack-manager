@@ -594,11 +594,10 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Cardpack"
-										}
-									],
+									"items": {
+										"$ref": "#/components/schemas/Cardpack"
+									},
+									"type": "array",
 									"nullable": true
 								}
 							}
