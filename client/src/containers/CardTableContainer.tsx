@@ -5,6 +5,7 @@ import { CardpackService } from '../services/CardpackService';
 import { Card, Cardpack } from '../types/generated-types-d';
 import useService from '../hooks/useService';
 import { useTranslation } from 'react-i18next';
+import { ListWrapper } from '../wrappers/ListWrapper';
 
 type CardTableContainerProps = {
     cardpackID?: string;
@@ -43,8 +44,12 @@ export const CardTableContainer = (props: CardTableContainerProps) => {
 
     return (
         <div>
-            <CardTable cards={whiteCards} title={t('whiteCards')} loading={false} />
-            <CardTable cards={blackCards} title={t('blackCards')} loading={false} />
+            <ListWrapper className="mb-6">
+                <CardTable cards={whiteCards} title={t('whiteCards')} loading={false} />
+            </ListWrapper>
+            <ListWrapper>
+                <CardTable cards={blackCards} title={t('blackCards')} loading={false} />
+            </ListWrapper>
         </div>
     );
 };

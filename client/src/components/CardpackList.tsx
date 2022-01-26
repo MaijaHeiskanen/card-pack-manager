@@ -32,7 +32,7 @@ export const CardpackList = (props: CardpackListProps) => {
                 rows={10}
                 rowsPerPageOptions={[10, 20, 50]}
                 paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
-                currentPageReportTemplate={t('stringTemplate.pageReportTemplate')}
+                currentPageReportTemplate={t('stringTemplate.pageReportTemplateCardpack')}
                 dataKey="id"
                 // size="small"
                 selectionMode="single"
@@ -56,7 +56,7 @@ export const CardpackList = (props: CardpackListProps) => {
             rows={10}
             rowsPerPageOptions={[10, 20, 50]}
             paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
-            currentPageReportTemplate={t('stringTemplate.pageReportTemplate')}
+            currentPageReportTemplate={t('stringTemplate.pageReportTemplateCardpack')}
             dataKey="id"
             // size="small"
             selectionMode="single"

@@ -42,7 +42,8 @@
             "usernameAlreadyTaken": "Käyttäjänimi on jo käytössä"
         },
         "stringTemplate": {
-            "pageReportTemplate": "Korttipakat {first} - {last}"
+            "pageReportTemplateCardpack": "Korttipakat {first} - {last}",
+            "pageReportTemplateCard": "Kortit {first} - {last}"
         }
     }
 }

@@ -42,7 +42,8 @@
             "usernameAlreadyTaken": "Username already taken"
         },
         "stringTemplate": {
-            "pageReportTemplate": "Cardpacks {first} - {last}"
+            "pageReportTemplateCardpack": "Cardpacks {first} - {last}",
+            "pageReportTemplateCard": "Cards {first} - {last}"
         }
     }
 }
