@@ -4,6 +4,7 @@ import { CardTable } from '../components/CardTable';
 import { CardpackService } from '../services/CardpackService';
 import { Card, Cardpack } from '../types/generated-types-d';
 import useService from '../hooks/useService';
+import { useTranslation } from 'react-i18next';
 
 type CardTableContainerProps = {
     cardpackID?: string;
@@ -16,6 +17,7 @@ interface CardpackWithCards extends Cardpack {
 
 export const CardTableContainer = (props: CardTableContainerProps) => {
     const { cardpackID } = props;
+    const { t } = useTranslation();
     const cardpackService = useService(new CardpackService());
     const [cardpack, setCardpack] = useState<CardpackWithCards>();
     const [whiteCards, setWhiteCards] = useState<Card[]>([]);
@@ -41,8 +43,8 @@ export const CardTableContainer = (props: CardTableContainerProps) => {
 
     return (
         <div>
-            <CardTable cards={whiteCards} title={'a'} loading={false} />
-            <CardTable cards={blackCards} title={'b'} loading={false} />
+            <CardTable cards={whiteCards} title={t('whiteCards')} loading={false} />
+            <CardTable cards={blackCards} title={t('blackCards')} loading={false} />
         </div>
     );
 };

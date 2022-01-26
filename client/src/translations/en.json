@@ -3,6 +3,7 @@
         "accountCreated": "Account created",
         "amountOfBlackCards": "Amount of black cards",
         "amountOfWhiteCards": "Amount of white cards",
+        "blackCards": "Black cards",
         "browse": "Browse",
         "cardpack": "Cardpack",
         "cardpacks": "Cardpacks",
@@ -34,6 +35,7 @@
         "user": "User",
         "username": "Username",
         "usernameInfo": "Choose an username which will be displayed with your cardpacks.",
+        "whiteCards": "White cards",
         "youHaveToSetUsernameAndGoogleAccountBeforeYouCanContinue": "You have to set username and Google account before you can continue",
         "error": {
             "emailAlreadyTaken": "Email already registered",

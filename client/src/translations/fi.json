@@ -3,6 +3,7 @@
         "accountCreated": "Käyttäjätili luotu",
         "amountOfBlackCards": "Mustien korttien määrä",
         "amountOfWhiteCards": "Valkoisten korttien määrä",
+        "blackCards": "Mustat kortit",
         "browse": "Selaa",
         "cardpack": "Korttipakka",
         "cardpacks": "Korttipakat",
@@ -34,6 +35,7 @@
         "user": "Käyttäjä",
         "username": "Käyttäjänimi",
         "usernameInfo": "Valitse käyttäjänimi, joka näytetään pakkojesi yhteydessä.",
+        "whiteCards": "Valkoiset kortit",
         "youHaveToSetUsernameAndGoogleAccountBeforeYouCanContinue": "Sinun täytyy antaa käyttäjänimi ja Google-tili ennen kuin voit jatkaa.",
         "error": {
             "emailAlreadyTaken": "Sähköposti on jo rekisteröity",
