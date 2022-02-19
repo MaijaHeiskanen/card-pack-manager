@@ -6,6 +6,7 @@ import { Card, Cardpack } from '../types/generated-types-d';
 import useService from '../hooks/useService';
 import { useTranslation } from 'react-i18next';
 import { ListWrapper } from '../wrappers/ListWrapper';
+import { CardpackInfo } from '../components/CardpackInfo';
 
 type CardTableContainerProps = {
     cardpackID?: string;
@@ -16,7 +17,7 @@ interface CardpackWithCards extends Cardpack {
     whiteCards: Card[];
 }
 
-export const CardTableContainer = (props: CardTableContainerProps) => {
+export const CardpackContainer = (props: CardTableContainerProps) => {
     const { cardpackID } = props;
     const { t } = useTranslation();
     const cardpackService = useService(new CardpackService());
@@ -42,8 +43,21 @@ export const CardTableContainer = (props: CardTableContainerProps) => {
         return <span>loading...</span>;
     }
 
+    const { name, user, languageCode, nsfw, description } = cardpack;
+
     return (
-        <div>
+        <div className="flex flex-column align-items-center">
+            <ListWrapper className="p-3 mb-6">
+                <CardpackInfo
+                    name={name}
+                    user={user}
+                    languageCode={languageCode}
+                    nsfw={nsfw}
+                    description={description}
+                    whiteCardsCount={whiteCards.length}
+                    blackCardsCount={blackCards.length}
+                />
+            </ListWrapper>
             <ListWrapper className="mb-6">
                 <CardTable cards={whiteCards} title={t('whiteCards')} loading={false} />
             </ListWrapper>

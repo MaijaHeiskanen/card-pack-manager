@@ -74,7 +74,9 @@ function App() {
                                 element={<LoginPage showAccountCreatedToast={showAccountCreatedToast} />}
                             />
                             <Route path="/" element={<SearchPage cardpacks={cardpacks} />} />
-                            <Route path="/users/:userId*" element={<UserPage />} />
+                            <Route path="/users/:userId" element={<UserPage />} />
+                            <Route path="/users/:userId/cardpacks" element={<UserPage />} />
+                            <Route path="/users/:userId/cardpacks/:cardpackID" element={<CardpackPage />} />
                             <Route path="*" element={<NotFoundPage />} />
                         </Routes>
                     </AppWrapper>

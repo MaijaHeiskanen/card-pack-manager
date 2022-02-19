@@ -1,8 +1,8 @@
 import { useParams } from 'react-router';
-import { CardTableContainer } from '../containers/CardTableContainer';
+import { CardpackContainer } from '../containers/CardpackContainer';
 
 export const CardpackPage = () => {
     const { cardpackID } = useParams();
 
-    return <CardTableContainer cardpackID={cardpackID} />;
+    return <CardpackContainer cardpackID={cardpackID} />;
 };

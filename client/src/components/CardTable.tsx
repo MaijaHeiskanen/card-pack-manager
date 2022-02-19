@@ -27,7 +27,7 @@ export const CardTable = (props: CardTableProps) => {
             currentPageReportTemplate={t('stringTemplate.pageReportTemplateCard')}
             header={<div>{title}</div>}
         >
-            <Column field="text" header={t('name')} style={{ width: '100%' }}></Column>
+            <Column field="text" header={t('text')} style={{ width: '100%' }}></Column>
         </DataTable>
     );
 };
