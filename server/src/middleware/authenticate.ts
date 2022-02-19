@@ -7,12 +7,11 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
     const token = authHeader && authHeader.split(' ')[1]; // "BEARER TOKEN"
 
     if (!token) {
-        return next({ status: 'vituiks män', statusCode: 403 });
+        return next({ status: 'Bearer token missing.', statusCode: 403 });
     }
 
     const authInfo = parse(token);
 
-    console.log({ authInfo });
     req.user = authInfo;
 
     return next();

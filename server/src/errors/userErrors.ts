@@ -24,3 +24,25 @@ export class UserError extends Error {
 
     type: UserErrorType;
 }
+
+export class UserAccessForbiddenError extends Error {
+    constructor(msg: string = 'User has no access to this resource.') {
+        super(msg);
+
+        // Set the prototype explicitly.
+        Object.setPrototypeOf(this, UserAccessForbiddenError.prototype);
+    }
+}
+
+export class UserNotFoundError extends Error {
+    id: string | undefined;
+
+    constructor(id?: string) {
+        super('User not found.');
+
+        this.id = id;
+
+        // Set the prototype explicitly.
+        Object.setPrototypeOf(this, UserAccessForbiddenError.prototype);
+    }
+}

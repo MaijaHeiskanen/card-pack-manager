@@ -1,5 +1,5 @@
-import { Route, Tags, Post, Body } from 'tsoa';
-import { User } from '../models';
+import { Route, Tags, Post, Body, Get, Path } from 'tsoa';
+import { Cardpack, User } from '../models';
 import {
     ILoginPayload,
     loginUser,
@@ -10,6 +10,7 @@ import {
     IValidateTokenIdPayload,
     validateTokenId,
 } from '../repositories/user.repository';
+import { getCardpacksByUser } from '../repositories/cardpack.repository';
 
 export interface IUserResponse {
     user: User | null;
@@ -45,6 +46,12 @@ export default class UserController {
     @Post('/register/validate/tokenId')
     public async validateTokenId(@Body() body: IValidateTokenIdPayload): Promise<IValidateResponse> {
         const result = await validateTokenId(body);
+
+        return result;
+    }
+    @Get('')
+    public async getCardpacksByUser(@Path() userId: string): Promise<Cardpack[]> {
+        const result = await getCardpacksByUser(userId);
 
         return result;
     }

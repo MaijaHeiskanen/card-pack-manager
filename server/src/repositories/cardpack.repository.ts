@@ -1,4 +1,6 @@
 import { getManager, getRepository } from 'typeorm';
+import { CardpackNotFoundError } from '../errors/cardpackErrors';
+import { UserNotFoundError } from '../errors/userErrors';
 import { BlackCard, WhiteCard, Cardpack, Language, User } from '../models';
 import { getCardsCountsByCardpackId } from './card.repository';
 
@@ -14,7 +16,7 @@ export interface IUpdateCardpackPayload extends ICardpackPayload {
     id: string;
 }
 
-export const getCardpacks = async (): Promise<Array<Cardpack>> => {
+export const getCardpacks = async (where: Partial<Cardpack> = {}): Promise<Array<Cardpack>> => {
     const cardpackRepository = getRepository(Cardpack);
     const blackCardRepository = getRepository(WhiteCard);
 
@@ -77,6 +79,7 @@ export const getCardpacks = async (): Promise<Array<Cardpack>> => {
     const cardpacksWithoutCounts = await cardpackRepository.find({
         relations: ['language', 'user'],
         order: { name: 'ASC' },
+        where,
     });
     const cardpacks = [];
 
@@ -101,36 +104,48 @@ export const createCardpack = async (payload: ICardpackPayload): Promise<Cardpac
     });
 };
 
-export const getCardpack = async (id: string): Promise<Cardpack[] | null> => {
+export const getCardpack = async (id: string): Promise<Cardpack[]> => {
     const cardpackRepository = getRepository(Cardpack);
-    const cardpack = await cardpackRepository.findOne(id, { relations: ['whiteCards', 'blackCards', 'user'] });
+    const cardpack = await cardpackRepository.findOne(id, {
+        relations: ['whiteCards', 'blackCards', 'user'],
+    });
 
     if (!cardpack) {
-        return null;
+        throw new CardpackNotFoundError(id);
     }
 
     return [cardpack];
 };
 
-export const updateCardpack = async (payload: IUpdateCardpackPayload): Promise<Cardpack | null> => {
+export const updateCardpack = async (payload: IUpdateCardpackPayload): Promise<Cardpack> => {
     const id = payload.id;
 
     if (!id) {
-        return null;
+        throw new CardpackNotFoundError(id);
     }
 
     const cardpackRepository = getRepository(Cardpack);
+    const cardpack = await cardpackRepository.findOne({ id });
 
-    const cardpackExists = await !!cardpackRepository.findOne({ id });
-
-    if (!cardpackExists) {
-        return null;
+    if (!cardpack) {
+        throw new CardpackNotFoundError(id);
     }
-
-    const cardpack = new Cardpack();
 
     return cardpackRepository.save({
         ...cardpack,
         ...payload,
     });
+};
+
+export const getCardpacksByUser = async (userId: string): Promise<Cardpack[]> => {
+    const userRepository = getRepository(User);
+    const user = userRepository.findOne(userId);
+
+    if (!user) {
+        throw new UserNotFoundError(userId);
+    }
+
+    const cardpacksByUser = await getCardpacks({ userId });
+
+    return cardpacksByUser;
 };

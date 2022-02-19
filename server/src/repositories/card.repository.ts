@@ -57,8 +57,14 @@ export const getCardsByCardpackId = async (id: string): Promise<CardsOfCardpack>
     const whiteCardRepository = getRepository(WhiteCard);
     const blackCardRepository = getRepository(BlackCard);
 
-    const whiteCards = await whiteCardRepository.find({ cardpackId: id });
-    const blackCards = await blackCardRepository.find({ cardpackId: id });
+    const whiteCards = await whiteCardRepository.find({
+        where: { cardpackId: id },
+        order: { text: 'ASC' },
+    });
+    const blackCards = await blackCardRepository.find({
+        where: { cardpackId: id },
+        order: { text: 'ASC' },
+    });
 
     return { whiteCards, blackCards };
 };

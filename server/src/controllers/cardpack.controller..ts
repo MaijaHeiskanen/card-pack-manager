@@ -1,6 +1,6 @@
 import { Get, Route, Tags, Post, Body, Path } from 'tsoa';
 import { LOGIN_STATUS, UserError } from '../errors/userErrors';
-import { Cardpack } from '../models';
+import { Cardpack, User } from '../models';
 import {
     getCardpacks,
     createCardpack,
@@ -19,17 +19,17 @@ export default class CardpackController {
     }
 
     @Post('/')
-    public async createCardpack(@Body() body: ICardpackPayload): Promise<Cardpack> {
+    public async createCardpack(@Body() body: ICardpackPayload, user: User): Promise<Cardpack> {
         return createCardpack(body);
     }
 
     @Post('/id')
-    public async updateCardpack(@Body() body: IUpdateCardpackPayload): Promise<Cardpack | null> {
+    public async updateCardpack(@Body() body: IUpdateCardpackPayload, user: User): Promise<Cardpack> {
         return updateCardpack(body);
     }
 
     @Get('/:id')
-    public async getCardpack(@Path() id: string): Promise<Cardpack[] | null> {
+    public async getCardpack(@Path() id: string): Promise<Cardpack[]> {
         return getCardpack(id);
     }
 }
