@@ -18,14 +18,32 @@ interface CardpackInfoProps {
     className?: string;
 }
 
-export const CardpackInfo = (props: CardpackInfoProps) => {
-    const { t } = useTranslation();
-    const { className, name, user, languageCode, nsfw, description, code, blackCardsCount, whiteCardsCount } = props;
+const CopyButton = ({ code }: { code: string }) => {
     const [codeCopied, setCodeCopied] = useState(false);
 
     const copyCode = () => {
         setCodeCopied(true);
     };
+
+    return (
+        <Button
+            iconPos="right"
+            icon={classNames({
+                'pi pi-copy': !codeCopied,
+                'pi pi-check': codeCopied,
+            })}
+            label={code}
+            className={classNames('p-button-sm p-button-rounded', {
+                'p-button-success': codeCopied,
+            })}
+            onClick={copyCode}
+        />
+    );
+};
+
+export const CardpackInfo = (props: CardpackInfoProps) => {
+    const { t } = useTranslation();
+    const { className, name, user, languageCode, nsfw, description, code, blackCardsCount, whiteCardsCount } = props;
 
     return (
         <div className={classNames(className)}>
@@ -39,18 +57,7 @@ export const CardpackInfo = (props: CardpackInfoProps) => {
                         {nsfw && <Chip label={'NSFW'} className="mr-2 mb-2" />}
                     </div>
                     <div className="mb-2">{t('copyCode')}:</div>
-                    <Button
-                        iconPos="right"
-                        icon={classNames({
-                            'pi pi-copy': !codeCopied,
-                            'pi pi-check': codeCopied,
-                        })}
-                        label={code}
-                        className={classNames('p-button-sm p-button-rounded', {
-                            'p-button-success': codeCopied,
-                        })}
-                        onClick={copyCode}
-                    />
+                    <CopyButton code={code} />
                 </div>
                 <div className="flex-grow-2 hidden md:block">
                     <CardsPieChart blackCardsCount={blackCardsCount} whiteCardsCount={whiteCardsCount} />
