@@ -62,12 +62,13 @@ export const CardpackList = (props: CardpackListProps) => {
             selectionMode="single"
             responsiveLayout="scroll"
         >
-            <Column field="name" header={t('name')} style={{ width: '20%' }}></Column>
-            <Column field="description" header={t('description')} style={{ width: '30%' }}></Column>
+            <Column field="name" header={t('name')} style={{ width: '15%' }}></Column>
+            <Column field="description" header={t('description')} style={{ width: '25%' }}></Column>
             <Column field="language.native" header={t('language')} style={{ width: '10%' }}></Column>
             <Column field="blackCardsCount" header={t('amountOfBlackCards')} style={{ width: '15%' }}></Column>
             <Column field="whiteCardsCount" header={t('amountOfWhiteCards')} style={{ width: '15%' }}></Column>
             <Column field="user.username" header={t('user')} style={{ width: '10%' }}></Column>
+            <Column field="code" header={t('code')} style={{ width: '10%' }}></Column>
         </DataTable>
     );
 };

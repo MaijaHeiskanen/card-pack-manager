@@ -103,6 +103,9 @@
 						"type": "string",
 						"format": "date-time"
 					},
+					"code": {
+						"type": "string"
+					},
 					"name": {
 						"type": "string"
 					},
@@ -141,6 +144,7 @@
 					"id",
 					"createdAt",
 					"updatedAt",
+					"code",
 					"name",
 					"description",
 					"nsfw",
@@ -246,6 +250,9 @@
 					},
 					"languageCode": {
 						"type": "string"
+					},
+					"code": {
+						"type": "string"
 					}
 				},
 				"required": [
@@ -273,6 +280,9 @@
 						"type": "string"
 					},
 					"languageCode": {
+						"type": "string"
+					},
+					"code": {
 						"type": "string"
 					},
 					"id": {
@@ -516,7 +526,9 @@
 				],
 				"security": [],
 				"parameters": []
-			},
+			}
+		},
+		"/cardpacks/{user}": {
 			"post": {
 				"operationId": "CreateCardpack",
 				"responses": {
@@ -535,7 +547,16 @@
 					"Cardpack"
 				],
 				"security": [],
-				"parameters": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "user",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
 				"requestBody": {
 					"required": true,
 					"content": {
@@ -546,10 +567,8 @@
 						}
 					}
 				}
-			}
-		},
-		"/cardpacks/id": {
-			"post": {
+			},
+			"put": {
 				"operationId": "UpdateCardpack",
 				"responses": {
 					"200": {
@@ -557,12 +576,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Cardpack"
-										}
-									],
-									"nullable": true
+									"$ref": "#/components/schemas/Cardpack"
 								}
 							}
 						}
@@ -572,7 +586,16 @@
 					"Cardpack"
 				],
 				"security": [],
-				"parameters": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "user",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
 				"requestBody": {
 					"required": true,
 					"content": {
@@ -597,8 +620,7 @@
 									"items": {
 										"$ref": "#/components/schemas/Cardpack"
 									},
-									"type": "array",
-									"nullable": true
+									"type": "array"
 								}
 							}
 						}
@@ -845,6 +867,40 @@
 						}
 					}
 				}
+			}
+		},
+		"/users/{userId}/cardpacks": {
+			"get": {
+				"operationId": "GetCardpacksByUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Cardpack"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "userId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		}
 	},

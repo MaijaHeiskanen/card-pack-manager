@@ -3,6 +3,7 @@ import { User } from '../types/generated-types-d';
 import { CardsPieChart } from './CardsPieChart';
 import { Chip } from 'primereact/chip';
 import { Button } from 'primereact/button';
+import { useTranslation } from 'react-i18next';
 
 interface CardpackInfoProps {
     name: string;
@@ -10,13 +11,16 @@ interface CardpackInfoProps {
     languageCode: string;
     nsfw: boolean;
     description: string;
+    code: string;
     blackCardsCount: number;
     whiteCardsCount: number;
     className?: string;
 }
 
 export const CardpackInfo = (props: CardpackInfoProps) => {
-    const { className, name, user, languageCode, nsfw, description, blackCardsCount, whiteCardsCount } = props;
+    const { t } = useTranslation();
+    const { className, name, user, languageCode, nsfw, description, code, blackCardsCount, whiteCardsCount } = props;
+
     return (
         <div className={classNames(className)}>
             <div className="flex flex-nowrap">
@@ -28,7 +32,8 @@ export const CardpackInfo = (props: CardpackInfoProps) => {
                         <Chip label={user.username} icon="pi pi-user" className="mr-2 mb-2" />
                         {nsfw && <Chip label={'NSFW'} className="mr-2 mb-2" />}
                     </div>
-                    <Button icon="pi pi-copy" label="Code thing" />
+                    <div className="mb-2">{t('copyCode')}:</div>
+                    <Button iconPos="right" icon="pi pi-copy" label={code} />
                 </div>
                 <div className="flex-grow-2 hidden md:block">
                     <CardsPieChart blackCardsCount={blackCardsCount} whiteCardsCount={whiteCardsCount} />

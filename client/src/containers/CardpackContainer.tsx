@@ -1,8 +1,8 @@
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { useEffect, useState } from 'react';
 import { CardTable } from '../components/CardTable';
-import { CardpackService } from '../services/CardpackService';
-import { Card, Cardpack } from '../types/generated-types-d';
+import { CardpackService, CardpackWithCards } from '../services/CardpackService';
+import { Card } from '../types/generated-types-d';
 import useService from '../hooks/useService';
 import { useTranslation } from 'react-i18next';
 import { ListWrapper } from '../wrappers/ListWrapper';
@@ -11,11 +11,6 @@ import { CardpackInfo } from '../components/CardpackInfo';
 type CardTableContainerProps = {
     cardpackID?: string;
 };
-
-interface CardpackWithCards extends Cardpack {
-    blackCards: Card[];
-    whiteCards: Card[];
-}
 
 export const CardpackContainer = (props: CardTableContainerProps) => {
     const { cardpackID } = props;
@@ -43,7 +38,7 @@ export const CardpackContainer = (props: CardTableContainerProps) => {
         return <span>loading...</span>;
     }
 
-    const { name, user, languageCode, nsfw, description } = cardpack;
+    const { name, user, languageCode, nsfw, description, code } = cardpack;
 
     return (
         <div className="flex flex-column align-items-center">
@@ -54,6 +49,7 @@ export const CardpackContainer = (props: CardTableContainerProps) => {
                     languageCode={languageCode}
                     nsfw={nsfw}
                     description={description}
+                    code={code}
                     whiteCardsCount={whiteCards.length}
                     blackCardsCount={blackCards.length}
                 />

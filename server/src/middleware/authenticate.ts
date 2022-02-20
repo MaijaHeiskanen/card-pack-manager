@@ -12,6 +12,7 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
 
     const authInfo = parse(token);
 
+    req.user = undefined;
     req.user = authInfo;
 
     return next();

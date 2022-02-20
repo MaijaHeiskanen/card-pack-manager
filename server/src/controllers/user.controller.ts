@@ -49,7 +49,7 @@ export default class UserController {
 
         return result;
     }
-    @Get('')
+    @Get('/:userId/cardpacks')
     public async getCardpacksByUser(@Path() userId: string): Promise<Cardpack[]> {
         const result = await getCardpacksByUser(userId);
 

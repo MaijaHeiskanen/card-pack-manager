@@ -1,3 +1,12 @@
+export interface BlackCard {
+    id: string;
+    createdAt: string; // date-time
+    updatedAt: string; // date-time
+    type: CardType;
+    text: string;
+    cardpackId: string;
+    cardpack: Cardpack;
+}
 export type CARDTYPESBLACK = 'black';
 export type CARDTYPESWHITE = 'white';
 export interface Card {
@@ -7,13 +16,13 @@ export interface Card {
     type: CardType;
     text: string;
     cardpackId: string;
-    cardpack: Cardpack;
 }
 export type CardType = CARDTYPESWHITE | CARDTYPESBLACK;
 export interface Cardpack {
     id: string;
     createdAt: string; // date-time
     updatedAt: string; // date-time
+    code: string;
     name: string;
     description: string;
     nsfw: boolean;
@@ -21,6 +30,12 @@ export interface Cardpack {
     user: User;
     languageCode: string;
     language: Language;
+    blackCards: BlackCard[];
+    whiteCards: WhiteCard[];
+}
+export interface CardsOfCardpack {
+    whiteCards: WhiteCard[];
+    blackCards: BlackCard[];
 }
 export interface ICardPayload {
     type: CardType;
@@ -33,6 +48,7 @@ export interface ICardpackPayload {
     nsfw: boolean;
     userId: string;
     languageCode: string;
+    code?: string;
 }
 export interface ILoginPayload {
     tokenId: string;
@@ -47,6 +63,7 @@ export interface IUpdateCardpackPayload {
     nsfw: boolean;
     userId: string;
     languageCode: string;
+    code?: string;
     id: string;
 }
 export interface IUserResponse {
@@ -84,9 +101,27 @@ export interface User {
     email: string;
     username: string;
 }
+export interface WhiteCard {
+    id: string;
+    createdAt: string; // date-time
+    updatedAt: string; // date-time
+    type: CardType;
+    text: string;
+    cardpackId: string;
+    cardpack: Cardpack;
+}
 
 declare namespace Components {
     namespace Schemas {
+        export interface BlackCard {
+            id: string;
+            createdAt: string; // date-time
+            updatedAt: string; // date-time
+            type: CardType;
+            text: string;
+            cardpackId: string;
+            cardpack: Cardpack;
+        }
         export type CARDTYPESBLACK = 'black';
         export type CARDTYPESWHITE = 'white';
         export interface Card {
@@ -96,13 +131,13 @@ declare namespace Components {
             type: CardType;
             text: string;
             cardpackId: string;
-            cardpack: Cardpack;
         }
         export type CardType = CARDTYPESWHITE | CARDTYPESBLACK;
         export interface Cardpack {
             id: string;
             createdAt: string; // date-time
             updatedAt: string; // date-time
+            code: string;
             name: string;
             description: string;
             nsfw: boolean;
@@ -110,6 +145,12 @@ declare namespace Components {
             user: User;
             languageCode: string;
             language: Language;
+            blackCards: BlackCard[];
+            whiteCards: WhiteCard[];
+        }
+        export interface CardsOfCardpack {
+            whiteCards: WhiteCard[];
+            blackCards: BlackCard[];
         }
         export interface ICardPayload {
             type: CardType;
@@ -122,6 +163,7 @@ declare namespace Components {
             nsfw: boolean;
             userId: string;
             languageCode: string;
+            code?: string;
         }
         export interface ILoginPayload {
             tokenId: string;
@@ -136,6 +178,7 @@ declare namespace Components {
             nsfw: boolean;
             userId: string;
             languageCode: string;
+            code?: string;
             id: string;
         }
         export interface IUserResponse {
@@ -173,6 +216,15 @@ declare namespace Components {
             email: string;
             username: string;
         }
+        export interface WhiteCard {
+            id: string;
+            createdAt: string; // date-time
+            updatedAt: string; // date-time
+            type: CardType;
+            text: string;
+            cardpackId: string;
+            cardpack: Cardpack;
+        }
     }
 }
 declare namespace Paths {
@@ -183,6 +235,12 @@ declare namespace Paths {
         }
     }
     namespace CreateCardpack {
+        namespace Parameters {
+            export type User = string;
+        }
+        export interface PathParameters {
+            user: Parameters.User;
+        }
         export type RequestBody = Components.Schemas.ICardpackPayload;
         namespace Responses {
             export type $200 = Components.Schemas.Cardpack;
@@ -203,7 +261,6 @@ declare namespace Paths {
                 type: Components.Schemas.CardType;
                 text: string;
                 cardpackId: string;
-                cardpack: Components.Schemas.Cardpack;
             } | null;
         }
     }
@@ -215,21 +272,21 @@ declare namespace Paths {
             id: Parameters.Id;
         }
         namespace Responses {
-            export type $200 = {
-                id: string;
-                createdAt: string; // date-time
-                updatedAt: string; // date-time
-                name: string;
-                description: string;
-                nsfw: boolean;
-                userId: string;
-                user: Components.Schemas.User;
-                languageCode: string;
-                language: Components.Schemas.Language;
-            } | null;
+            export type $200 = Components.Schemas.Cardpack[];
         }
     }
     namespace GetCardpacks {
+        namespace Responses {
+            export type $200 = Components.Schemas.Cardpack[];
+        }
+    }
+    namespace GetCardpacksByUser {
+        namespace Parameters {
+            export type UserId = string;
+        }
+        export interface PathParameters {
+            userId: Parameters.UserId;
+        }
         namespace Responses {
             export type $200 = Components.Schemas.Cardpack[];
         }
@@ -242,7 +299,7 @@ declare namespace Paths {
             id: Parameters.Id;
         }
         namespace Responses {
-            export type $200 = Components.Schemas.Card[];
+            export type $200 = Components.Schemas.CardsOfCardpack;
         }
     }
     namespace GetMessage {
@@ -263,20 +320,15 @@ declare namespace Paths {
         }
     }
     namespace UpdateCardpack {
+        namespace Parameters {
+            export type User = string;
+        }
+        export interface PathParameters {
+            user: Parameters.User;
+        }
         export type RequestBody = Components.Schemas.IUpdateCardpackPayload;
         namespace Responses {
-            export type $200 = {
-                id: string;
-                createdAt: string; // date-time
-                updatedAt: string; // date-time
-                name: string;
-                description: string;
-                nsfw: boolean;
-                userId: string;
-                user: Components.Schemas.User;
-                languageCode: string;
-                language: Components.Schemas.Language;
-            } | null;
+            export type $200 = Components.Schemas.Cardpack;
         }
     }
     namespace ValidateTokenId {

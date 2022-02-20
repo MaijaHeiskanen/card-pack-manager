@@ -1,11 +1,11 @@
 import { AxiosResponse } from 'axios';
-import { Cardpack } from '../types/generated-types-d';
+import { BlackCard, Cardpack, WhiteCard } from '../types/generated-types-d';
 import axiosApiInstance from './axiosApiInstance';
 import { Service } from './Service';
 
 export interface CardpackWithCards extends Cardpack {
-    blackCards: Card[];
-    whiteCards: Card[];
+    blackCards: BlackCard[];
+    whiteCards: WhiteCard[];
 }
 
 export class CardpackService extends Service<Cardpack> {

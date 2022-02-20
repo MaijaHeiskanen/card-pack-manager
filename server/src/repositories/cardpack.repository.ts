@@ -1,7 +1,8 @@
 import { getManager, getRepository } from 'typeorm';
-import { CardpackNotFoundError } from '../errors/cardpackErrors';
+import { CardpackCodeAlreadyTakenError, CardpackNotFoundError } from '../errors/cardpackErrors';
 import { UserNotFoundError } from '../errors/userErrors';
 import { BlackCard, WhiteCard, Cardpack, Language, User } from '../models';
+import { generateCardpackCode } from '../utils/generateCardpackCode';
 import { getCardsCountsByCardpackId } from './card.repository';
 
 export interface ICardpackPayload {
@@ -10,6 +11,7 @@ export interface ICardpackPayload {
     nsfw: boolean;
     userId: string;
     languageCode: string;
+    code?: string;
 }
 
 export interface IUpdateCardpackPayload extends ICardpackPayload {
@@ -94,13 +96,38 @@ export const getCardpacks = async (where: Partial<Cardpack> = {}): Promise<Array
     return cardpacks;
 };
 
+export const validateCardpackCode = async (code: string) => {
+    const cardpackRepository = getRepository(Cardpack);
+
+    return Boolean(await cardpackRepository.findOne({ where: { code } }));
+};
+
 export const createCardpack = async (payload: ICardpackPayload): Promise<Cardpack> => {
     const cardpackRepository = getRepository(Cardpack);
     const cardpack = new Cardpack();
+    // let code = payload.code;
+
+    // if (!code) {
+    //     for (let i = 0, len = 100; i < len; i++) {
+    //         const generatedCode = generateCardpackCode();
+    //         const codeAlreadyUsed = await validateCardpackCode(generatedCode);
+
+    //         if (!codeAlreadyUsed) {
+    //             code = generatedCode;
+
+    //             break;
+    //         }
+    //     }
+    // }
+
+    // if (!code) {
+    //     throw new Error('Could not generate cardpack code');
+    // }
 
     return cardpackRepository.save({
         ...cardpack,
         ...payload,
+        // code,
     });
 };
 
@@ -129,6 +156,13 @@ export const updateCardpack = async (payload: IUpdateCardpackPayload): Promise<C
 
     if (!cardpack) {
         throw new CardpackNotFoundError(id);
+    }
+
+    const code = payload.id;
+    const codeChanged = cardpack.code !== code;
+
+    if (codeChanged && !(await validateCardpackCode(code))) {
+        throw new CardpackCodeAlreadyTakenError();
     }
 
     return cardpackRepository.save({

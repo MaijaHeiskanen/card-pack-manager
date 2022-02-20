@@ -8,6 +8,8 @@
         "cardpack": "Cardpack",
         "cardpacks": "Cardpacks",
         "close": "Close",
+        "code": "Code",
+        "copyCode": "Copy code",
         "createAccount": "Create account",
         "createAccountInfo": "Create account with the given username and Google account.",
         "description": "Description",

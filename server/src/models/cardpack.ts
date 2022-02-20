@@ -4,7 +4,10 @@ import { BaseModel } from './base.model';
 
 @Entity()
 export class Cardpack extends BaseModel {
-    @Column()
+    @Column({ unique: true })
+    code!: string;
+
+    @Column({})
     name!: string;
 
     @Column()
