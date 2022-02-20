@@ -12,7 +12,7 @@ export const CardpackListContainer = (props: CardpackListContainerProps) => {
     const navigate = useNavigate();
 
     const navigateToCardpackPage = (e: DataTableSelectionChangeParams) => {
-        navigate(`/cardpacks/${e.value.id}`);
+        navigate(`/cardpacks/${e.value.rowData.id}`);
     };
 
     return (
