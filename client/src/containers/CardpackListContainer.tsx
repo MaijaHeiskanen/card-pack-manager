@@ -16,8 +16,10 @@ export const CardpackListContainer = (props: CardpackListContainerProps) => {
     };
 
     return (
-        <ListWrapper>
-            <CardpackList cardpacks={props.cardpacks} onClickRow={navigateToCardpackPage} />
-        </ListWrapper>
+        <div className="flex flex-column align-items-center">
+            <ListWrapper>
+                <CardpackList cardpacks={props.cardpacks} onClickRow={navigateToCardpackPage} />
+            </ListWrapper>
+        </div>
     );
 };
