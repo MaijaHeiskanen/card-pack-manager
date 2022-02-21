@@ -142,5 +142,5 @@ export const NavigationTree = (props: NavigationTreeProps) => {
     const items = buildNavigationItems(pathname, props.cardpacks);
     const home = { icon: PrimeIcons.HOME, command: navigateTo, to: '/' };
 
-    return <BreadCrumb model={items} home={home} className="border-noround" />;
+    return <BreadCrumb model={items} home={home} className="border-noround flex-shrink-0" />;
 };

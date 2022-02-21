@@ -5,6 +5,7 @@ import { Chip } from 'primereact/chip';
 import { Button } from 'primereact/button';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface CardpackInfoProps {
     name: string;
@@ -43,7 +44,12 @@ const CopyButton = ({ code }: { code: string }) => {
 
 export const CardpackInfo = (props: CardpackInfoProps) => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const { className, name, user, languageCode, nsfw, description, code, blackCardsCount, whiteCardsCount } = props;
+
+    const navigateToUser = () => {
+        navigate(`/users/${user.id}/cardpacks`);
+    };
 
     return (
         <div className={classNames(className)}>
@@ -53,7 +59,9 @@ export const CardpackInfo = (props: CardpackInfoProps) => {
                     <div className="text-lg mb-3">{description}</div>
                     <div className="mb-4">
                         <Chip label={languageCode} icon="pi pi-flag" className="mr-2 mb-2" />
-                        <Chip label={user.username} icon="pi pi-user" className="mr-2 mb-2" />
+                        <span onClick={navigateToUser} className="cursor-pointer">
+                            <Chip label={user.username} icon="pi pi-user" className="mr-2 mb-2" />
+                        </span>
                         {nsfw && <Chip label={'NSFW'} className="mr-2 mb-2" />}
                     </div>
                     <div className="mb-2">{t('copyCode')}:</div>

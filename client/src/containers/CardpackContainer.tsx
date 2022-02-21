@@ -7,6 +7,7 @@ import useService from '../hooks/useService';
 import { useTranslation } from 'react-i18next';
 import { ListWrapper } from '../wrappers/ListWrapper';
 import { CardpackInfo } from '../components/CardpackInfo';
+import { Loading } from '../components/Loading';
 
 type CardTableContainerProps = {
     cardpackID?: string;
@@ -35,7 +36,7 @@ export const CardpackContainer = (props: CardTableContainerProps) => {
     }, [cardpackService, cardpackID]);
 
     if (!cardpackID || !cardpack) {
-        return <span>loading...</span>;
+        return <Loading />;
     }
 
     const { name, user, languageCode, nsfw, description, code } = cardpack;

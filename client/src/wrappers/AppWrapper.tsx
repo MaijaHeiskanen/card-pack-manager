@@ -3,5 +3,5 @@ export interface AppWrapperProps {
 }
 
 export const AppWrapper = (props: AppWrapperProps) => {
-    return <div className="m-4">{props.children}</div>;
+    return <div className="flex flex-column flex-grow-1 pt-4 pb-8">{props.children}</div>;
 };

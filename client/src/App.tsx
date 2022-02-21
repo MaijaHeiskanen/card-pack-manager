@@ -60,7 +60,7 @@ function App() {
     };
 
     return (
-        <div className="h-full w-full">
+        <div className="h-full w-full flex flex-column">
             <UserContextProvider value={{ user, setUser }}>
                 <Toast ref={accountCreatedToast} position="top-right" className="mt-6" />
                 <Router>
