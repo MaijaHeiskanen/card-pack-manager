@@ -1,6 +1,5 @@
 import { Get, Route, Tags, Post, Body, Path, Put, Header, BodyProp } from 'tsoa';
-import { LOGIN_STATUS, UserError } from '../errors/userErrors';
-import { Cardpack, User } from '../models';
+import { Cardpack } from '../models';
 import {
     getCardpacks,
     createCardpack,

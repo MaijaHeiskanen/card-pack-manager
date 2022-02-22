@@ -1,8 +1,10 @@
-export class CardpackNotFoundError extends Error {
+import { BaseError } from './BaseError';
+
+export class CardpackNotFoundError extends BaseError {
     id: string | undefined;
 
     constructor(id?: string) {
-        super('Cardpack not found.');
+        super('Cardpack not found.', 404);
 
         this.id = id;
 
@@ -11,11 +13,11 @@ export class CardpackNotFoundError extends Error {
     }
 }
 
-export class CardpackCodeAlreadyTakenError extends Error {
+export class CardpackCodeAlreadyTakenError extends BaseError {
     code: string | undefined;
 
     constructor(code?: string) {
-        super('Cardpack code already taken.');
+        super('Cardpack code already taken.', 403);
 
         this.code = code;
 

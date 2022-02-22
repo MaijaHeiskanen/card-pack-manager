@@ -32,7 +32,7 @@ router.patch('/:id', authenticateToken, async (req, res) => {
     const controller = new CardpackController();
 
     try {
-        const response = await controller.updateCardpack(req.body, req.user);
+        const response = await controller.updateCardpack(req.user, req.body);
 
         return res.status(200).send(response);
     } catch (err) {

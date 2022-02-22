@@ -1,16 +1,17 @@
 import envConfig from '../config/config';
-import jwt from 'jsonwebtoken';
+import jwt, { TokenExpiredError as JwtTokenExpiredError } from 'jsonwebtoken';
 import { NextFunction, Request, Response } from 'express';
+import { InvalidTokenError, TokenExpiredError } from '../errors/authErrors';
 
 export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]; // "BEARER TOKEN"
 
     if (!token) {
-        return next({ status: 'Bearer token missing.', statusCode: 403 });
+        return next(new InvalidTokenError());
     }
 
-    const authInfo = parse(token);
+    const authInfo = parse(token, next);
 
     req.user = undefined;
     req.user = authInfo;
@@ -18,15 +19,14 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
     return next();
 };
 
-const parse = (token: string) => {
-    if (!token) {
-        return null;
-    }
+const parse = (token: string, next: NextFunction) => {
     try {
         return jwt.verify(token, envConfig.ACCESS_TOKEN_SECRET);
     } catch (err) {
-        console.log(`Token parse error: ${err}`);
-
-        return false;
+        if (err instanceof JwtTokenExpiredError) {
+            next(new TokenExpiredError());
+        } else {
+            next(new InvalidTokenError());
+        }
     }
 };

@@ -33,9 +33,7 @@ app.use(
 app.use(Router);
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
-    console.error(err);
-
-    return res.sendStatus(err.statusCode);
+    return res.status(err.statusCode).send(err.message);
 };
 
 app.use(errorHandler);

@@ -3,7 +3,12 @@ import { User } from '../models';
 import { OAuth2Client } from 'google-auth-library';
 import jwt from 'jsonwebtoken';
 import envConfig from '../config/config';
-import { LOGIN_STATUS, REGISTER_STATUS, UserError } from '../errors/userErrors';
+import {
+    EmailAlreadyRegisteredError,
+    EmailNotRegisteredError,
+    GoogleTokenIdError,
+    UsernameAlreadyTakenError,
+} from '../errors/userErrors';
 import { IUserMockData } from '../config/mockData/getMockUsers';
 
 export interface ILoginPayload {
@@ -54,14 +59,14 @@ export const loginUser = async (payload: ILoginPayload): Promise<LoggedIn> => {
     const googleUser = ticket.getPayload();
 
     if (!googleUser) {
-        throw new UserError('Google login was invalid.', LOGIN_STATUS.GOOGLE_TOKEN_ID_WAS_INVALID);
+        throw new GoogleTokenIdError();
     }
 
     const repository = getRepository(User);
     const user = await repository.findOne({ email: googleUser.email });
 
     if (!user) {
-        throw new UserError('Google account is not registered yet.', LOGIN_STATUS.TOKEN_ID_VALID_BUT_NOT_REGISTERED);
+        throw new EmailNotRegisteredError();
     }
 
     const accessToken = jwt.sign({ user }, envConfig.ACCESS_TOKEN_SECRET, { expiresIn: '30d' });
@@ -84,20 +89,20 @@ export const registerUser = async (payload: IRegisterPayload): Promise<Registere
     const googleUser = ticket.getPayload();
 
     if (!googleUser) {
-        throw new UserError('Google login was invalid.', REGISTER_STATUS.GOOGLE_TOKEN_ID_WAS_INVALID);
+        throw new GoogleTokenIdError();
     }
 
     const repository = getRepository(User);
     const existingUserWithSameEmail = await repository.findOne({ email: googleUser.email });
 
     if (existingUserWithSameEmail) {
-        throw new UserError('Email has already been registered.', REGISTER_STATUS.EMAIL_ALREADY_TAKEN);
+        throw new EmailAlreadyRegisteredError();
     }
 
     const existingUserWithSameUsername = await repository.findOne({ username: username });
 
     if (existingUserWithSameUsername) {
-        throw new UserError('Username has already been taken.', REGISTER_STATUS.USERNAME_ALREADY_TAKEN);
+        throw new UsernameAlreadyTakenError();
     }
 
     const user = await repository.save({
@@ -118,7 +123,7 @@ export const validateUsername = async (payload: IValidateUsernamePayload): Promi
     const existingUserWithSameUsername = await repository.findOne({ username: payload.username });
 
     if (existingUserWithSameUsername) {
-        throw new UserError('Username has already been taken.', REGISTER_STATUS.USERNAME_ALREADY_TAKEN);
+        throw new UsernameAlreadyTakenError();
     }
 
     return {
@@ -138,14 +143,14 @@ export const validateTokenId = async (payload: IValidateTokenIdPayload): Promise
     const googleUser = ticket.getPayload();
 
     if (!googleUser) {
-        throw new UserError('Google login was invalid.', REGISTER_STATUS.GOOGLE_TOKEN_ID_WAS_INVALID);
+        throw new GoogleTokenIdError();
     }
 
     const repository = getRepository(User);
     const existingUserWithSameEmail = await repository.findOne({ email: googleUser.email });
 
     if (existingUserWithSameEmail) {
-        throw new UserError('Email has already been registered.', REGISTER_STATUS.EMAIL_ALREADY_TAKEN);
+        throw new EmailAlreadyRegisteredError();
     }
 
     return {

@@ -1,48 +1,65 @@
-export enum REGISTER_STATUS {
-    SUCCESS = 'success',
-    EMAIL_ALREADY_TAKEN = 'emailAlreadyTaken',
-    USERNAME_ALREADY_TAKEN = 'usernameAlreadyTaken',
-    GOOGLE_TOKEN_ID_WAS_INVALID = 'googleTokenIdWasInvalid',
-}
+import { BaseError } from './BaseError';
 
-export enum LOGIN_STATUS {
-    VALID_AND_REGISTERED = 'validAndRegistered',
-    TOKEN_ID_VALID_BUT_NOT_REGISTERED = 'tokenIsValidButNotRegistered',
-    GOOGLE_TOKEN_ID_WAS_INVALID = 'googleTokenIdWasInvalid',
-}
-
-type UserErrorType = REGISTER_STATUS | LOGIN_STATUS | 'defaultError';
-
-export class UserError extends Error {
-    constructor(msg: string, type: UserErrorType = 'defaultError') {
-        super(msg);
-
-        this.type = type;
-        // Set the prototype explicitly.
-        Object.setPrototypeOf(this, UserError.prototype);
+export class UserError extends BaseError {
+    constructor(msg: string, statusCode?: number) {
+        super(msg, statusCode);
     }
-
-    type: UserErrorType;
 }
 
-export class UserAccessForbiddenError extends Error {
+export class EmailAlreadyRegisteredError extends UserError {
+    constructor() {
+        super('Email has already been registered.', 403);
+
+        // Set the prototype explicitly.
+        Object.setPrototypeOf(this, EmailAlreadyRegisteredError.prototype);
+    }
+}
+
+export class UsernameAlreadyTakenError extends UserError {
+    constructor() {
+        super('Username has already been taken.', 403);
+
+        // Set the prototype explicitly.
+        Object.setPrototypeOf(this, UsernameAlreadyTakenError.prototype);
+    }
+}
+
+export class GoogleTokenIdError extends UserError {
+    constructor() {
+        super('Google token id was invalid', 400);
+
+        // Set the prototype explicitly.
+        Object.setPrototypeOf(this, GoogleTokenIdError.prototype);
+    }
+}
+
+export class EmailNotRegisteredError extends UserError {
+    constructor() {
+        super('Google account is not registered yet.', 400);
+
+        // Set the prototype explicitly.
+        Object.setPrototypeOf(this, EmailNotRegisteredError.prototype);
+    }
+}
+
+export class UserAccessForbiddenError extends UserError {
     constructor(msg: string = 'User has no access to this resource.') {
-        super(msg);
+        super(msg, 403);
 
         // Set the prototype explicitly.
         Object.setPrototypeOf(this, UserAccessForbiddenError.prototype);
     }
 }
 
-export class UserNotFoundError extends Error {
+export class UserNotFoundError extends UserError {
     id: string | undefined;
 
     constructor(id?: string) {
-        super('User not found.');
+        super('User not found.', 404);
 
         this.id = id;
 
         // Set the prototype explicitly.
-        Object.setPrototypeOf(this, UserAccessForbiddenError.prototype);
+        Object.setPrototypeOf(this, UserNotFoundError.prototype);
     }
 }

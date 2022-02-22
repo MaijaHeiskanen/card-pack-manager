@@ -4,7 +4,6 @@ import { DataTable, DataTableSelectionChangeParams } from 'primereact/datatable'
 import { useTranslation } from 'react-i18next';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
-import { Tooltip } from 'primereact/tooltip';
 import { useState } from 'react';
 import classNames from 'classnames';
 
