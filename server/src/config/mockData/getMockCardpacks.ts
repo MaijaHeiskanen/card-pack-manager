@@ -3,11 +3,11 @@ import { addZeros4 } from './getMockCards';
 
 export default function getMockCardpacks() {
     const AMOUNT_OF_CARDPACKS = 100;
-    const cardpacks = [
+    const cardpacks: IUpdateCardpackPayload[] = [
         {
             id: '619d8fb9-e580-45f8-ae7b-c2ae07000001',
-            name: `Testipakka 1`,
-            description: 'Ekan testipakan kuvaus. Tää on eri käyttäjän kuin muut.',
+            name: `Testipakka 1, jolla on paljon pidempi nimi kuin muilla`,
+            description: 'Ekan testipakan kuvaus. Tää on eri käyttäjän kuin muut. Ja tässä on enemmän sisältöä kans',
             userId: '29c01432-65fb-4eb9-95e0-150a331efe5d',
             nsfw: true,
             languageCode: 'fi',

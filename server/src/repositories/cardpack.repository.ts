@@ -105,29 +105,29 @@ export const validateCardpackCode = async (code: string) => {
 export const createCardpack = async (payload: ICardpackPayload): Promise<Cardpack> => {
     const cardpackRepository = getRepository(Cardpack);
     const cardpack = new Cardpack();
-    // let code = payload.code;
+    let code = payload.code;
 
-    // if (!code) {
-    //     for (let i = 0, len = 100; i < len; i++) {
-    //         const generatedCode = generateCardpackCode();
-    //         const codeAlreadyUsed = await validateCardpackCode(generatedCode);
+    if (!code) {
+        for (let i = 0, len = 100; i < len; i++) {
+            const generatedCode = generateCardpackCode();
+            const codeAlreadyUsed = await validateCardpackCode(generatedCode);
 
-    //         if (!codeAlreadyUsed) {
-    //             code = generatedCode;
+            if (!codeAlreadyUsed) {
+                code = generatedCode;
 
-    //             break;
-    //         }
-    //     }
-    // }
+                break;
+            }
+        }
+    }
 
-    // if (!code) {
-    //     throw new Error('Could not generate cardpack code');
-    // }
+    if (!code) {
+        throw new Error('Could not generate cardpack code');
+    }
 
     return cardpackRepository.save({
         ...cardpack,
         ...payload,
-        // code,
+        code,
     });
 };
 

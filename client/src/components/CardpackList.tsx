@@ -4,6 +4,7 @@ import { DataTable, DataTableSelectionChangeParams } from 'primereact/datatable'
 import { useTranslation } from 'react-i18next';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
+import { Tooltip } from 'primereact/tooltip';
 import { useState } from 'react';
 import classNames from 'classnames';
 
@@ -77,6 +78,8 @@ export const CardpackList = (props: CardpackListProps) => {
                     'p-button-outlined': code !== copiedCode,
                 })}
                 onClick={() => copyCode(code)}
+                tooltip={`${t('copied')}!`}
+                tooltipOptions={{ event: 'focus' }}
             />
         );
     };
@@ -96,11 +99,11 @@ export const CardpackList = (props: CardpackListProps) => {
             selectionMode="single"
             responsiveLayout="scroll"
         >
-            <Column field="name" header={t('name')} style={{ width: '20%' }}></Column>
+            <Column field="name" header={t('name')} style={{ width: '15%' }}></Column>
             <Column field="language.native" header={t('language')} style={{ width: '10%' }}></Column>
-            <Column field="blackCardsCount" header={t('blackCards')} style={{ width: '15%' }}></Column>
-            <Column field="whiteCardsCount" header={t('whiteCards')} style={{ width: '15%' }}></Column>
-            <Column field="user.username" header={t('user')} style={{ width: '10%' }}></Column>
+            <Column field="blackCardsCount" header={t('blackCards')} style={{ width: '12.5%' }}></Column>
+            <Column field="whiteCardsCount" header={t('whiteCards')} style={{ width: '12.5%' }}></Column>
+            <Column field="user.username" header={t('user')} style={{ width: '20%' }}></Column>
             <Column field="code" header={t('code')} style={{ width: '20%' }} body={codeTemplate}></Column>
         </DataTable>
     );

@@ -20,6 +20,7 @@ interface CardpackInfoProps {
 }
 
 const CopyButton = ({ code }: { code: string }) => {
+    const { t } = useTranslation();
     const [codeCopied, setCodeCopied] = useState(false);
 
     const copyCode = () => {
@@ -38,6 +39,8 @@ const CopyButton = ({ code }: { code: string }) => {
                 'p-button-success': codeCopied,
             })}
             onClick={copyCode}
+            tooltip={`${t('copied')}!`}
+            tooltipOptions={{ event: 'focus' }}
         />
     );
 };
