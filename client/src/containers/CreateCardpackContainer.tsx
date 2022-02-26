@@ -9,7 +9,6 @@ import { AxiosResponse } from 'axios';
 import { Cardpack, Language } from '../types/generated-types-d';
 import { PrimeIcons } from 'primereact/api';
 import { LanguageDropdownController } from './LanguageDropdownController';
-import { InputTextarea } from 'primereact/inputtextarea';
 import { TextInputWithFloatLabel } from '../components/TextInputWithFloatLabel';
 import { InputMaskWithFloatLabel } from '../InputMaskWithFloatingLabel';
 import { InputMaskChangeParams } from 'primereact/inputmask';

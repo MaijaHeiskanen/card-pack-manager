@@ -12,7 +12,6 @@ interface CardpackListContainerProps {
 export const CardpackListContainer = (props: CardpackListContainerProps) => {
     const navigate = useNavigate();
     const { userId } = useParams();
-    const cardpacks = props.cardpacks;
 
     const navigateToCardpackPage = (e: DataTableSelectionChangeParams) => {
         let url = '';

@@ -18,7 +18,7 @@ import { Toast } from 'primereact/toast';
 import { Cardpack, User } from './types/generated-types-d';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { AppWrapper } from './wrappers/AppWrapper';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { UserContextProvider } from './contexts/userContext';
 import { LOCAL_STORAGE_FIELD } from './auth/localstoragehelpers';
 import useLocalStorage from './hooks/useLocalStorage';

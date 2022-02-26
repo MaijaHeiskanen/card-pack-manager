@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { Dropdown, DropdownChangeParams } from 'primereact/dropdown';
+import { DropdownChangeParams } from 'primereact/dropdown';
 import { useEffect, useState } from 'react';
 import { LanguageDropdown } from '../components/LanguageDropdown';
 import useService from '../hooks/useService';

@@ -1,10 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Button } from 'primereact/button';
-import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useUserContext } from '../contexts/userContext';
-import { CardpackPage } from './CardpackPage';
-import { CardpackListContainer } from '../containers/CardpackListContainer';
 
 export const UserPage = () => {
     const { userId } = useParams();
