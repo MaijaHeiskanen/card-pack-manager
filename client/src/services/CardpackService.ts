@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { BlackCard, Cardpack, WhiteCard } from '../types/generated-types-d';
+import { BlackCard, Cardpack, ICardpackPayload, WhiteCard } from '../types/generated-types-d';
 import axiosApiInstance from './axiosApiInstance';
 import { Service } from './Service';
 
@@ -29,6 +29,21 @@ export class CardpackService extends Service<Cardpack> {
             })
             .catch((reason) => {
                 if (errorCallback) errorCallback(reason);
+            });
+    };
+
+    public post = (
+        data: ICardpackPayload,
+        successCallback: (response: AxiosResponse<Cardpack>) => void,
+        errorCallback?: (reason: any) => void
+    ) => {
+        axiosApiInstance
+            .post(this.url, data)
+            .then((response) => {
+                successCallback(response);
+            })
+            .catch((error) => {
+                if (errorCallback) errorCallback(error);
             });
     };
 }

@@ -20,7 +20,7 @@ router.get('/', async (_req, res) => {
 router.post('/', authenticateToken, async (req, res) => {
     const controller = new CardpackController();
     try {
-        const response = await controller.createCardpack(req.body, req.user);
+        const response = await controller.createCardpack(req.body);
 
         return res.send(response);
     } catch (err) {
@@ -32,7 +32,7 @@ router.patch('/:id', authenticateToken, async (req, res) => {
     const controller = new CardpackController();
 
     try {
-        const response = await controller.updateCardpack(req.user, req.body);
+        const response = await controller.updateCardpack(req.body);
 
         return res.status(200).send(response);
     } catch (err) {

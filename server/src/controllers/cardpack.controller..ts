@@ -17,13 +17,13 @@ export default class CardpackController {
         return getCardpacks();
     }
 
-    @Post('/:user')
-    public async createCardpack(user: string, @Body() body: ICardpackPayload): Promise<Cardpack> {
+    @Post('/')
+    public async createCardpack(@Body() body: ICardpackPayload): Promise<Cardpack> {
         return createCardpack(body);
     }
 
-    @Put('/:user')
-    public async updateCardpack(user: string, @Body() body: IUpdateCardpackPayload): Promise<Cardpack> {
+    @Put('/')
+    public async updateCardpack(@Body() body: IUpdateCardpackPayload): Promise<Cardpack> {
         return updateCardpack(body);
     }
 

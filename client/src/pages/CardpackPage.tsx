@@ -2,7 +2,7 @@ import { useParams } from 'react-router';
 import { CardpackContainer } from '../containers/CardpackContainer';
 
 export const CardpackPage = () => {
-    const { cardpackID } = useParams();
+    const { cardpackId } = useParams();
 
-    return <CardpackContainer cardpackID={cardpackID} />;
+    return <CardpackContainer cardpackId={cardpackId} />;
 };

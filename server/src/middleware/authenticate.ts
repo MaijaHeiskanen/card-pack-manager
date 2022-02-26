@@ -3,6 +3,9 @@ import jwt, { TokenExpiredError as JwtTokenExpiredError } from 'jsonwebtoken';
 import { NextFunction, Request, Response } from 'express';
 import { InvalidTokenError, TokenExpiredError } from '../errors/authErrors';
 
+/**
+ * Adds userId from authorization header to request body.
+ */
 export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]; // "BEARER TOKEN"
@@ -13,8 +16,13 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
 
     const authInfo = parse(token, next);
 
-    req.user = undefined;
-    req.user = authInfo;
+    console.log(authInfo);
+
+    req.body.userId = undefined;
+
+    if (authInfo && typeof authInfo !== 'string') {
+        req.body.userId = authInfo.user.id;
+    }
 
     return next();
 };

@@ -1,7 +1,7 @@
-import { getManager, getRepository } from 'typeorm';
+import { getRepository } from 'typeorm';
 import { CardpackCodeAlreadyTakenError, CardpackNotFoundError } from '../errors/cardpackErrors';
 import { UserNotFoundError } from '../errors/userErrors';
-import { BlackCard, WhiteCard, Cardpack, Language, User } from '../models';
+import { WhiteCard, Cardpack, User } from '../models';
 import { generateCardpackCode } from '../utils/generateCardpackCode';
 import { getCardsCountsByCardpackId } from './card.repository';
 
@@ -99,7 +99,7 @@ export const getCardpacks = async (where: Partial<Cardpack> = {}): Promise<Array
 export const validateCardpackCode = async (code: string) => {
     const cardpackRepository = getRepository(Cardpack);
 
-    return Boolean(await cardpackRepository.findOne({ where: { code } }));
+    return !Boolean(await cardpackRepository.findOne({ where: { code } }));
 };
 
 export const createCardpack = async (payload: ICardpackPayload): Promise<Cardpack> => {
@@ -107,12 +107,20 @@ export const createCardpack = async (payload: ICardpackPayload): Promise<Cardpac
     const cardpack = new Cardpack();
     let code = payload.code;
 
-    if (!code) {
-        for (let i = 0, len = 100; i < len; i++) {
-            const generatedCode = generateCardpackCode();
-            const codeAlreadyUsed = await validateCardpackCode(generatedCode);
+    if (code) {
+        const givenCodeIsValid = validateCardpackCode(code);
 
-            if (!codeAlreadyUsed) {
+        if (!givenCodeIsValid) {
+            throw new CardpackCodeAlreadyTakenError();
+        }
+    }
+
+    if (!code) {
+        for (let i = 0, len = 1000; i < len; i++) {
+            const generatedCode = generateCardpackCode();
+            const codeIsFree = await validateCardpackCode(generatedCode);
+
+            if (codeIsFree) {
                 code = generatedCode;
 
                 break;

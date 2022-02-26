@@ -10,11 +10,11 @@ import { CardpackInfo } from '../components/CardpackInfo';
 import { Loading } from '../components/Loading';
 
 type CardTableContainerProps = {
-    cardpackID?: string;
+    cardpackId?: string;
 };
 
 export const CardpackContainer = (props: CardTableContainerProps) => {
-    const { cardpackID } = props;
+    const { cardpackId } = props;
     const { t } = useTranslation();
     const cardpackService = useService(new CardpackService());
     const [cardpack, setCardpack] = useState<CardpackWithCards>();
@@ -30,12 +30,12 @@ export const CardpackContainer = (props: CardTableContainerProps) => {
     };
 
     useEffect(() => {
-        if (cardpackID) {
-            cardpackService.get<CardpackWithCards>([cardpackID], setCardpackDataSuccessful);
+        if (cardpackId) {
+            cardpackService.get<CardpackWithCards>([cardpackId], setCardpackDataSuccessful);
         }
-    }, [cardpackService, cardpackID]);
+    }, [cardpackService, cardpackId]);
 
-    if (!cardpackID || !cardpack) {
+    if (!cardpackId || !cardpack) {
         return <Loading />;
     }
 

@@ -101,12 +101,7 @@ export const NavigationTree = (props: NavigationTreeProps) => {
             let cardpackName = '';
             let cardpackId = '';
 
-            if (parts[2] === 'cardpacks') {
-                cardpackId = parts[3];
-                cardpackName = getCardpackNameById(cardpackId, cardpacks) || '';
-            }
-
-            if (!cardpackName) {
+            if (!parts[2]) {
                 return [
                     browseItem,
                     {
@@ -117,10 +112,33 @@ export const NavigationTree = (props: NavigationTreeProps) => {
                 ];
             }
 
+            if (parts[2] === 'cardpacks') {
+                cardpackId = parts[3];
+                cardpackName = getCardpackNameById(cardpackId, cardpacks) || '';
+
+                if (!cardpackName) {
+                    return [
+                        browseItem,
+                        {
+                            label: userName,
+                            command: navigateTo,
+                            to: `/users/${userId}`,
+                        },
+                        {
+                            label: t('cardpacks'),
+                            command: navigateTo,
+                            to: `/users/${userId}/cardpacks`,
+                        },
+                    ];
+                }
+            }
+
             return [
                 browseItem,
                 {
                     label: userName,
+                    command: navigateTo,
+                    to: `/users/${userId}`,
                 },
                 {
                     label: t('cardpacks'),

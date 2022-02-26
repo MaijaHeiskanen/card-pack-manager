@@ -68,15 +68,15 @@ function App() {
                     <NavigationTree cardpacks={cardpacks} />
                     <AppWrapper>
                         <Routes>
-                            <Route path="/cardpacks/:cardpackID" element={<CardpackPage />} />
+                            <Route path="/cardpacks/:cardpackId" element={<CardpackPage />} />
                             <Route
                                 path="/login"
                                 element={<LoginPage showAccountCreatedToast={showAccountCreatedToast} />}
                             />
                             <Route path="/" element={<SearchPage cardpacks={cardpacks} />} />
                             <Route path="/users/:userId" element={<UserPage />} />
-                            <Route path="/users/:userId/cardpacks" element={<UserPage />} />
-                            <Route path="/users/:userId/cardpacks/:cardpackID" element={<CardpackPage />} />
+                            <Route path="/users/:userId/cardpacks" element={<SearchPage cardpacks={cardpacks} />} />
+                            <Route path="/users/:userId/cardpacks/:cardpackId" element={<CardpackPage />} />
                             <Route path="*" element={<NotFoundPage />} />
                         </Routes>
                     </AppWrapper>

@@ -16,3 +16,14 @@ export const createLanguage = async (payload: ILanguagePayload): Promise<Languag
         ...payload,
     });
 };
+
+export const getLanguages = async (): Promise<Language[]> => {
+    const repository = getRepository(Language);
+    const languages = repository.find();
+
+    if (!languages) {
+        throw new Error();
+    }
+
+    return languages;
+};
